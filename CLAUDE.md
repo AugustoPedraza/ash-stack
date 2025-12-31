@@ -345,6 +345,15 @@ class="bg-gray-100"                # Use bg-surface-sunken
 - `Breadcrumbs` - items, separator (slash|chevron|arrow|dot), maxItems, home
 - `Sidebar` - items, activeId, collapsed, mobileOpen, header (slots: footer)
 
+**Advanced Input Components:**
+- `SearchInput` - suggestions, loading, debounce, minChars, showRecent (events: search, select, submit)
+- `DatePicker` - value, range, min, max, disabled[], firstDayOfWeek, showWeekNumbers
+- `FileUpload` - accept, multiple, maxSize, maxFiles, variant (default|compact|avatar), uploadFn
+
+**Notification Components:**
+- `NotificationCenter` - notifications, position, showBadge, maxVisible (events: read, markAllRead, viewAll)
+- `ActivityFeed` - items, groupByDate, showAvatars, showTimeline, typeConfig, compact
+
 **Mobile Components:**
 - `Sheet` - open, title, gestureEnabled, snapPoints (slots: footer)
 

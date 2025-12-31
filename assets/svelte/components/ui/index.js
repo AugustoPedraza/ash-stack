@@ -68,6 +68,15 @@ export { default as CommandPalette } from './CommandPalette.svelte';
 export { default as Breadcrumbs } from './Breadcrumbs.svelte';
 export { default as Sidebar } from './Sidebar.svelte';
 
+// Advanced Input Components
+export { default as SearchInput } from './SearchInput.svelte';
+export { default as DatePicker } from './DatePicker.svelte';
+export { default as FileUpload } from './FileUpload.svelte';
+
+// Notification Components
+export { default as NotificationCenter } from './NotificationCenter.svelte';
+export { default as ActivityFeed } from './ActivityFeed.svelte';
+
 // Mobile Components
 export { default as Sheet } from './Sheet.svelte';
 
