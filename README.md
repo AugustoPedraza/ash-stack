@@ -19,44 +19,43 @@
 
 ### Prerequisites
 
-- Elixir 1.17+
-- Node.js 20+
-- PostgreSQL 16+
+| Tool | Purpose | Install |
+|------|---------|---------|
+| **Docker** | PostgreSQL, services | [docker.com](https://docker.com) |
+| **mise** | Elixir/Node versions | `curl https://mise.run \| sh` |
+| **just** | Task runner | `brew install just` |
 
 ### Setup
 
 ```bash
-# Clone and setup
+# Clone
 git clone <repo-url> my_app
 cd my_app
 
-# Rename the app (see "Renaming" section below)
-./scripts/rename.sh my_app MyApp
+# Install runtimes (Elixir, Node)
+mise install
 
-# Install dependencies and setup database
-mix setup
+# One-command setup (installs deps, starts DB, runs migrations)
+just setup
 
-# Start the server
-mix phx.server
+# Start development server
+just dev
 ```
 
 Visit [http://localhost:4000](http://localhost:4000)
 
-### Development
+### Common Commands
 
 ```bash
-# Terminal 1: Phoenix server
-mix phx.server
-
-# Terminal 2: Svelte development (hot reload)
-npm run dev --prefix assets
-
-# Run tests
-mix test
-
-# Code quality
-mix quality  # runs format, credo, dialyzer, sobelow
+just              # List all commands
+just dev          # Start dev server with IEx
+just test         # Run tests
+just check        # Run all quality checks (format, credo, dialyzer)
+just db-migrate   # Run migrations
+just db-reset     # Reset database
 ```
+
+See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for complete guide.
 
 ## Project Structure
 

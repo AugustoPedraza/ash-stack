@@ -1,0 +1,66 @@
+# mise - Runtime Version Manager
+# https://mise.jdx.dev/
+#
+# Install mise: curl https://mise.run | sh
+# Then run: mise install
+#
+# AI INSTRUCTIONS:
+# - This file defines exact runtime versions
+# - Update versions here when upgrading
+# - CI should use these same versions
+
+[env]
+# Environment variables for development
+MIX_ENV = "dev"
+NODE_ENV = "development"
+
+[tools]
+# Erlang/OTP - Required for Elixir
+erlang = "27.0"
+
+# Elixir - Main language
+elixir = "1.17.2-otp-27"
+
+# Node.js - For assets (Tailwind, Svelte, esbuild)
+node = "20"
+
+[tasks.setup]
+# One-command setup for new developers
+description = "Set up the project for development"
+run = """
+#!/usr/bin/env bash
+set -e
+
+echo "📦 Installing Elixir dependencies..."
+mix deps.get
+
+echo "📦 Installing Node dependencies..."
+npm install --prefix assets
+
+echo "🗄️ Setting up database..."
+mix ecto.setup
+
+echo "✅ Setup complete! Run 'just dev' to start."
+"""
+
+[tasks.check]
+# Run all quality checks
+description = "Run all code quality checks"
+run = """
+#!/usr/bin/env bash
+set -e
+
+echo "🔍 Checking formatting..."
+mix format --check-formatted
+
+echo "🔍 Running Credo..."
+mix credo --strict
+
+echo "🔍 Running Sobelow..."
+mix sobelow --config
+
+echo "🔍 Running Dialyzer..."
+mix dialyzer
+
+echo "✅ All checks passed!"
+"""

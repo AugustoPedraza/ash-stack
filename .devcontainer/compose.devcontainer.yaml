@@ -1,0 +1,42 @@
+# DevContainer Docker Compose Override
+# Adds the app container for full containerized development
+
+services:
+  app:
+    image: elixir:1.17-otp-27
+    container_name: ash_stack_app
+    volumes:
+      - ..:/workspace:cached
+      - elixir_deps:/workspace/deps
+      - elixir_build:/workspace/_build
+      - node_modules:/workspace/assets/node_modules
+    working_dir: /workspace
+    command: sleep infinity
+    environment:
+      MIX_ENV: dev
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/ash_stack_dev
+      SECRET_KEY_BASE: dev_secret_key_base_at_least_64_characters_long_for_development
+      PHX_HOST: localhost
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - default
+
+  # Override postgres to use the same network
+  postgres:
+    networks:
+      - default
+
+  mailpit:
+    networks:
+      - default
+
+volumes:
+  elixir_deps:
+  elixir_build:
+  node_modules:
+
+networks:
+  default:
+    name: ash_stack_network

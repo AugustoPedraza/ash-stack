@@ -1,0 +1,94 @@
+{
+  "name": "Ash Stack",
+  "dockerComposeFile": ["../compose.yaml", "compose.devcontainer.yaml"],
+  "service": "app",
+  "workspaceFolder": "/workspace",
+
+  // Features to install in the container
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true,
+      "installOhMyZsh": true
+    },
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    }
+  },
+
+  // VS Code settings
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "[elixir]": {
+          "editor.defaultFormatter": "JakeBecker.elixir-ls",
+          "editor.formatOnSave": true
+        },
+        "[svelte]": {
+          "editor.defaultFormatter": "svelte.svelte-vscode"
+        },
+        "emmet.includeLanguages": {
+          "phoenix-heex": "html",
+          "elixir": "html"
+        },
+        "tailwindCSS.includeLanguages": {
+          "elixir": "html",
+          "phoenix-heex": "html"
+        },
+        "files.associations": {
+          "*.heex": "phoenix-heex"
+        }
+      },
+      "extensions": [
+        // Elixir
+        "JakeBecker.elixir-ls",
+        "phoenixframework.phoenix",
+
+        // Svelte
+        "svelte.svelte-vscode",
+
+        // Tailwind
+        "bradlc.vscode-tailwindcss",
+
+        // General
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "eamodio.gitlens",
+        "github.copilot",
+        "github.copilot-chat",
+
+        // Database
+        "cweijan.vscode-postgresql-client2",
+
+        // Docker
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  },
+
+  // Ports to forward
+  "forwardPorts": [4000, 5432, 8025, 1025],
+  "portsAttributes": {
+    "4000": { "label": "Phoenix App", "onAutoForward": "notify" },
+    "5432": { "label": "PostgreSQL", "onAutoForward": "silent" },
+    "8025": { "label": "Mailpit UI", "onAutoForward": "silent" },
+    "1025": { "label": "Mailpit SMTP", "onAutoForward": "silent" }
+  },
+
+  // Commands to run
+  "postCreateCommand": "mix deps.get && npm install --prefix assets",
+  "postStartCommand": "mix ecto.setup || true",
+
+  // Environment variables
+  "containerEnv": {
+    "MIX_ENV": "dev",
+    "DATABASE_URL": "postgres://postgres:postgres@postgres:5432/ash_stack_dev"
+  },
+
+  // User settings
+  "remoteUser": "vscode"
+}
