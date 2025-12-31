@@ -344,6 +344,19 @@ gen-docs-watch:
     done
 
 # =============================================================================
+# STORYBOOK
+# =============================================================================
+
+# Start Storybook development server
+storybook:
+    npm run storybook --prefix assets
+
+# Build Storybook for production
+storybook-build:
+    npm run storybook:build --prefix assets
+    @echo "✅ Storybook built to priv/static/storybook/"
+
+# =============================================================================
 # UTILITIES
 # =============================================================================
 
