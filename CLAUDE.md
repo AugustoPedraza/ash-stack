@@ -173,6 +173,19 @@ class="bg-gray-100"                # Use bg-surface-sunken
 **Display Components:**
 - `Avatar` - src, alt, size: xs|sm|md|lg|xl, shape, status
 - `Badge` - variant, size, dot
+- `Skeleton` - variant: text|circle|rect|card|avatar|button, animate, lines
+
+**Interactive Components:**
+- `Modal` - open, title, size: sm|md|lg|full, gestureEnabled (slots: header, footer)
+- `Tabs` - tabs, value, variant: underline|pill|segment, fullWidth
+- `Toggle` - checked, label, description, size: sm|md|lg, disabled
+- `Dropdown` - open, items, align: left|right, mobileSheet (slots: trigger)
+
+**Animation Components:**
+- `AnimatedList` - items, animation: fade|slide|scale|fly, direction, stagger
+
+**Mobile Components:**
+- `Sheet` - open, title, gestureEnabled, snapPoints (slots: footer)
 
 ### Form Pattern
 

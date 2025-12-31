@@ -30,10 +30,20 @@ export { default as Section } from './Section.svelte';
 // Display Components
 export { default as Avatar } from './Avatar.svelte';
 export { default as Badge } from './Badge.svelte';
+export { default as Skeleton } from './Skeleton.svelte';
 
 // Feedback Components
 export { default as Toast } from './Toast.svelte';
 export { default as ToastContainer } from './ToastContainer.svelte';
+
+// Interactive Components
+export { default as Modal } from './Modal.svelte';
+export { default as Tabs } from './Tabs.svelte';
+export { default as Toggle } from './Toggle.svelte';
+export { default as Dropdown } from './Dropdown.svelte';
+
+// Animation Components
+export { default as AnimatedList } from './AnimatedList.svelte';
 
 // Mobile Components
 export { default as Sheet } from './Sheet.svelte';

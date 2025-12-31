@@ -239,33 +239,131 @@ unlockScroll(); // Restore scroll
 
 ---
 
+## Custom UI Components
+
+### Modal
+
+```svelte
+<script>
+  import { Modal, Button } from '$lib/components/ui';
+  let open = false;
+</script>
+
+<Button on:click={() => open = true}>Open Modal</Button>
+
+<Modal bind:open title="Confirm Action" gestureEnabled>
+  <p>Are you sure you want to proceed?</p>
+
+  <svelte:fragment slot="footer">
+    <Button variant="ghost" on:click={() => open = false}>Cancel</Button>
+    <Button variant="primary">Confirm</Button>
+  </svelte:fragment>
+</Modal>
+```
+
+### Tabs
+
+```svelte
+<script>
+  import { Tabs } from '$lib/components/ui';
+
+  const tabs = [
+    { id: 'overview', label: 'Overview' },
+    { id: 'settings', label: 'Settings' },
+    { id: 'billing', label: 'Billing' }
+  ];
+  let activeTab = 'overview';
+</script>
+
+<Tabs {tabs} bind:value={activeTab} variant="segment" fullWidth>
+  <div slot="overview">Overview content</div>
+  <div slot="settings">Settings content</div>
+  <div slot="billing">Billing content</div>
+</Tabs>
+```
+
+### Toggle
+
+```svelte
+<script>
+  import { Toggle } from '$lib/components/ui';
+  let notifications = true;
+</script>
+
+<Toggle
+  bind:checked={notifications}
+  label="Push Notifications"
+  description="Receive alerts on your device"
+/>
+```
+
+### Dropdown (Sheet on Mobile)
+
+```svelte
+<script>
+  import { Dropdown } from '$lib/components/ui';
+
+  const items = [
+    { id: 'edit', label: 'Edit' },
+    { id: 'duplicate', label: 'Duplicate' },
+    { separator: true },
+    { id: 'delete', label: 'Delete', danger: true }
+  ];
+</script>
+
+<Dropdown {items} title="Actions" on:select={handleSelect}>
+  <svelte:fragment slot="trigger">
+    <Button variant="ghost">Actions</Button>
+  </svelte:fragment>
+</Dropdown>
+```
+
+### AnimatedList
+
+```svelte
+<script>
+  import { AnimatedList } from '$lib/components/ui';
+  let items = [{ id: 1, text: 'First' }, { id: 2, text: 'Second' }];
+</script>
+
+<AnimatedList {items} animation="slide" stagger={50} let:item>
+  <div class="item">{item.text}</div>
+</AnimatedList>
+```
+
+### Skeleton Loading
+
+```svelte
+<script>
+  import { Skeleton } from '$lib/components/ui';
+</script>
+
+<!-- Text lines -->
+<Skeleton variant="text" lines={3} />
+
+<!-- Avatar -->
+<Skeleton variant="avatar" size="lg" />
+
+<!-- Card placeholder -->
+<Skeleton variant="card" height="200px" />
+```
+
+---
+
 ## shadcn-svelte Components
 
-Install components as needed:
+For complex components not in our library, use shadcn-svelte:
 
 ```bash
 npx shadcn-svelte add button
 npx shadcn-svelte add dialog
 npx shadcn-svelte add dropdown-menu
-npx shadcn-svelte add tabs
 # etc.
 ```
 
 Components are installed to `assets/svelte/components/ui/` and use our design tokens automatically.
 
-### Available Components
-
 See full list: https://shadcn-svelte.com/docs/components
-
-Common ones:
-- Button, Input, Textarea, Select, Checkbox, Radio
-- Dialog, Sheet (Drawer), Popover, Tooltip
-- Dropdown Menu, Context Menu, Menubar
-- Tabs, Accordion, Collapsible
-- Card, Avatar, Badge, Alert
-- Form, Calendar, Date Picker
-- Table, Data Table, Pagination
-- Toast (Sonner), Progress, Skeleton
 
 ---
 
