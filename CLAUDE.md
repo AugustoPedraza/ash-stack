@@ -327,6 +327,64 @@ See `docs/MOBILE.md` for full mobile guide.
 
 ---
 
+## PHOENIX + SVELTE INTEGRATION
+
+### Quick Setup
+
+```elixir
+# In LiveView
+use AshStackWeb.LiveSvelteHelpers
+import AshStackWeb.SvelteHelpers
+import AshStackWeb.AshFormHelpers
+```
+
+### Ash Forms → Svelte
+
+```heex
+<.svelte_form for={@form} phx-submit="save">
+  <.svelte_input field={@form[:name]} label="Name" />
+  <.svelte_select field={@form[:role]} label="Role" options={@roles} />
+  <.svelte_submit>Save</.svelte_submit>
+</.svelte_form>
+```
+
+### Flash → Toast (Automatic)
+
+```elixir
+# These automatically show as toasts:
+put_flash(socket, :success, "Saved!")
+put_flash(socket, :error, "Failed")
+
+# Or explicit:
+push_toast(socket, :success, "Done!")
+```
+
+### Server → Svelte Events
+
+```elixir
+# Push to specific component
+push_to_svelte(socket, "user-list", "user:added", %{user: user})
+
+# Update Svelte store
+push_store_update(socket, "users", updated_users)
+```
+
+### Svelte → Server Events
+
+```javascript
+import { pushEvent, pushEventAsync } from '$lib';
+
+// Fire and forget
+pushEvent('delete', { id });
+
+// Wait for response
+const result = await pushEventAsync('save', data);
+```
+
+See `docs/INTEGRATION.md` for full guide.
+
+---
+
 ### LiveSvelte Integration
 
 ```elixir

@@ -66,3 +66,20 @@ export {
   optimistic,
   debounceOptimistic
 } from './optimistic.js';
+
+// LiveView Integration
+export {
+  setLiveSocket,
+  getLiveSocket,
+  pushEvent,
+  pushEventTo,
+  pushEventAsync,
+  registerStore,
+  unregisterStore,
+  subscribeToComponent,
+  createFormHandler,
+  createLiveStore,
+  initLiveViewHooks,
+  presence,
+  initPresence
+} from './liveview.js';
