@@ -1,0 +1,262 @@
+/*
+ * DESIGN TOKENS
+ * =============
+ * Single source of truth for all design values.
+ * Consumed by Tailwind CSS via tailwind.config.js
+ *
+ * AI INSTRUCTIONS:
+ * - Always use these tokens, never hardcode values
+ * - Use semantic names (--color-primary not --color-blue-500)
+ * - Add new tokens here when needed, don't inline values
+ */
+
+:root {
+  /* ============================================
+     SPACING SCALE
+     Based on 4px grid (0.25rem)
+     ============================================ */
+  --space-0: 0;
+  --space-px: 1px;
+  --space-0-5: 0.125rem;  /* 2px */
+  --space-1: 0.25rem;     /* 4px - tight gaps */
+  --space-2: 0.5rem;      /* 8px - default gaps */
+  --space-3: 0.75rem;     /* 12px - comfortable */
+  --space-4: 1rem;        /* 16px - section padding */
+  --space-5: 1.25rem;     /* 20px */
+  --space-6: 1.5rem;      /* 24px - card padding */
+  --space-8: 2rem;        /* 32px - large spacing */
+  --space-10: 2.5rem;     /* 40px */
+  --space-12: 3rem;       /* 48px */
+  --space-16: 4rem;       /* 64px - section margins */
+  --space-20: 5rem;       /* 80px */
+  --space-24: 6rem;       /* 96px */
+
+  /* ============================================
+     TYPOGRAPHY
+     ============================================ */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Font sizes */
+  --text-xs: 0.75rem;     /* 12px */
+  --text-sm: 0.875rem;    /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-lg: 1.125rem;    /* 18px */
+  --text-xl: 1.25rem;     /* 20px */
+  --text-2xl: 1.5rem;     /* 24px */
+  --text-3xl: 1.875rem;   /* 30px */
+  --text-4xl: 2.25rem;    /* 36px */
+
+  /* Line heights */
+  --leading-none: 1;
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 2;
+
+  /* Font weights */
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  /* ============================================
+     COLORS - LIGHT MODE (Default)
+     Using OKLCH for perceptual uniformity
+     ============================================ */
+
+  /* Brand / Primary */
+  --color-primary: oklch(55% 0.2 250);
+  --color-primary-hover: oklch(50% 0.2 250);
+  --color-primary-active: oklch(45% 0.2 250);
+  --color-on-primary: oklch(100% 0 0);
+
+  /* Secondary */
+  --color-secondary: oklch(65% 0.1 200);
+  --color-secondary-hover: oklch(60% 0.1 200);
+  --color-on-secondary: oklch(100% 0 0);
+
+  /* Semantic Colors */
+  --color-success: oklch(60% 0.18 145);
+  --color-success-soft: oklch(95% 0.05 145);
+  --color-on-success: oklch(100% 0 0);
+
+  --color-warning: oklch(75% 0.15 85);
+  --color-warning-soft: oklch(95% 0.05 85);
+  --color-on-warning: oklch(20% 0.05 85);
+
+  --color-error: oklch(55% 0.22 25);
+  --color-error-soft: oklch(95% 0.05 25);
+  --color-on-error: oklch(100% 0 0);
+
+  --color-info: oklch(60% 0.15 250);
+  --color-info-soft: oklch(95% 0.03 250);
+  --color-on-info: oklch(100% 0 0);
+
+  /* Surfaces */
+  --color-background: oklch(98% 0 0);
+  --color-surface: oklch(100% 0 0);
+  --color-surface-raised: oklch(100% 0 0);
+  --color-surface-sunken: oklch(96% 0 0);
+  --color-surface-overlay: oklch(100% 0 0 / 80%);
+
+  /* Text */
+  --color-text: oklch(15% 0 0);
+  --color-text-secondary: oklch(40% 0 0);
+  --color-text-muted: oklch(55% 0 0);
+  --color-text-disabled: oklch(70% 0 0);
+
+  /* Borders */
+  --color-border: oklch(88% 0 0);
+  --color-border-strong: oklch(75% 0 0);
+  --color-border-focus: var(--color-primary);
+
+  /* ============================================
+     BORDER RADIUS
+     ============================================ */
+  --radius-none: 0;
+  --radius-sm: 0.25rem;   /* 4px */
+  --radius-md: 0.5rem;    /* 8px */
+  --radius-lg: 0.75rem;   /* 12px */
+  --radius-xl: 1rem;      /* 16px */
+  --radius-2xl: 1.5rem;   /* 24px */
+  --radius-full: 9999px;
+
+  /* ============================================
+     SHADOWS
+     ============================================ */
+  --shadow-xs: 0 1px 2px 0 oklch(0% 0 0 / 3%);
+  --shadow-sm: 0 1px 3px 0 oklch(0% 0 0 / 5%), 0 1px 2px -1px oklch(0% 0 0 / 5%);
+  --shadow-md: 0 4px 6px -1px oklch(0% 0 0 / 7%), 0 2px 4px -2px oklch(0% 0 0 / 5%);
+  --shadow-lg: 0 10px 15px -3px oklch(0% 0 0 / 8%), 0 4px 6px -4px oklch(0% 0 0 / 5%);
+  --shadow-xl: 0 20px 25px -5px oklch(0% 0 0 / 10%), 0 8px 10px -6px oklch(0% 0 0 / 5%);
+
+  /* ============================================
+     TRANSITIONS
+     ============================================ */
+  --duration-instant: 0ms;
+  --duration-fast: 100ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+  --duration-slower: 500ms;
+
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ============================================
+     Z-INDEX SCALE
+     ============================================ */
+  --z-below: -1;
+  --z-base: 0;
+  --z-raised: 10;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-popover: 500;
+  --z-toast: 600;
+  --z-tooltip: 700;
+
+  /* ============================================
+     COMPONENT-SPECIFIC TOKENS
+     ============================================ */
+
+  /* Avatar sizes */
+  --avatar-xs: 1.5rem;    /* 24px */
+  --avatar-sm: 2rem;      /* 32px */
+  --avatar-md: 2.5rem;    /* 40px */
+  --avatar-lg: 3rem;      /* 48px */
+  --avatar-xl: 4rem;      /* 64px */
+
+  /* Button heights */
+  --button-sm: 2rem;      /* 32px */
+  --button-md: 2.5rem;    /* 40px */
+  --button-lg: 3rem;      /* 48px */
+
+  /* Input heights */
+  --input-sm: 2rem;       /* 32px */
+  --input-md: 2.5rem;     /* 40px */
+  --input-lg: 3rem;       /* 48px */
+
+  /* Touch target minimum (accessibility) */
+  --touch-target-min: 44px;
+}
+
+/* ============================================
+   DARK MODE
+   ============================================ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Surfaces */
+    --color-background: oklch(12% 0 0);
+    --color-surface: oklch(18% 0 0);
+    --color-surface-raised: oklch(22% 0 0);
+    --color-surface-sunken: oklch(10% 0 0);
+    --color-surface-overlay: oklch(18% 0 0 / 90%);
+
+    /* Text */
+    --color-text: oklch(95% 0 0);
+    --color-text-secondary: oklch(75% 0 0);
+    --color-text-muted: oklch(60% 0 0);
+    --color-text-disabled: oklch(45% 0 0);
+
+    /* Borders */
+    --color-border: oklch(28% 0 0);
+    --color-border-strong: oklch(40% 0 0);
+
+    /* Semantic soft colors (darker for dark mode) */
+    --color-success-soft: oklch(25% 0.05 145);
+    --color-warning-soft: oklch(25% 0.05 85);
+    --color-error-soft: oklch(25% 0.05 25);
+    --color-info-soft: oklch(25% 0.03 250);
+
+    /* Shadows (more subtle in dark mode) */
+    --shadow-sm: 0 1px 3px 0 oklch(0% 0 0 / 20%);
+    --shadow-md: 0 4px 6px -1px oklch(0% 0 0 / 30%);
+    --shadow-lg: 0 10px 15px -3px oklch(0% 0 0 / 40%);
+  }
+}
+
+/* Manual dark mode class (for user preference toggle) */
+.dark {
+  --color-background: oklch(12% 0 0);
+  --color-surface: oklch(18% 0 0);
+  --color-surface-raised: oklch(22% 0 0);
+  --color-surface-sunken: oklch(10% 0 0);
+  --color-surface-overlay: oklch(18% 0 0 / 90%);
+  --color-text: oklch(95% 0 0);
+  --color-text-secondary: oklch(75% 0 0);
+  --color-text-muted: oklch(60% 0 0);
+  --color-text-disabled: oklch(45% 0 0);
+  --color-border: oklch(28% 0 0);
+  --color-border-strong: oklch(40% 0 0);
+  --color-success-soft: oklch(25% 0.05 145);
+  --color-warning-soft: oklch(25% 0.05 85);
+  --color-error-soft: oklch(25% 0.05 25);
+  --color-info-soft: oklch(25% 0.03 250);
+  --shadow-sm: 0 1px 3px 0 oklch(0% 0 0 / 20%);
+  --shadow-md: 0 4px 6px -1px oklch(0% 0 0 / 30%);
+  --shadow-lg: 0 10px 15px -3px oklch(0% 0 0 / 40%);
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+/* Focus ring utility */
+.focus-ring {
+  outline: none;
+}
+.focus-ring:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* Transition utilities */
+.transition-fast { transition-duration: var(--duration-fast); }
+.transition-normal { transition-duration: var(--duration-normal); }
+.transition-slow { transition-duration: var(--duration-slow); }

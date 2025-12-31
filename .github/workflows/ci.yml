@@ -1,0 +1,220 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+env:
+  MIX_ENV: test
+  ELIXIR_VERSION: '1.17'
+  OTP_VERSION: '27'
+  NODE_VERSION: '20'
+
+jobs:
+  # Code quality checks
+  quality:
+    name: Code Quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          elixir-version: ${{ env.ELIXIR_VERSION }}
+          otp-version: ${{ env.OTP_VERSION }}
+
+      - name: Cache deps
+        uses: actions/cache@v4
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-
+
+      - name: Install dependencies
+        run: mix deps.get
+
+      - name: Check formatting
+        run: mix format --check-formatted
+
+      - name: Run Credo
+        run: mix credo --strict
+
+      - name: Run Sobelow (Security)
+        run: mix sobelow --config
+
+      - name: Restore PLT cache
+        uses: actions/cache@v4
+        with:
+          path: priv/plts
+          key: ${{ runner.os }}-plt-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-plt-
+
+      - name: Run Dialyzer
+        run: mix dialyzer
+
+  # Backend tests
+  test:
+    name: Backend Tests
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: ash_stack_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          elixir-version: ${{ env.ELIXIR_VERSION }}
+          otp-version: ${{ env.OTP_VERSION }}
+
+      - name: Cache deps
+        uses: actions/cache@v4
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+
+      - name: Install dependencies
+        run: mix deps.get
+
+      - name: Setup database
+        run: mix ecto.setup
+        env:
+          DATABASE_URL: postgres://postgres:postgres@localhost/ash_stack_test
+
+      - name: Run tests with coverage
+        run: mix coveralls.json
+        env:
+          DATABASE_URL: postgres://postgres:postgres@localhost/ash_stack_test
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./cover/excoveralls.json
+          fail_ci_if_error: false
+
+  # Frontend tests
+  frontend:
+    name: Frontend Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: assets/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: assets
+
+      - name: Run linting
+        run: npm run lint
+        working-directory: assets
+
+      - name: Run tests
+        run: npm run test
+        working-directory: assets
+
+  # E2E tests (optional, on main/develop only)
+  e2e:
+    name: E2E Tests
+    runs-on: ubuntu-latest
+    needs: [test, frontend]
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: ash_stack_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          elixir-version: ${{ env.ELIXIR_VERSION }}
+          otp-version: ${{ env.OTP_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install Elixir dependencies
+        run: mix deps.get
+
+      - name: Install Node dependencies
+        run: npm ci
+        working-directory: assets
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+        working-directory: assets
+
+      - name: Setup database
+        run: mix ecto.setup
+        env:
+          DATABASE_URL: postgres://postgres:postgres@localhost/ash_stack_test
+
+      - name: Build assets
+        run: mix assets.deploy
+
+      - name: Start server
+        run: mix phx.server &
+        env:
+          DATABASE_URL: postgres://postgres:postgres@localhost/ash_stack_test
+          SECRET_KEY_BASE: test_secret_key_base_at_least_64_bytes_long_for_testing_purposes
+
+      - name: Wait for server
+        run: sleep 5
+
+      - name: Run E2E tests
+        run: npx playwright test
+        working-directory: assets
+
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: assets/playwright-report/
+          retention-days: 7
