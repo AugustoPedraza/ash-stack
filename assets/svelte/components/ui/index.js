@@ -77,6 +77,12 @@ export { default as FileUpload } from './FileUpload.svelte';
 export { default as NotificationCenter } from './NotificationCenter.svelte';
 export { default as ActivityFeed } from './ActivityFeed.svelte';
 
+// Data Visualization Components
+export { default as StatCard } from './StatCard.svelte';
+export { default as ProgressBar } from './ProgressBar.svelte';
+export { default as MiniChart } from './MiniChart.svelte';
+export { default as Meter } from './Meter.svelte';
+
 // Mobile Components
 export { default as Sheet } from './Sheet.svelte';
 

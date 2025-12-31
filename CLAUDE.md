@@ -354,6 +354,12 @@ class="bg-gray-100"                # Use bg-surface-sunken
 - `NotificationCenter` - notifications, position, showBadge, maxVisible (events: read, markAllRead, viewAll)
 - `ActivityFeed` - items, groupByDate, showAvatars, showTimeline, typeConfig, compact
 
+**Data Visualization Components:**
+- `StatCard` - label, value, previousValue, format, icon, iconColor, sparkline, trend
+- `ProgressBar` - value, max, variant, size, showLabel, striped, indeterminate, segments
+- `MiniChart` - data, type (line|bar|dot|area), variant, fill, showPoints, showTooltip
+- `Meter` - value, min, max, type (circle|semicircle|linear), variant (auto for thresholds)
+
 **Mobile Components:**
 - `Sheet` - open, title, gestureEnabled, snapPoints (slots: footer)
 
