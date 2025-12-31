@@ -1,0 +1,1639 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "generated": "2025-12-31T05:33:14.621Z",
+  "version": "1.0.0",
+  "description": "Auto-generated component manifest for AI context. DO NOT EDIT MANUALLY.",
+  "usage": "import { ComponentName } from '$lib/components/ui';",
+  "categories": {
+    "animation": [
+      "AnimatedList"
+    ],
+    "display": [
+      "Avatar",
+      "Badge",
+      "EmptyState",
+      "Skeleton"
+    ],
+    "form": [
+      "Button",
+      "Checkbox",
+      "Form",
+      "FormField",
+      "Input",
+      "Select",
+      "SubmitButton",
+      "Textarea",
+      "Toggle"
+    ],
+    "layout": [
+      "Card",
+      "Page",
+      "PageHeader",
+      "Section"
+    ],
+    "data": [
+      "DataTable",
+      "InfiniteScroll",
+      "Pagination"
+    ],
+    "interactive": [
+      "Dropdown",
+      "Modal",
+      "Sheet",
+      "Tabs"
+    ],
+    "feedback": [
+      "Toast",
+      "ToastContainer"
+    ]
+  },
+  "components": [
+    {
+      "name": "AnimatedList",
+      "description": "AnimatedList Component List with FLIP animations for add/remove/reorder. Items animate smoothly when the list changes.",
+      "category": "animation",
+      "props": [
+        {
+          "name": "items",
+          "type": "Array<{ id: string | number, [key: string]: any",
+          "default": "[]",
+          "description": "List items (must have unique 'id' property)",
+          "required": false
+        },
+        {
+          "name": "key",
+          "type": "(item: any) => string | number",
+          "default": "(item) => item.id",
+          "description": "Key function to identify items (default uses 'id')",
+          "required": false
+        },
+        {
+          "name": "animation",
+          "type": "'fade' | 'slide' | 'scale' | 'fly'",
+          "default": "'slide'",
+          "description": "Animation preset",
+          "required": false
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "default": "300",
+          "description": "Animation duration in ms",
+          "required": false
+        },
+        {
+          "name": "flipDuration",
+          "type": "number",
+          "default": "300",
+          "description": "FLIP animation duration in ms",
+          "required": false
+        },
+        {
+          "name": "direction",
+          "type": "'up' | 'down' | 'left' | 'right'",
+          "default": "'up'",
+          "description": "Direction for slide/fly animations",
+          "required": false
+        },
+        {
+          "name": "stagger",
+          "type": "number",
+          "default": "0",
+          "description": "Stagger delay between items (ms)",
+          "required": false
+        }
+      ],
+      "slots": [
+        "empty"
+      ],
+      "events": [],
+      "file": "assets/svelte/components/ui/AnimatedList.svelte",
+      "example": "<AnimatedList>\n  <!-- content -->\n</AnimatedList>"
+    },
+    {
+      "name": "Avatar",
+      "description": "Avatar Component User representation with image, initials, and optional status. NO class prop or restProps - use size/shape props only.",
+      "category": "display",
+      "props": [
+        {
+          "name": "size",
+          "type": "'xs' | 'sm' | 'md' | 'lg' | 'xl'",
+          "default": "'md'",
+          "description": "Size of the avatar",
+          "required": false
+        },
+        {
+          "name": "src",
+          "type": "string | null",
+          "default": "null",
+          "description": "Image URL",
+          "required": false
+        },
+        {
+          "name": "alt",
+          "type": "string",
+          "default": "''",
+          "description": "Alt text (also used for generating initials)",
+          "required": false
+        },
+        {
+          "name": "fallback",
+          "type": "string | null",
+          "default": "null",
+          "description": "Explicit initials (overrides auto-generation from alt)",
+          "required": false
+        },
+        {
+          "name": "shape",
+          "type": "'circle' | 'rounded'",
+          "default": "'circle'",
+          "description": "Shape of the avatar",
+          "required": false
+        },
+        {
+          "name": "status",
+          "type": "'online' | 'offline' | 'away' | 'busy' | null",
+          "default": "null",
+          "description": "Status indicator",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [],
+      "file": "assets/svelte/components/ui/Avatar.svelte",
+      "example": "<Avatar />"
+    },
+    {
+      "name": "Badge",
+      "description": "Badge Component Status indicators, labels, and tags. NO class prop - use variant/size props only.",
+      "category": "display",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'default' | 'primary' | 'success' | 'warning' | 'error' | 'info'",
+          "default": "'default'",
+          "description": "Visual variant",
+          "required": false
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "'md'",
+          "description": "Size",
+          "required": false
+        },
+        {
+          "name": "dot",
+          "type": "boolean",
+          "default": "false",
+          "description": "Make it a dot indicator (no text)",
+          "required": false
+        }
+      ],
+      "slots": [
+        "default"
+      ],
+      "events": [],
+      "file": "assets/svelte/components/ui/Badge.svelte",
+      "example": "<Badge>\n  <!-- content -->\n</Badge>"
+    },
+    {
+      "name": "Button",
+      "description": "Button Component Primary interactive element with loading, success states, and iOS-style press feedback. NO class prop - use variant/size props only.",
+      "category": "form",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'primary' | 'secondary' | 'ghost' | 'danger'",
+          "default": "'primary'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "'md'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "success",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "type",
+          "type": "'button' | 'submit' | 'reset'",
+          "default": "'button'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "ariaLabel",
+          "type": "string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [
+        "default"
+      ],
+      "events": [],
+      "file": "assets/svelte/components/ui/Button.svelte",
+      "example": "<Button>\n  <!-- content -->\n</Button>"
+    },
+    {
+      "name": "Card",
+      "description": "Card Component Consistent card container with optional header and footer. NO class prop - use variant/padding props.",
+      "category": "layout",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'default' | 'raised' | 'outline' | 'ghost'",
+          "default": "'default'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "padding",
+          "type": "'sm' | 'md' | 'lg' | 'none'",
+          "default": "'md'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "title",
+          "type": "string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "description",
+          "type": "string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [
+        "default",
+        "header",
+        "actions",
+        "footer"
+      ],
+      "events": [],
+      "file": "assets/svelte/components/ui/Card.svelte",
+      "example": "<Card>\n  <!-- content -->\n</Card>"
+    },
+    {
+      "name": "Checkbox",
+      "description": "Checkbox Component Controlled checkbox with label support. NO class prop - consistent styling enforced.",
+      "category": "form",
+      "props": [
+        {
+          "name": "checked",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "label",
+          "type": "string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "'md'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "name",
+          "type": "string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "default": "`checkbox-${Math.random().toString(36).slice(2, 9)}`",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "description",
+          "type": "string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [
+        "change"
+      ],
+      "file": "assets/svelte/components/ui/Checkbox.svelte",
+      "example": "<Checkbox />"
+    },
+    {
+      "name": "DataTable",
+      "description": "DataTable Component Responsive data table with sorting, selection, and mobile card view.",
+      "category": "data",
+      "props": [
+        {
+          "name": "columns",
+          "type": "Array<{\n   *   key: string,\n   *   label: string,\n   *   sortable?: boolean,\n   *   width?: string,\n   *   align?: 'left' | 'center' | 'right',\n   *   hidden?: boolean,\n   *   primary?: boolean\n   *",
+          "default": "[]",
+          "description": "Column definitions key: string, label: string, sortable?: boolean, width?: string, align?: 'left' | 'center' | 'right', hidden?: boolean, primary?: boolean }>}",
+          "required": false
+        },
+        {
+          "name": "data",
+          "type": "Array<{ id: string | number, [key: string]: any",
+          "default": "[]",
+          "description": "Data rows (must have unique 'id' property)",
+          "required": false
+        },
+        {
+          "name": "selectable",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "selected",
+          "type": "Array<string | number>",
+          "default": "[]",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "sortBy",
+          "type": "string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "sortDirection",
+          "type": "'asc' | 'desc'",
+          "default": "'asc'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "skeletonRows",
+          "type": "number",
+          "default": "5",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "striped",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "hoverable",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "mobileCards",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [
+        "cell",
+        "cell",
+        "cell",
+        "empty"
+      ],
+      "events": [
+        "sort",
+        "selectionChange",
+        "rowClick"
+      ],
+      "file": "assets/svelte/components/ui/DataTable.svelte",
+      "example": "<DataTable>\n  <!-- content -->\n</DataTable>"
+    },
+    {
+      "name": "Dropdown",
+      "description": "Dropdown Component Accessible dropdown menu that becomes a Sheet on mobile. Supports keyboard navigation and touch interactions.",
+      "category": "interactive",
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "items",
+          "type": "Array<{ id: string, label: string, icon?: string, disabled?: boolean, danger?: boolean, separator?: boolean",
+          "default": "[]",
+          "description": "Menu items",
+          "required": false
+        },
+        {
+          "name": "align",
+          "type": "'left' | 'right'",
+          "default": "'left'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "default": "''",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "mobileSheet",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [
+        "trigger"
+      ],
+      "events": [
+        "select"
+      ],
+      "file": "assets/svelte/components/ui/Dropdown.svelte",
+      "example": "<Dropdown>\n  <!-- content -->\n</Dropdown>"
+    },
+    {
+      "name": "EmptyState",
+      "description": "EmptyState Component Displays a placeholder when content is empty or unavailable. Supports various presets and custom content.",
+      "category": "display",
+      "props": [
+        {
+          "name": "preset",
+          "type": "'default' | 'search' | 'error' | 'success' | 'offline' | 'custom'",
+          "default": "'default'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "default": "''",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "default": "''",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "'md'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "compact",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [
+        "default",
+        "icon",
+        "description",
+        "actions"
+      ],
+      "events": [],
+      "file": "assets/svelte/components/ui/EmptyState.svelte",
+      "example": "<EmptyState>\n  <!-- content -->\n</EmptyState>"
+    },
+    {
+      "name": "Form",
+      "description": "Form Component Form wrapper with validation, loading state, and context for child components. Auto-disables submit until valid, manages submission state.",
+      "category": "form",
+      "props": [
+        {
+          "name": "valid",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "submitting",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "disableWhenInvalid",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "showSuccess",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "successDuration",
+          "type": "number",
+          "default": "1500",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [
+        "invalid",
+        "submit",
+        "error"
+      ],
+      "file": "assets/svelte/components/ui/Form.svelte",
+      "example": "<Form />"
+    },
+    {
+      "name": "FormField",
+      "description": "FormField Component Consistent wrapper for form inputs with label, error, and helper text. Integrates with Form component for validation.",
+      "category": "form",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "default": "''",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "default": "`field-${Math.random().toString(36).slice(2, 9)}`",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "error",
+          "type": "string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "helper",
+          "type": "string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "rules",
+          "type": "Array",
+          "default": "[]",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [],
+      "file": "assets/svelte/components/ui/FormField.svelte",
+      "example": "<FormField />"
+    },
+    {
+      "name": "InfiniteScroll",
+      "description": "InfiniteScroll Component Infinite scrolling with pull-to-refresh support. Uses IntersectionObserver for efficient scroll detection.",
+      "category": "data",
+      "props": [
+        {
+          "name": "loading",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "hasMore",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "pullToRefresh",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "threshold",
+          "type": "number",
+          "default": "200",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "pullThreshold",
+          "type": "number",
+          "default": "80",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "loadingText",
+          "type": "string",
+          "default": "'Loading...'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "pullText",
+          "type": "string",
+          "default": "'Pull to refresh'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "releaseText",
+          "type": "string",
+          "default": "'Release to refresh'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "refreshingText",
+          "type": "string",
+          "default": "'Refreshing...'",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [
+        "default",
+        "end"
+      ],
+      "events": [
+        "loadMore",
+        "refresh"
+      ],
+      "file": "assets/svelte/components/ui/InfiniteScroll.svelte",
+      "example": "<InfiniteScroll>\n  <!-- content -->\n</InfiniteScroll>"
+    },
+    {
+      "name": "Input",
+      "description": "Input Component Controlled text input with consistent styling. NO class prop - use size/variant props for customization.",
+      "category": "form",
+      "props": [
+        {
+          "name": "type",
+          "type": "'text' | 'email' | 'password' | 'tel' | 'url' | 'search' | 'number'",
+          "default": "'text'",
+          "description": "Input type",
+          "required": false
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "default": "''",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "''",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "'md'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "name",
+          "type": "string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "default": "`input-${Math.random().toString(36).slice(2, 9)}`",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "describedBy",
+          "type": "string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [
+        "input"
+      ],
+      "file": "assets/svelte/components/ui/Input.svelte",
+      "example": "<Input />"
+    },
+    {
+      "name": "Modal",
+      "description": "Modal Component iOS-style modal with spring animations and gesture dismiss. Accessible, keyboard navigable, with backdrop blur.",
+      "category": "interactive",
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "default": "''",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg' | 'full'",
+          "default": "'md'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "showClose",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "closeOnBackdrop",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "closeOnEscape",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "preventScroll",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "gestureEnabled",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [
+        "default",
+        "header",
+        "footer"
+      ],
+      "events": [
+        "close"
+      ],
+      "file": "assets/svelte/components/ui/Modal.svelte",
+      "example": "<Modal>\n  <!-- content -->\n</Modal>"
+    },
+    {
+      "name": "Page",
+      "description": "Page Component Consistent page wrapper with max-width and padding. Enforces layout rhythm across all pages.",
+      "category": "layout",
+      "props": [
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg' | 'xl' | 'full'",
+          "default": "'lg'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "padded",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "centered",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [
+        "default"
+      ],
+      "events": [],
+      "file": "assets/svelte/components/ui/Page.svelte",
+      "example": "<Page>\n  <!-- content -->\n</Page>"
+    },
+    {
+      "name": "PageHeader",
+      "description": "PageHeader Component Consistent page header with title, description, and action slot. Enforces header rhythm across all pages.",
+      "category": "layout",
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "description": "",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "bordered",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [
+        "actions",
+        "tabs"
+      ],
+      "events": [],
+      "file": "assets/svelte/components/ui/PageHeader.svelte",
+      "example": "<PageHeader title=\"value\">\n  <!-- content -->\n</PageHeader>"
+    },
+    {
+      "name": "Pagination",
+      "description": "Pagination Component Accessible pagination with various display modes. Optimized for both desktop and mobile.",
+      "category": "data",
+      "props": [
+        {
+          "name": "page",
+          "type": "number",
+          "default": "1",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "totalPages",
+          "type": "number",
+          "default": "1",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "totalItems",
+          "type": "number",
+          "default": "0",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "pageSize",
+          "type": "number",
+          "default": "10",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "mode",
+          "type": "'full' | 'simple' | 'minimal'",
+          "default": "'full'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "siblingCount",
+          "type": "number",
+          "default": "1",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "showPageSize",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "pageSizes",
+          "type": "number[]",
+          "default": "[10, 25, 50, 100]",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "showCount",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [
+        "change"
+      ],
+      "file": "assets/svelte/components/ui/Pagination.svelte",
+      "example": "<Pagination />"
+    },
+    {
+      "name": "Section",
+      "description": "Section Component Consistent vertical rhythm for page sections. Enforces spacing between major page areas.",
+      "category": "layout",
+      "props": [
+        {
+          "name": "title",
+          "type": "string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "description",
+          "type": "string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "spacing",
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "'md'",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [
+        "default",
+        "header",
+        "actions"
+      ],
+      "events": [],
+      "file": "assets/svelte/components/ui/Section.svelte",
+      "example": "<Section>\n  <!-- content -->\n</Section>"
+    },
+    {
+      "name": "Select",
+      "description": "Select Component Controlled dropdown select with consistent styling. NO class prop - use size prop for customization.",
+      "category": "form",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "default": "''",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "options",
+          "type": "Array<{value: string, label: string, disabled?: boolean",
+          "default": "[]",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "'Select...'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "'md'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "name",
+          "type": "string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "default": "`select-${Math.random().toString(36).slice(2, 9)}`",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "describedBy",
+          "type": "string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [
+        "change"
+      ],
+      "file": "assets/svelte/components/ui/Select.svelte",
+      "example": "<Select />"
+    },
+    {
+      "name": "Sheet",
+      "description": "Sheet Component (iOS-style) Bottom sheet with gesture dismiss, snap points, and spring animation. Mobile-first, works on desktop too.",
+      "category": "interactive",
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "default": "''",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "showClose",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "closeOnBackdrop",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "closeOnEscape",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "gestureEnabled",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "dismissThreshold",
+          "type": "number",
+          "default": "0.3",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "snapPoints",
+          "type": "Array<number>",
+          "default": "[1]",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "initialSnap",
+          "type": "number",
+          "default": "0",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [
+        "default",
+        "footer"
+      ],
+      "events": [
+        "close",
+        "snap"
+      ],
+      "file": "assets/svelte/components/ui/Sheet.svelte",
+      "example": "<Sheet>\n  <!-- content -->\n</Sheet>"
+    },
+    {
+      "name": "Skeleton",
+      "description": "Skeleton Component Animated loading placeholder with shimmer effect. Supports various shapes and sizes for content loading states.",
+      "category": "display",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'text' | 'circle' | 'rect' | 'card' | 'avatar' | 'button'",
+          "default": "'text'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "width",
+          "type": "string",
+          "default": "''",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "height",
+          "type": "string",
+          "default": "''",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "lines",
+          "type": "number",
+          "default": "1",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "size",
+          "type": "'xs' | 'sm' | 'md' | 'lg' | 'xl'",
+          "default": "'md'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "animate",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "rounded",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [
+        "default"
+      ],
+      "events": [],
+      "file": "assets/svelte/components/ui/Skeleton.svelte",
+      "example": "<Skeleton>\n  <!-- content -->\n</Skeleton>"
+    },
+    {
+      "name": "SubmitButton",
+      "description": "SubmitButton Component Form submit button that auto-wires to Form context. Shows loading, disabled (when invalid), and success states.",
+      "category": "form",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'primary' | 'secondary' | 'danger'",
+          "default": "'primary'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "'md'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "loadingText",
+          "type": "string",
+          "default": "''",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "successText",
+          "type": "string",
+          "default": "'Done!'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [
+        "default"
+      ],
+      "events": [],
+      "file": "assets/svelte/components/ui/SubmitButton.svelte",
+      "example": "<SubmitButton>\n  <!-- content -->\n</SubmitButton>"
+    },
+    {
+      "name": "Tabs",
+      "description": "Tabs Component Animated tabs with sliding indicator. Supports both controlled and uncontrolled modes.",
+      "category": "interactive",
+      "props": [
+        {
+          "name": "tabs",
+          "type": "Array<{ id: string, label: string, disabled?: boolean, icon?: string",
+          "default": "[]",
+          "description": "Tab items",
+          "required": false
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "default": "''",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "variant",
+          "type": "'underline' | 'pill' | 'segment'",
+          "default": "'underline'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "'md'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [
+        "change"
+      ],
+      "file": "assets/svelte/components/ui/Tabs.svelte",
+      "example": "<Tabs />"
+    },
+    {
+      "name": "Textarea",
+      "description": "Textarea Component Controlled textarea with consistent styling. NO class prop - use size prop for customization.",
+      "category": "form",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "default": "''",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "''",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "'md'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "rows",
+          "type": "number",
+          "default": "3",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "resizable",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "name",
+          "type": "string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "default": "`textarea-${Math.random().toString(36).slice(2, 9)}`",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "describedBy",
+          "type": "string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [
+        "input"
+      ],
+      "file": "assets/svelte/components/ui/Textarea.svelte",
+      "example": "<Textarea />"
+    },
+    {
+      "name": "Toast",
+      "description": "Toast Component Individual toast notification with animation.",
+      "category": "feedback",
+      "props": [
+        {
+          "name": "message",
+          "type": "string",
+          "default": "''",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "variant",
+          "type": "'success' | 'error' | 'warning' | 'info'",
+          "default": "'info'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "dismissible",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "action",
+          "type": "{ label: string, onClick: () => void",
+          "default": "null",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [
+        "dismiss"
+      ],
+      "file": "assets/svelte/components/ui/Toast.svelte",
+      "example": "<Toast />"
+    },
+    {
+      "name": "ToastContainer",
+      "description": "ToastContainer Component Container for toast notifications. Place once in your layout.  Usage: <script> import { ToastContainer } from '$lib/components/ui'; </script>  <ToastContainer />  // Then from anywhere: import { toast } from '$lib/toast'; toast.success('Saved!');",
+      "category": "feedback",
+      "props": [
+        {
+          "name": "position",
+          "type": "'top-right' | 'top-left' | 'top-center' | 'bottom-right' | 'bottom-left' | 'bottom-center'",
+          "default": "'top-right'",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [],
+      "file": "assets/svelte/components/ui/ToastContainer.svelte",
+      "example": "<ToastContainer />"
+    },
+    {
+      "name": "Toggle",
+      "description": "Toggle/Switch Component iOS-style toggle with spring animation and haptic feedback.",
+      "category": "form",
+      "props": [
+        {
+          "name": "checked",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "'md'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": "''",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "default": "''",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "default": "undefined",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "name",
+          "type": "string | undefined",
+          "default": "undefined",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [
+        "change"
+      ],
+      "file": "assets/svelte/components/ui/Toggle.svelte",
+      "example": "<Toggle />"
+    }
+  ]
+}

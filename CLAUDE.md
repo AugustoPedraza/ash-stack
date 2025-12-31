@@ -23,6 +23,36 @@ mix compile         # Check for compilation errors
 
 ---
 
+## Component Manifest (AI CONTEXT)
+
+**READ `components.json`** for complete component API reference.
+
+This file is auto-generated and contains:
+- All available components with their props, types, defaults
+- Slot definitions and events
+- Example usage for each component
+- Component categories
+
+```bash
+# Regenerate after modifying components
+just gen-docs
+```
+
+**Usage Pattern:**
+```svelte
+<script>
+  import { Button, Input, Card } from '$lib/components/ui';
+</script>
+```
+
+**When building UI:**
+1. Check `components.json` for available components
+2. Use existing components - don't recreate
+3. Follow prop patterns (variant, size, etc.)
+4. No `class` prop - use component props
+
+---
+
 ## PATTERNS TO FOLLOW (CRITICAL)
 
 ### Phoenix Components

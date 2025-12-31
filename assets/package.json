@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
-    "dev": "vite build --watch"
+    "dev": "vite build --watch",
+    "gen:components": "node scripts/gen-component-manifest.js",
+    "gen:playground": "node scripts/gen-playground.js"
   },
   "dependencies": {
     "bits-ui": "^1.0.0-next.0",

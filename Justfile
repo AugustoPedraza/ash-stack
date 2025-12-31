@@ -290,6 +290,34 @@ tdd feature:
     @echo "6. Run: just verify-full"
 
 # =============================================================================
+# COMPONENT DOCS (Auto-generated)
+# =============================================================================
+
+# Generate component manifest (components.json)
+gen-manifest:
+    @echo "📦 Generating component manifest..."
+    @npm run gen:components --prefix assets
+
+# Generate component playground
+gen-playground: gen-manifest
+    @echo "🎨 Generating component playground..."
+    @npm run gen:playground --prefix assets
+
+# Generate all component docs
+gen-docs: gen-manifest gen-playground
+    @echo "✅ Component docs regenerated!"
+    @echo "   - components.json (AI context)"
+    @echo "   - ComponentPlayground.svelte (visual testing)"
+
+# Watch components and regenerate docs on change
+gen-docs-watch:
+    @echo "👀 Watching components for changes..."
+    @while true; do \
+        inotifywait -r -e modify,create,delete assets/svelte/components/ui/*.svelte 2>/dev/null || sleep 2; \
+        just gen-docs; \
+    done
+
+# =============================================================================
 # UTILITIES
 # =============================================================================
 
