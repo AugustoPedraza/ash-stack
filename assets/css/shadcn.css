@@ -1,0 +1,137 @@
+/*
+ * SHADCN-SVELTE VARIABLE MAPPING
+ * ================================
+ * Maps shadcn CSS variables to our design tokens.
+ * This ensures shadcn components use our design system.
+ *
+ * shadcn uses HSL format, we use OKLCH.
+ * We map to our semantic tokens for consistency.
+ */
+
+@layer base {
+  :root {
+    /* ============================================
+       SHADCN → OUR TOKENS MAPPING
+       ============================================ */
+
+    /* Background & Foreground */
+    --background: var(--color-background);
+    --foreground: var(--color-text);
+
+    /* Card */
+    --card: var(--color-surface);
+    --card-foreground: var(--color-text);
+
+    /* Popover */
+    --popover: var(--color-surface);
+    --popover-foreground: var(--color-text);
+
+    /* Primary */
+    --primary: var(--color-primary);
+    --primary-foreground: var(--color-on-primary);
+
+    /* Secondary */
+    --secondary: var(--color-surface-raised);
+    --secondary-foreground: var(--color-text);
+
+    /* Muted */
+    --muted: var(--color-surface-sunken);
+    --muted-foreground: var(--color-text-muted);
+
+    /* Accent */
+    --accent: var(--color-surface-raised);
+    --accent-foreground: var(--color-text);
+
+    /* Destructive */
+    --destructive: var(--color-error);
+    --destructive-foreground: var(--color-on-error);
+
+    /* Border & Input */
+    --border: var(--color-border);
+    --input: var(--color-border);
+    --ring: var(--color-primary);
+
+    /* Radius - shadcn uses rem values */
+    --radius: 0.5rem;
+
+    /* ============================================
+       ADDITIONAL SEMANTIC MAPPINGS
+       ============================================ */
+
+    /* Success (not in shadcn default, but useful) */
+    --success: var(--color-success);
+    --success-foreground: var(--color-on-success);
+
+    /* Warning */
+    --warning: var(--color-warning);
+    --warning-foreground: var(--color-on-warning);
+
+    /* Info */
+    --info: var(--color-info);
+    --info-foreground: var(--color-on-info);
+  }
+
+  /* ============================================
+     DARK MODE
+     ============================================ */
+  .dark {
+    --background: var(--color-background);
+    --foreground: var(--color-text);
+    --card: var(--color-surface);
+    --card-foreground: var(--color-text);
+    --popover: var(--color-surface);
+    --popover-foreground: var(--color-text);
+    --primary: var(--color-primary);
+    --primary-foreground: var(--color-on-primary);
+    --secondary: var(--color-surface-raised);
+    --secondary-foreground: var(--color-text);
+    --muted: var(--color-surface-sunken);
+    --muted-foreground: var(--color-text-muted);
+    --accent: var(--color-surface-raised);
+    --accent-foreground: var(--color-text);
+    --destructive: var(--color-error);
+    --destructive-foreground: var(--color-on-error);
+    --border: var(--color-border);
+    --input: var(--color-border);
+    --ring: var(--color-primary);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light) {
+      --background: var(--color-background);
+      --foreground: var(--color-text);
+      --card: var(--color-surface);
+      --card-foreground: var(--color-text);
+      --popover: var(--color-surface);
+      --popover-foreground: var(--color-text);
+      --primary: var(--color-primary);
+      --primary-foreground: var(--color-on-primary);
+      --secondary: var(--color-surface-raised);
+      --secondary-foreground: var(--color-text);
+      --muted: var(--color-surface-sunken);
+      --muted-foreground: var(--color-text-muted);
+      --accent: var(--color-surface-raised);
+      --accent-foreground: var(--color-text);
+      --destructive: var(--color-error);
+      --destructive-foreground: var(--color-on-error);
+      --border: var(--color-border);
+      --input: var(--color-border);
+      --ring: var(--color-primary);
+    }
+  }
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}

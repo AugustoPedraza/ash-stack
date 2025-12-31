@@ -1,0 +1,21 @@
+/*
+ * MAIN APPLICATION STYLES
+ * ========================
+ * Import order matters:
+ * 1. Tailwind base/components/utilities
+ * 2. Design tokens (CSS variables)
+ * 3. shadcn variable mapping
+ * 4. Mobile enhancements
+ * 5. Custom component styles
+ */
+
+/* Tailwind */
+@import "tailwindcss";
+
+/* Design System */
+@import "./tokens.css";
+@import "./shadcn.css";
+@import "./mobile.css";
+
+/* Tailwind theme configuration - restricted palette */
+@import "./tailwind.config.css";

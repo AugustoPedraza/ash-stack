@@ -35,8 +35,36 @@ export { default as Badge } from './Badge.svelte';
 export { default as Toast } from './Toast.svelte';
 export { default as ToastContainer } from './ToastContainer.svelte';
 
+// Mobile Components
+export { default as Sheet } from './Sheet.svelte';
+
 // Re-export toast store for convenience
 export { toast } from '../../lib/toast.js';
+
+// Re-export mobile utilities
+export {
+  haptic,
+  HapticType,
+  isIOS,
+  isStandalone,
+  platform,
+  safeArea,
+  keyboard,
+  lockScroll,
+  unlockScroll
+} from '../../lib/mobile.js';
+
+// Re-export gesture actions
+export {
+  swipe,
+  pullToRefresh,
+  longPress,
+  pan,
+  pinch
+} from '../../lib/gestures.js';
+
+// Re-export utility functions
+export { cn } from '../../lib/utils.js';
 
 // Re-export validation utilities
 export {

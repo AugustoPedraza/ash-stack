@@ -221,6 +221,63 @@ Run `just lint-tokens` to catch violations:
 
 ---
 
+## MOBILE & COMPONENTS
+
+### Component Strategy
+
+| Component Type | Source | Notes |
+|----------------|--------|-------|
+| Complex (Modal, Dropdown, Tabs) | shadcn-svelte | `npx shadcn-svelte add dialog` |
+| Layout (Page, Card, Section) | Custom | In repo |
+| Form (Input, Select, Checkbox) | Custom or shadcn | Both work |
+| Mobile (Sheet, gestures) | Custom | iOS-optimized |
+
+### Mobile Utilities
+
+```javascript
+import {
+  // Haptics
+  haptic, HapticType,
+  // Platform detection
+  platform, isIOS, isStandalone,
+  // Safe areas
+  safeArea, keyboard,
+  // Gestures (use:action)
+  swipe, pullToRefresh, longPress, pan
+} from '$lib/components/ui';
+
+// Haptic feedback
+haptic(HapticType.SUCCESS);
+
+// Check platform
+if ($platform.ios && $platform.standalone) { ... }
+```
+
+### iOS Sheet
+
+```svelte
+<Sheet bind:open title="Options" gestureEnabled snapPoints={[0.5, 1]}>
+  Content with swipe-to-dismiss
+</Sheet>
+```
+
+### Gestures
+
+```svelte
+<!-- Swipe -->
+<div use:swipe on:swipeleft={next} on:swiperight={prev}>
+
+<!-- Pull to refresh -->
+<div use:pullToRefresh on:refresh={({ detail }) => { await load(); detail.done(); }}>
+
+<!-- Long press -->
+<div use:longPress on:longpress={showMenu}>
+```
+
+See `docs/MOBILE.md` for full mobile guide.
+
+---
+
 ### LiveSvelte Integration
 
 ```elixir

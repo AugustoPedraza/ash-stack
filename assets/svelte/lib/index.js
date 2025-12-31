@@ -2,7 +2,7 @@
  * Svelte Utilities Index
  *
  * Usage:
- * import { toast, required, email, createFormStore } from '$lib';
+ * import { toast, required, haptic, swipe } from '$lib';
  */
 
 // Toast notifications
@@ -24,3 +24,37 @@ export {
   validateField,
   createFormStore
 } from './validation.js';
+
+// Utilities
+export { cn, debounce, throttle, uniqueId } from './utils.js';
+
+// Mobile
+export {
+  // Platform detection
+  isIOS,
+  isStandalone,
+  isTouchDevice,
+  platform,
+  // Haptics
+  haptic,
+  hapticAction,
+  HapticType,
+  // Safe areas
+  safeArea,
+  // Keyboard
+  keyboard,
+  // Scroll lock
+  lockScroll,
+  unlockScroll,
+  // Orientation
+  orientation
+} from './mobile.js';
+
+// Gestures
+export {
+  swipe,
+  pullToRefresh,
+  longPress,
+  pan,
+  pinch
+} from './gestures.js';
