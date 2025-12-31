@@ -53,6 +53,114 @@ just gen-docs
 
 ---
 
+## UX ENFORCEMENT RULES (CRITICAL)
+
+> **READ `docs/UX_PATTERNS.md`** for complete UX decision framework.
+> AI assistants MUST follow these rules when generating UI code.
+
+### Quick Reference
+
+**Buttons:**
+- One primary button per visible area
+- Primary on right, secondary on left
+- Destructive actions require confirmation modal
+
+**Forms:**
+- Single column layout (higher completion rates)
+- Labels above inputs (not floating)
+- Validate on blur, show errors inline
+- Required fields marked with asterisk
+
+**Loading States:**
+- 0-100ms: Show nothing
+- 100-300ms: Button spinner
+- 300ms+: Skeleton loader
+- Always handle error and empty states
+
+**Accessibility (Non-negotiable):**
+- `aria-label` on icon-only buttons
+- Focus visible on all interactive elements
+- Touch targets 44x44px minimum
+- Never use color alone for meaning
+
+### AI Must Check Before Generating UI
+
+```
+□ Does this use existing components from $lib/components/ui?
+□ Is there a loading state?
+□ Is there an error state?
+□ Is there an empty state?
+□ Do icon-only buttons have aria-label?
+□ Are destructive actions confirmed?
+□ Is keyboard navigation supported?
+□ Does it respect prefers-reduced-motion?
+```
+
+### Common UX Mistakes to Avoid
+
+```svelte
+<!-- ❌ WRONG: Primary on left -->
+<div class="flex gap-3">
+  <Button variant="primary">Save</Button>
+  <Button variant="secondary">Cancel</Button>
+</div>
+
+<!-- ✅ CORRECT: Primary on right -->
+<div class="flex gap-3 justify-end">
+  <Button variant="secondary">Cancel</Button>
+  <Button variant="primary">Save</Button>
+</div>
+```
+
+```svelte
+<!-- ❌ WRONG: No loading/error/empty states -->
+{#each items as item}
+  <ItemCard {item} />
+{/each}
+
+<!-- ✅ CORRECT: All states handled -->
+{#if loading}
+  <Skeleton variant="card" />
+{:else if error}
+  <EmptyState preset="error" on:retry={reload} />
+{:else if items.length === 0}
+  <EmptyState preset="default" title="No items yet" />
+{:else}
+  {#each items as item}
+    <ItemCard {item} />
+  {/each}
+{/if}
+```
+
+```svelte
+<!-- ❌ WRONG: Icon button without label -->
+<Button variant="ghost" size="sm" on:click={close}>
+  <Icon name="x" />
+</Button>
+
+<!-- ✅ CORRECT: Has aria-label -->
+<Button variant="ghost" size="sm" on:click={close} aria-label="Close dialog">
+  <Icon name="x" />
+</Button>
+```
+
+```svelte
+<!-- ❌ WRONG: Delete without confirmation -->
+<Button variant="danger" on:click={() => deleteItem(id)}>Delete</Button>
+
+<!-- ✅ CORRECT: Confirmation modal -->
+<Button variant="danger" on:click={() => showDeleteModal = true}>Delete</Button>
+<Modal bind:open={showDeleteModal} title="Delete Item?">
+  <p>This cannot be undone.</p>
+  <svelte:fragment slot="footer">
+    <Button variant="secondary" on:click={() => showDeleteModal = false}>Cancel</Button>
+    <Button variant="danger" on:click={confirmDelete}>Delete</Button>
+  </svelte:fragment>
+</Modal>
+```
+
+---
+
 ## PATTERNS TO FOLLOW (CRITICAL)
 
 ### Phoenix Components

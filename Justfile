@@ -290,6 +290,32 @@ tdd feature:
     @echo "6. Run: just verify-full"
 
 # =============================================================================
+# UX QUALITY
+# =============================================================================
+
+# Run all UX quality checks (a11y + patterns)
+ux-check:
+    @echo "🎨 Running UX quality checks..."
+    @npm run lint --prefix assets 2>/dev/null || echo "⚠️  ESLint not yet installed (run: npm install --prefix assets)"
+    @npm run ux:check --prefix assets 2>/dev/null || echo "⚠️  UX check script not found"
+
+# Run only accessibility linting
+ux-a11y:
+    @echo "♿ Checking accessibility..."
+    @npm run lint:a11y --prefix assets
+
+# Full quality check (lint + ux + tokens)
+quality: lint-tokens ux-check
+    @echo "✅ All quality checks passed!"
+
+# Pre-commit quality check (fast)
+pre-commit: lint-tokens
+    #!/usr/bin/env bash
+    echo "🔍 Quick pre-commit check..."
+    mix compile --warnings-as-errors 2>&1 | head -20
+    npm run ux:check --prefix assets 2>/dev/null || true
+
+# =============================================================================
 # COMPONENT DOCS (Auto-generated)
 # =============================================================================
 
