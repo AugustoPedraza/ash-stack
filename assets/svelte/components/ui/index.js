@@ -59,6 +59,15 @@ export { default as TypingIndicator } from './TypingIndicator.svelte';
 export { default as ErrorBoundary } from './ErrorBoundary.svelte';
 export { default as ConnectionStatus } from './ConnectionStatus.svelte';
 
+// Auth Components
+export { default as AuthForm } from './AuthForm.svelte';
+export { default as OAuthButton } from './OAuthButton.svelte';
+
+// Navigation Components
+export { default as CommandPalette } from './CommandPalette.svelte';
+export { default as Breadcrumbs } from './Breadcrumbs.svelte';
+export { default as Sidebar } from './Sidebar.svelte';
+
 // Mobile Components
 export { default as Sheet } from './Sheet.svelte';
 

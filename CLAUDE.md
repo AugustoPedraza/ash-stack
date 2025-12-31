@@ -336,6 +336,15 @@ class="bg-gray-100"                # Use bg-surface-sunken
 - `ErrorBoundary` - fallback, reportToServer, showDetails, message, retryable
 - `ConnectionStatus` - position, showOnlyWhenDisconnected, autoHideDelay, messages
 
+**Auth Components:**
+- `AuthForm` - mode (login|register|forgot|reset), errors, loading, oauthProviders, links
+- `OAuthButton` - provider (google|github|apple|microsoft|facebook|twitter|discord|slack), size, iconOnly
+
+**Navigation Components:**
+- `CommandPalette` - open, commands, placeholder, showRecent (⌘K / Ctrl+K to trigger)
+- `Breadcrumbs` - items, separator (slash|chevron|arrow|dot), maxItems, home
+- `Sidebar` - items, activeId, collapsed, mobileOpen, header (slots: footer)
+
 **Mobile Components:**
 - `Sheet` - open, title, gestureEnabled, snapPoints (slots: footer)
 
