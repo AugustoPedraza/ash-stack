@@ -83,3 +83,19 @@ export {
   presence,
   initPresence
 } from './liveview.js';
+
+// Real-time Integration
+export {
+  // Realtime stores
+  createRealtimeStore,
+  getRealtimeStore,
+  // Presence stores
+  createPresenceStore,
+  getPresenceStore,
+  // LiveView hooks
+  initRealtimeHooks,
+  // Typing indicator
+  createTypingIndicator,
+  // Merge strategies
+  mergeStrategies
+} from './realtime.js';

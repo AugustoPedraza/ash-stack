@@ -297,6 +297,275 @@ end
 
 ---
 
+## Phoenix PubSub → Svelte Stores
+
+### Setup Real-time Hooks
+
+```javascript
+// In app.js
+import { initLiveViewHooks, setLiveSocket } from "./svelte/lib/liveview"
+import { initRealtimeHooks } from "./svelte/lib/realtime"
+
+let liveSocket = new LiveSocket("/live", Socket, {
+  hooks: {
+    ...initLiveViewHooks(),
+    ...initRealtimeHooks()  // Add real-time hooks
+  }
+})
+
+setLiveSocket(liveSocket)
+```
+
+### Use RealtimeHelpers in LiveView
+
+```elixir
+defmodule MyAppWeb.ChatLive do
+  use MyAppWeb, :live_view
+  use AshStackWeb.RealtimeHelpers, pubsub: MyApp.PubSub
+
+  def mount(%{"room_id" => room_id}, _session, socket) do
+    if connected?(socket) do
+      topic = "room:#{room_id}"
+      subscribe(topic)
+      track_presence(topic, socket.assigns.current_user)
+    end
+
+    {:ok, assign(socket, room_id: room_id, messages: [])}
+  end
+
+  # Handle incoming broadcasts
+  def handle_info({:broadcast, "message:new", payload}, socket) do
+    {:noreply, sync_to_store(socket, payload)}
+  end
+
+  # Handle presence changes
+  def handle_info(%{event: "presence_diff"}, socket) do
+    {:noreply, push_presence(socket, "room:#{socket.assigns.room_id}", AshStackWeb.Presence)}
+  end
+end
+```
+
+### Broadcast to Svelte Stores
+
+```elixir
+# Broadcast that auto-syncs to Svelte stores
+def handle_event("send_message", %{"text" => text}, socket) do
+  message = create_message(text, socket.assigns)
+
+  # Broadcasts to all subscribers and syncs to their "messages" store
+  broadcast("room:#{socket.assigns.room_id}", "message:new", %{
+    store: "messages",
+    action: "append",
+    data: message
+  })
+
+  {:noreply, socket}
+end
+```
+
+---
+
+## Real-time Svelte Stores
+
+### Create Auto-syncing Store
+
+```svelte
+<script>
+  import { createRealtimeStore, initRealtimeHooks } from '$lib';
+
+  // Creates store that auto-syncs with server broadcasts
+  const messages = createRealtimeStore('messages', [], {
+    getId: (m) => m.id,
+    sort: (a, b) => new Date(a.created_at) - new Date(b.created_at)
+  });
+
+  // Store operations
+  // - messages.append(item) - add to end
+  // - messages.prepend(item) - add to start
+  // - messages.updateItem(id, changes) - update by ID
+  // - messages.remove(id) - remove by ID
+  // - messages.set(items) - replace all
+
+  // Optimistic updates with reconciliation
+  function sendMessage(text) {
+    const tempId = `temp_${Date.now()}`;
+
+    // Add optimistically
+    messages.addOptimistic(tempId, { text, user: currentUser });
+
+    // Send to server (reconciliation happens automatically via hooks)
+    pushEvent('send_message', { text, temp_id: tempId });
+  }
+</script>
+
+{#each $messages as message (message.id)}
+  <MessageBubble {message} optimistic={message._optimistic} />
+{/each}
+```
+
+### RealtimeList Component
+
+```svelte
+<script>
+  import { RealtimeList } from '$lib/components/ui';
+
+  let messages = [];
+</script>
+
+<RealtimeList
+  store="messages"
+  items={messages}
+  getId={(m) => m.id}
+  sort={(a, b) => a.created_at - b.created_at}
+  let:item
+  let:optimistic
+>
+  <div class:opacity-70={optimistic}>
+    <strong>{item.user}</strong>: {item.text}
+  </div>
+
+  <svelte:fragment slot="empty">
+    <p class="text-text-muted">No messages yet</p>
+  </svelte:fragment>
+</RealtimeList>
+```
+
+---
+
+## Presence Tracking
+
+### Track Online Users
+
+```elixir
+# In LiveView mount
+def mount(%{"room_id" => room_id}, _session, socket) do
+  if connected?(socket) do
+    topic = "room:#{room_id}"
+
+    # Subscribe to PubSub topic
+    subscribe(topic)
+
+    # Track this user's presence
+    track_presence(topic, socket.assigns.current_user, %{
+      status: "online",
+      typing: false
+    })
+
+    # Subscribe to presence changes
+    AshStackWeb.Presence.subscribe(topic)
+  end
+
+  {:ok, assign(socket, room_id: room_id)}
+end
+```
+
+### Presence Store in Svelte
+
+```svelte
+<script>
+  import { createPresenceStore, TypingIndicator } from '$lib';
+
+  const presence = createPresenceStore('room:lobby');
+
+  // Derived stores
+  const typingUsers = presence.typingUsers;
+  const onlineCount = presence.count;
+</script>
+
+<div class="online-users">
+  <span>{$onlineCount} online</span>
+
+  {#each $presence as user}
+    <Avatar src={user.avatar} status={user.status} />
+  {/each}
+</div>
+
+<TypingIndicator users={$typingUsers} />
+```
+
+---
+
+## Typing Indicators
+
+### Server-side Typing Updates
+
+```elixir
+# Handle typing events
+def handle_event("typing:start", _, socket) do
+  update_presence(
+    "room:#{socket.assigns.room_id}",
+    socket.assigns.current_user,
+    %{typing: true}
+  )
+  {:noreply, socket}
+end
+
+def handle_event("typing:stop", _, socket) do
+  update_presence(
+    "room:#{socket.assigns.room_id}",
+    socket.assigns.current_user,
+    %{typing: false}
+  )
+  {:noreply, socket}
+end
+```
+
+### Client-side Typing Manager
+
+```svelte
+<script>
+  import { createTypingIndicator, pushEvent } from '$lib';
+  import { Input, TypingIndicator } from '$lib/components/ui';
+
+  let message = '';
+
+  // Creates debounced typing indicator
+  const typing = createTypingIndicator({
+    onStart: () => pushEvent('typing:start'),
+    onStop: () => pushEvent('typing:stop'),
+    debounce: 1500  // Stop typing after 1.5s of no input
+  });
+
+  function handleSubmit() {
+    typing.stop();  // Force stop when submitting
+    pushEvent('send_message', { text: message });
+    message = '';
+  }
+</script>
+
+<form on:submit|preventDefault={handleSubmit}>
+  <Input
+    bind:value={message}
+    on:input={typing.onInput}
+    placeholder="Type a message..."
+  />
+</form>
+
+<TypingIndicator users={$typingUsers} maxNames={2} />
+```
+
+### TypingIndicator Component
+
+```svelte
+<TypingIndicator
+  users={$typingUsers}
+  maxNames={2}
+/>
+
+<!-- Output examples:
+  - "Alice is typing"
+  - "Alice and Bob are typing"
+  - "Alice, Bob and 3 others are typing"
+-->
+
+<!-- Custom format -->
+<TypingIndicator
+  users={$typingUsers}
+  format={(users) => `${users.length} people typing...`}
+/>
+
+---
+
 ## Component Patterns
 
 ### Data Table with Server Sorting
@@ -370,6 +639,16 @@ end
 | `LiveSvelteHelpers` | `push_to_svelte/4` | Push event to component |
 | `LiveSvelteHelpers` | `push_store_update/3` | Update Svelte store |
 | `LiveSvelteHelpers` | `put_flash_toast/3` | Flash + Toast |
+| `RealtimeHelpers` | `subscribe/1` | Subscribe to PubSub topic |
+| `RealtimeHelpers` | `broadcast/3` | Broadcast to topic |
+| `RealtimeHelpers` | `sync_to_store/2` | Sync payload to Svelte store |
+| `RealtimeHelpers` | `track_presence/3` | Track user presence |
+| `RealtimeHelpers` | `push_presence/3` | Push presence to Svelte |
+| `RealtimeHelpers` | `reconcile_optimistic/4` | Reconcile optimistic update |
+| `RealtimeHelpers` | `rollback_optimistic/3` | Rollback optimistic update |
+| `Presence` | `list_users/1` | Get online users |
+| `Presence` | `typing_users/1` | Get typing users |
+| `Presence` | `online?/2` | Check if user online |
 
 ### JavaScript Helpers
 
@@ -384,3 +663,17 @@ end
 | `createFormHandler(options)` | Create form submit handler |
 | `initLiveViewHooks()` | Get hooks for LiveSocket |
 | `setLiveSocket(socket)` | Set socket for helpers |
+| `createRealtimeStore(name, initial, opts)` | Create auto-syncing store |
+| `getRealtimeStore(name)` | Get registered realtime store |
+| `createPresenceStore(topic)` | Create presence tracking store |
+| `getPresenceStore(topic)` | Get registered presence store |
+| `initRealtimeHooks()` | Get realtime hooks for LiveSocket |
+| `createTypingIndicator(options)` | Create typing indicator manager |
+| `mergeStrategies` | Conflict resolution strategies |
+
+### Svelte Components
+
+| Component | Props | Purpose |
+|-----------|-------|---------|
+| `RealtimeList` | `store`, `items`, `getId`, `sort`, `duration` | Auto-syncing list |
+| `TypingIndicator` | `users`, `maxNames`, `format` | Show who's typing |

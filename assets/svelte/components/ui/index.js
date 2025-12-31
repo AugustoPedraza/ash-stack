@@ -51,6 +51,10 @@ export { default as InfiniteScroll } from './InfiniteScroll.svelte';
 export { default as Pagination } from './Pagination.svelte';
 export { default as EmptyState } from './EmptyState.svelte';
 
+// Real-time Components
+export { default as RealtimeList } from './RealtimeList.svelte';
+export { default as TypingIndicator } from './TypingIndicator.svelte';
+
 // Mobile Components
 export { default as Sheet } from './Sheet.svelte';
 

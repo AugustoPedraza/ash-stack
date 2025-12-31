@@ -220,6 +220,10 @@ class="bg-gray-100"                # Use bg-surface-sunken
 - `Pagination` - page, totalPages, mode: full|simple|minimal, showPageSize
 - `EmptyState` - preset: default|search|error|success|offline, title, description
 
+**Real-time Components:**
+- `RealtimeList` - store, items, getId, sort, duration, showOptimistic (slots: default, empty)
+- `TypingIndicator` - users, maxNames, format
+
 **Mobile Components:**
 - `Sheet` - open, title, gestureEnabled, snapPoints (slots: footer)
 
@@ -382,6 +386,53 @@ const result = await pushEventAsync('save', data);
 ```
 
 See `docs/INTEGRATION.md` for full guide.
+
+### Real-time (PubSub + Presence)
+
+```elixir
+# In LiveView - use RealtimeHelpers
+use AshStackWeb.RealtimeHelpers, pubsub: MyApp.PubSub
+
+def mount(%{"room_id" => room_id}, _session, socket) do
+  if connected?(socket) do
+    subscribe("room:#{room_id}")
+    track_presence("room:#{room_id}", socket.assigns.current_user)
+  end
+  {:ok, socket}
+end
+
+# Broadcast to Svelte stores
+broadcast("room:#{room_id}", "message:new", %{
+  store: "messages",
+  action: "append",
+  data: message
+})
+```
+
+```javascript
+// In app.js - add realtime hooks
+import { initRealtimeHooks } from "./svelte/lib/realtime"
+
+let liveSocket = new LiveSocket("/live", Socket, {
+  hooks: { ...initLiveViewHooks(), ...initRealtimeHooks() }
+})
+```
+
+```svelte
+<!-- Real-time list component -->
+<script>
+  import { RealtimeList, TypingIndicator } from '$lib/components/ui';
+  import { createPresenceStore } from '$lib';
+
+  const presence = createPresenceStore('room:lobby');
+</script>
+
+<RealtimeList store="messages" let:item>
+  <MessageBubble {item} />
+</RealtimeList>
+
+<TypingIndicator users={$presence.typingUsers} />
+```
 
 ---
 
