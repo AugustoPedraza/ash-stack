@@ -8,7 +8,7 @@
  * - Consistent spacing, radii, and shadows
  *
  * Usage:
- * import { Button, Avatar, Input, Card } from '$lib/components/ui';
+ * import { Button, Input, Card, Form, toast } from '$lib/components/ui';
  */
 
 // Form Components
@@ -18,6 +18,8 @@ export { default as Select } from './Select.svelte';
 export { default as Textarea } from './Textarea.svelte';
 export { default as Checkbox } from './Checkbox.svelte';
 export { default as FormField } from './FormField.svelte';
+export { default as Form } from './Form.svelte';
+export { default as SubmitButton } from './SubmitButton.svelte';
 
 // Layout Components
 export { default as Page } from './Page.svelte';
@@ -29,8 +31,26 @@ export { default as Section } from './Section.svelte';
 export { default as Avatar } from './Avatar.svelte';
 export { default as Badge } from './Badge.svelte';
 
-// Add new components here as they are created:
-// export { default as Modal } from './Modal.svelte';
-// export { default as Spinner } from './Spinner.svelte';
-// export { default as Toast } from './Toast.svelte';
-// export { default as Dropdown } from './Dropdown.svelte';
+// Feedback Components
+export { default as Toast } from './Toast.svelte';
+export { default as ToastContainer } from './ToastContainer.svelte';
+
+// Re-export toast store for convenience
+export { toast } from '../../lib/toast.js';
+
+// Re-export validation utilities
+export {
+  required,
+  email,
+  minLength,
+  maxLength,
+  min,
+  max,
+  pattern,
+  matches,
+  url,
+  phone,
+  createValidator,
+  validateField,
+  createFormStore
+} from '../../lib/validation.js';

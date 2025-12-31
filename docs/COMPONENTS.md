@@ -385,6 +385,143 @@ Vertical rhythm for page sections.
 
 ---
 
+## Form System (Auto-Validation)
+
+The Form system auto-disables submit until valid and shows loading/success states.
+
+### Form + SubmitButton
+
+```svelte
+<script>
+  import { Form, FormField, Input, SubmitButton, required, email } from '$lib/components/ui';
+
+  async function handleSubmit(event) {
+    const { data, done } = event.detail;
+
+    try {
+      await saveUser(data);
+      done(true);  // Shows success state
+    } catch (error) {
+      done(false, error);  // Shows error
+    }
+  }
+</script>
+
+<Form on:submit={handleSubmit} let:valid let:submitting>
+  <FormField label="Email" name="email" required rules={[email()]}>
+    <Input type="email" placeholder="you@example.com" />
+  </FormField>
+
+  <FormField label="Password" name="password" required rules={[minLength(8)]}>
+    <Input type="password" />
+  </FormField>
+
+  <!-- Auto-disabled until valid, shows loading/success -->
+  <SubmitButton>Create Account</SubmitButton>
+</Form>
+```
+
+### Available Validation Rules
+
+```javascript
+import {
+  required,    // required('Custom message')
+  email,       // email('Invalid email')
+  minLength,   // minLength(8, 'Too short')
+  maxLength,   // maxLength(100)
+  min,         // min(0, 'Must be positive')
+  max,         // max(100)
+  pattern,     // pattern(/^[A-Z]/, 'Start with capital')
+  matches,     // matches('password', 'Passwords must match')
+  url,         // url('Invalid URL')
+  phone,       // phone('Invalid phone')
+} from '$lib/components/ui';
+```
+
+### Button States
+
+```svelte
+<!-- Loading state -->
+<Button loading={isSaving}>Save</Button>
+
+<!-- Success state (auto-resets) -->
+<Button success={showSuccess}>Saved!</Button>
+
+<!-- iOS-style press feedback is automatic -->
+```
+
+---
+
+## Toast Notifications
+
+### Setup
+
+Add `ToastContainer` to your layout once:
+
+```svelte
+<!-- +layout.svelte -->
+<script>
+  import { ToastContainer } from '$lib/components/ui';
+</script>
+
+<slot />
+<ToastContainer position="top-right" />
+```
+
+### Usage
+
+```javascript
+import { toast } from '$lib/components/ui';
+
+// Simple
+toast.success('Changes saved!');
+toast.error('Something went wrong');
+toast.warning('Session expires soon');
+toast.info('New message received');
+
+// With options
+toast.success('Saved!', { duration: 3000 });
+
+// With action
+toast.error('Failed to save', {
+  action: { label: 'Retry', onClick: () => retry() }
+});
+
+// Promise helper
+await toast.promise(saveData(), {
+  loading: 'Saving...',
+  success: 'Saved!',
+  error: 'Failed to save'
+});
+```
+
+### Positions
+
+`top-right` | `top-left` | `top-center` | `bottom-right` | `bottom-left` | `bottom-center`
+
+---
+
+## Animation Tokens
+
+All components use consistent iOS-style animations.
+
+```css
+/* Durations */
+--duration-micro: 50ms;    /* Button press */
+--duration-fast: 150ms;    /* Hover, focus */
+--duration-normal: 250ms;  /* Transitions */
+--duration-slow: 350ms;    /* Modal open */
+
+/* Easings */
+--ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+--ease-modal-in: cubic-bezier(0.32, 0.72, 0, 1);
+
+/* Scale */
+--scale-press: 0.97;       /* Button press effect */
+```
+
+---
+
 ## Creating New Components
 
 ### Rules

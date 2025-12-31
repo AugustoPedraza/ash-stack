@@ -133,19 +133,45 @@
   --shadow-xl: 0 20px 25px -5px oklch(0% 0 0 / 10%), 0 8px 10px -6px oklch(0% 0 0 / 5%);
 
   /* ============================================
-     TRANSITIONS
+     ANIMATION & TRANSITIONS
+     iOS-inspired timing for native feel
      ============================================ */
-  --duration-instant: 0ms;
-  --duration-fast: 100ms;
-  --duration-normal: 200ms;
-  --duration-slow: 300ms;
-  --duration-slower: 500ms;
 
+  /* Durations - Use these consistently */
+  --duration-instant: 0ms;
+  --duration-micro: 50ms;       /* Micro-interactions (button press) */
+  --duration-fast: 150ms;       /* Quick feedback (hover, focus) */
+  --duration-normal: 250ms;     /* Standard transitions */
+  --duration-slow: 350ms;       /* Modal, sheet open */
+  --duration-slower: 500ms;     /* Complex animations */
+
+  /* Easings - iOS-style curves */
   --ease-linear: linear;
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* iOS Spring Curves */
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-spring-soft: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-spring-bouncy: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* iOS-style curves for specific use cases */
+  --ease-modal-in: cubic-bezier(0.32, 0.72, 0, 1);      /* Modal/sheet appear */
+  --ease-modal-out: cubic-bezier(0.32, 0.72, 0, 1);     /* Modal/sheet dismiss */
+  --ease-button-press: cubic-bezier(0.3, 0, 0.8, 0.15); /* Button tap down */
+  --ease-button-release: cubic-bezier(0.2, 0.8, 0.4, 1); /* Button release */
+
+  /* Animation presets */
+  --transition-micro: var(--duration-micro) var(--ease-out);
+  --transition-fast: var(--duration-fast) var(--ease-out);
+  --transition-normal: var(--duration-normal) var(--ease-in-out);
+  --transition-spring: var(--duration-slow) var(--ease-spring);
+
+  /* Scale values for press states */
+  --scale-press: 0.97;          /* Button/card press */
+  --scale-press-sm: 0.95;       /* Smaller elements */
+  --scale-hover: 1.02;          /* Subtle hover lift */
 
   /* ============================================
      Z-INDEX SCALE
