@@ -206,6 +206,53 @@ docker-build:
     docker build -t ash-stack:latest .
 
 # =============================================================================
+# AI / VIBE CODING
+# =============================================================================
+
+# Verify code after AI changes (quick check)
+verify:
+    #!/usr/bin/env bash
+    echo "🔍 Verifying code..."
+    mix compile --warnings-as-errors 2>&1 | head -30
+    if [ $? -eq 0 ]; then
+        echo "✅ Compilation OK"
+    else
+        echo "❌ Compilation failed - see errors above"
+        exit 1
+    fi
+
+# Full verification (compile + test + credo)
+verify-full: verify
+    #!/usr/bin/env bash
+    echo "🧪 Running tests..."
+    mix test --max-failures 3
+    echo "🔍 Running Credo..."
+    mix credo --strict --format=oneline | head -20
+
+# Show recent errors
+errors:
+    @echo "=== Compilation Check ==="
+    @mix compile 2>&1 | grep -A3 "error:\|warning:" | head -30 || echo "✅ No errors"
+    @echo ""
+    @echo "=== Last Runtime Error ==="
+    @cat tmp/last_error.txt 2>/dev/null || echo "No runtime errors captured"
+
+# Validate all icon names in codebase
+validate-icons:
+    @echo "Scanning for icon usage..."
+    @grep -rh "hero-[a-z-]*" lib/ --include="*.ex" --include="*.heex" -o | sort | uniq -c | sort -rn | head -20
+
+# AI-friendly task: implement with TDD
+tdd feature:
+    @echo "Starting TDD for: {{feature}}"
+    @echo "1. Write test in test/ directory"
+    @echo "2. Run: just test"
+    @echo "3. Implement feature"
+    @echo "4. Run: just test"
+    @echo "5. Refactor"
+    @echo "6. Run: just verify-full"
+
+# =============================================================================
 # UTILITIES
 # =============================================================================
 

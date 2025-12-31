@@ -1,169 +1,264 @@
 # CLAUDE.md - AI Assistant Context
 
 > This file provides context for AI assistants working on this codebase.
-> Template version: 1.0.0
+> **READ THIS CAREFULLY** - Following these patterns prevents 90% of errors.
 
 ## Project Overview
 
-This is a Phoenix application template using the "Vibe Coding Stack":
+This is a Phoenix application using:
 - **Backend**: Elixir 1.17+, Phoenix 1.7+, Ash Framework 3.x
 - **Frontend**: Svelte 5 via LiveSvelte, Tailwind CSS 4
 - **Database**: PostgreSQL 16+
-- **Testing**: ExUnit, StreamData (property-based), Playwright (E2E)
 
-## Quick Reference
+## Critical Commands
 
-### Directory Structure
+```bash
+# ALWAYS run after making changes
+just check          # Format + Credo + Dialyzer + Sobelow
 
-```
-lib/
-├── ash_stack/              # Business logic (Ash domains)
-│   ├── accounts/           # User management domain
-│   │   ├── accounts.ex     # Domain module
-│   │   └── resources/      # Ash resources
-│   └── [domain]/           # Other domains follow same pattern
-│
-└── ash_stack_web/          # Web layer
-    ├── components/         # Phoenix components
-    │   ├── core_components.ex
-    │   ├── ui_components.ex
-    │   └── layouts/
-    ├── live/               # LiveViews
-    └── router.ex
-
-assets/
-├── css/
-│   ├── tokens.css          # Design tokens (SOURCE OF TRUTH)
-│   └── app.css             # Tailwind imports
-├── svelte/
-│   └── components/
-│       ├── ui/             # Base components (Button, Avatar, Input)
-│       └── features/       # Feature-specific components
-└── js/
-    └── hooks/              # LiveView hooks
+# Run specific checks
+just test           # Run tests
+mix compile         # Check for compilation errors
 ```
 
-### Key Patterns
+---
 
-#### Creating Ash Resources
+## PATTERNS TO FOLLOW (CRITICAL)
+
+### Phoenix Components
 
 ```elixir
-defmodule AshStack.DomainName.ResourceName do
+# ✅ CORRECT - Use function components with attr
+attr :name, :string, required: true
+attr :class, :string, default: nil
+slot :inner_block, required: true
+
+def my_component(assigns) do
+  ~H"""
+  <div class={["base-class", @class]}>
+    <%= render_slot(@inner_block) %>
+  </div>
+  """
+end
+
+# ❌ WRONG - Don't use old-style assigns
+def my_component(assigns) do
+  ~H"""
+  <div class={assigns.class}>  # WRONG - use @class
+  """
+end
+```
+
+### Heroicons (IMPORTANT - Common Error Source)
+
+```elixir
+# ✅ CORRECT - Use Heroicons module
+<.icon name="hero-user" class="w-5 h-5" />
+<.icon name="hero-check-circle" class="w-5 h-5" />
+<.icon name="hero-x-mark" class="w-5 h-5" />
+
+# ❌ WRONG - These icon names DON'T EXIST
+<.icon name="hero-close" />      # Use hero-x-mark
+<.icon name="hero-success" />    # Use hero-check-circle
+<.icon name="hero-error" />      # Use hero-exclamation-circle
+<.icon name="hero-warning" />    # Use hero-exclamation-triangle
+<.icon name="hero-menu" />       # Use hero-bars-3
+```
+
+**Icon Naming Convention:**
+- All Heroicons start with `hero-`
+- Use kebab-case: `hero-arrow-right` not `hero-arrowRight`
+- Outline is default, add `-solid` for solid: `hero-user-solid`
+- Check: https://heroicons.com for valid names
+
+### Tailwind CSS (Design Tokens)
+
+```elixir
+# ✅ CORRECT - Use design tokens
+class="bg-primary text-on-primary p-4 rounded-lg"
+class="text-text-muted bg-surface-raised"
+
+# ❌ WRONG - Don't use raw Tailwind colors
+class="bg-blue-500 text-white"    # Use bg-primary text-on-primary
+class="text-gray-500"              # Use text-text-muted
+class="bg-gray-100"                # Use bg-surface-sunken
+```
+
+### LiveSvelte Integration
+
+```elixir
+# ✅ CORRECT - Pass socket for events
+<.svelte
+  name="MyComponent"
+  props={%{data: @data, user_id: @current_user.id}}
+  socket={@socket}
+/>
+
+# ❌ WRONG - Missing socket (events won't work)
+<.svelte name="MyComponent" props={%{data: @data}} />
+```
+
+### Ash Resources
+
+```elixir
+# ✅ CORRECT - Full resource with all required parts
+defmodule MyApp.Domain.Resource do
   use Ash.Resource,
     data_layer: AshPostgres.DataLayer,
-    extensions: [AshGraphql.Resource],  # If API exposed
-    domain: AshStack.DomainName
+    domain: MyApp.Domain           # Don't forget domain!
 
   postgres do
-    table "table_name"
-    repo AshStack.Repo
+    table "resources"
+    repo MyApp.Repo
   end
 
   attributes do
-    uuid_primary_key :id
-    # attributes here
-    timestamps()
-  end
-
-  relationships do
-    # belongs_to, has_many, etc.
+    uuid_primary_key :id           # Always use UUID
+    timestamps()                    # Always include
   end
 
   actions do
     defaults [:read, :destroy]
-
-    create :create do
-      accept [:field1, :field2]
-    end
+    # Define create/update explicitly
   end
 
   policies do
     policy action_type(:read) do
-      authorize_if always()
+      authorize_if always()        # Always have at least one policy
     end
   end
 end
+
+# ❌ WRONG - Missing required parts
+defmodule MyApp.Domain.Resource do
+  use Ash.Resource  # Missing data_layer and domain!
+
+  attributes do
+    attribute :id, :uuid  # Wrong! Use uuid_primary_key
+  end
+  # Missing timestamps, actions, policies
+end
 ```
 
-#### Creating Svelte Components
-
-```svelte
-<script>
-  /** @type {'primary' | 'secondary'} */
-  export let variant = 'primary';
-
-  // LiveView integration
-  import { pushEvent } from 'live_svelte';
-  export let live = null;
-</script>
-
-<div class="[use design tokens via Tailwind]">
-  <slot />
-</div>
-```
-
-#### Writing Property-Based Tests
+### Form Handling
 
 ```elixir
-property "invariant description" do
-  check all input <- generator() do
-    result = Module.function(input)
-    assert property_holds?(result)
+# ✅ CORRECT - Use to_form
+def mount(_params, _session, socket) do
+  form = AshPhoenix.Form.for_create(Resource, :create) |> to_form()
+  {:ok, assign(socket, form: form)}
+end
+
+# In template
+<.form for={@form} phx-submit="save">
+  <.input field={@form[:name]} label="Name" />
+</.form>
+
+# ❌ WRONG - Raw changeset
+<.form for={@changeset}>  # Use to_form()!
+```
+
+---
+
+## COMMON ERRORS AND FIXES
+
+### Error: "undefined function icon/1"
+```elixir
+# Fix: Import CoreComponents
+import MyAppWeb.CoreComponents
+```
+
+### Error: "no case clause matching: nil"
+```elixir
+# Usually means an assign is missing
+# Fix: Check mount/2 sets all required assigns
+def mount(_params, _session, socket) do
+  {:ok, assign(socket,
+    items: [],           # Initialize all assigns!
+    loading: false,
+    form: nil
+  )}
+end
+```
+
+### Error: "(Ash.Error.Query.NotFound)"
+```elixir
+# Handle not found in action
+case MyApp.Domain.get(id) do
+  {:ok, record} -> # success
+  {:error, %Ash.Error.Query.NotFound{}} -> # handle not found
+end
+```
+
+### Error: "no policy authorizes this request"
+```elixir
+# Add policy to resource
+policies do
+  policy action_type(:read) do
+    authorize_if always()
   end
 end
 ```
 
-### Common Commands
+---
+
+## BEFORE SUBMITTING CODE
+
+AI should mentally check:
+
+1. [ ] All icons use valid `hero-*` names
+2. [ ] All colors use design tokens (`bg-primary` not `bg-blue-500`)
+3. [ ] All LiveSvelte components have `socket={@socket}`
+4. [ ] All Ash resources have policies
+5. [ ] All forms use `to_form()`
+6. [ ] All LiveViews initialize assigns in mount
+
+---
+
+## FILE STRUCTURE
+
+```
+lib/
+├── ash_stack/              # Ash domains (business logic)
+│   └── [domain]/
+│       ├── [domain].ex     # Domain module
+│       └── resources/      # Ash resources
+└── ash_stack_web/
+    ├── components/
+    │   ├── core_components.ex    # Phoenix defaults
+    │   └── ui_components.ex      # App components
+    ├── live/
+    │   └── [feature]_live.ex
+    └── router.ex
+
+assets/svelte/components/
+├── ui/                     # Base components
+└── features/               # Feature-specific
+```
+
+---
+
+## RUNNING VERIFICATION
+
+After ANY code change, run:
 
 ```bash
-# Development
-mix setup                    # Install deps, create DB, migrate
-mix phx.server              # Start Phoenix server
-npm run dev --prefix assets # Start Svelte dev (separate terminal)
+# Quick check
+mix compile --warnings-as-errors
 
-# Testing
-mix test                    # Run all tests
-mix test --only property    # Property-based tests only
-mix coveralls               # Run with coverage
+# Full check
+just check
 
-# Code Quality
-mix format                  # Format code
-mix credo --strict          # Static analysis
-mix dialyzer               # Type checking
-mix sobelow --config       # Security analysis
-
-# Ash
-mix ash.codegen            # Generate Ash code
-mix ash_postgres.migrate   # Run Ash migrations
+# If touching tests
+just test
 ```
 
-### Design Tokens
+---
 
-All styling uses CSS custom properties from `assets/css/tokens.css`:
+## GETTING HELP
 
-```css
-/* Spacing: --space-{1,2,3,4,5,6,8,10} */
-/* Colors: --color-{primary,secondary,surface,text,border,...} */
-/* Typography: --text-{xs,sm,base,lg,xl,2xl} */
-/* Radii: --radius-{none,sm,md,lg,xl,full} */
-```
-
-Use via Tailwind: `class="p-4 bg-primary text-on-primary rounded-lg"`
-
-### Code Generation Rules
-
-1. **Ash Resources**: Always include `uuid_primary_key`, `timestamps()`, and at least one policy
-2. **Svelte Components**: Always use design tokens, never hardcode colors/spacing
-3. **Tests**: Use property-based for data transformations, unit for edge cases
-4. **LiveView**: Use `.svelte` components for rich interactions via LiveSvelte
-
-### Architecture Decisions
-
-See `docs/decisions/` for Architecture Decision Records (ADRs).
-
-## Current State
-
-[Update this section as project evolves]
-
-- Template status: Initial setup
-- Focus: Foundation and patterns
+If you encounter an error:
+1. Read the full error message
+2. Check this file for the pattern
+3. Check if icon names are valid (heroicons.com)
+4. Check if all assigns are initialized

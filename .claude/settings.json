@@ -1,0 +1,59 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/claude-code/main/schemas/settings.json",
+  "hooks": {
+    "postToolUse": [
+      {
+        "matcher": {
+          "tool": "Edit",
+          "filePattern": "**/*.ex"
+        },
+        "commands": [
+          {
+            "command": "mix compile --warnings-as-errors 2>&1 | head -50",
+            "timeout": 30000,
+            "onFailure": "notify"
+          }
+        ]
+      },
+      {
+        "matcher": {
+          "tool": "Edit",
+          "filePattern": "**/*.heex"
+        },
+        "commands": [
+          {
+            "command": "mix compile --warnings-as-errors 2>&1 | head -50",
+            "timeout": 30000,
+            "onFailure": "notify"
+          }
+        ]
+      },
+      {
+        "matcher": {
+          "tool": "Write",
+          "filePattern": "**/*.ex"
+        },
+        "commands": [
+          {
+            "command": "mix compile --warnings-as-errors 2>&1 | head -50",
+            "timeout": 30000,
+            "onFailure": "notify"
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allowedCommands": [
+      "mix *",
+      "just *",
+      "npm *",
+      "docker compose *",
+      "git *",
+      "cat *",
+      "ls *",
+      "find *",
+      "grep *"
+    ]
+  }
+}
