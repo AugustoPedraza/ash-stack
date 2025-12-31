@@ -1,0 +1,210 @@
+/*
+ * TAILWIND CSS 4 - RESTRICTED THEME
+ * ==================================
+ * This file restricts Tailwind to ONLY use our design tokens.
+ * Raw Tailwind classes like bg-blue-500 will NOT work.
+ *
+ * AI INSTRUCTIONS:
+ * - You CANNOT use classes like bg-red-500, text-gray-400, etc.
+ * - You MUST use semantic tokens: bg-primary, text-muted, etc.
+ * - If a class doesn't work, check this file for available options.
+ */
+
+@import "tailwindcss";
+@import "./tokens.css";
+
+@theme {
+  /* ============================================
+     DISABLE ALL DEFAULT COLORS
+     Only our semantic tokens are available
+     ============================================ */
+  --color-*: initial;
+
+  /* Brand */
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --color-primary-active: var(--color-primary-active);
+  --color-on-primary: var(--color-on-primary);
+
+  --color-secondary: var(--color-secondary);
+  --color-secondary-hover: var(--color-secondary-hover);
+  --color-on-secondary: var(--color-on-secondary);
+
+  /* Semantic */
+  --color-success: var(--color-success);
+  --color-success-soft: var(--color-success-soft);
+  --color-on-success: var(--color-on-success);
+
+  --color-warning: var(--color-warning);
+  --color-warning-soft: var(--color-warning-soft);
+  --color-on-warning: var(--color-on-warning);
+
+  --color-error: var(--color-error);
+  --color-error-soft: var(--color-error-soft);
+  --color-on-error: var(--color-on-error);
+
+  --color-info: var(--color-info);
+  --color-info-soft: var(--color-info-soft);
+  --color-on-info: var(--color-on-info);
+
+  /* Surfaces */
+  --color-background: var(--color-background);
+  --color-surface: var(--color-surface);
+  --color-surface-raised: var(--color-surface-raised);
+  --color-surface-sunken: var(--color-surface-sunken);
+  --color-surface-overlay: var(--color-surface-overlay);
+
+  /* Text */
+  --color-text: var(--color-text);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
+  --color-text-disabled: var(--color-text-disabled);
+
+  /* Borders */
+  --color-border: var(--color-border);
+  --color-border-strong: var(--color-border-strong);
+  --color-border-focus: var(--color-border-focus);
+
+  /* Transparent & current (keep these) */
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* ============================================
+     RESTRICTED SPACING SCALE
+     Only these spacing values are available
+     ============================================ */
+  --spacing-*: initial;
+
+  --spacing-0: 0;
+  --spacing-px: 1px;
+  --spacing-0-5: 0.125rem;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+  --spacing-24: 6rem;
+  /* NOTE: p-5, p-7, p-9, p-10, p-11, etc. do NOT exist */
+
+  /* ============================================
+     RESTRICTED BORDER RADIUS
+     Only 4 options: sm, md, lg, full
+     ============================================ */
+  --radius-*: initial;
+
+  --radius-none: 0;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-full: 9999px;
+  /* NOTE: rounded-xl, rounded-2xl, rounded-3xl do NOT exist */
+
+  /* ============================================
+     RESTRICTED SHADOWS
+     Only 4 options: sm, md, lg, xl
+     ============================================ */
+  --shadow-*: initial;
+
+  --shadow-none: none;
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+  /* NOTE: shadow-2xl, shadow-inner do NOT exist */
+
+  /* ============================================
+     RESTRICTED Z-INDEX
+     Only named layers, no arbitrary numbers
+     ============================================ */
+  --z-index-*: initial;
+
+  --z-index-below: -1;
+  --z-index-base: 0;
+  --z-index-raised: 10;
+  --z-index-dropdown: 100;
+  --z-index-sticky: 200;
+  --z-index-overlay: 300;
+  --z-index-modal: 400;
+  --z-index-popover: 500;
+  --z-index-toast: 600;
+  --z-index-tooltip: 700;
+  /* NOTE: z-10, z-20, z-50 do NOT exist - use z-raised, z-dropdown, etc. */
+
+  /* ============================================
+     TYPOGRAPHY (keep defaults but add custom)
+     ============================================ */
+  --font-family-sans: var(--font-sans);
+  --font-family-mono: var(--font-mono);
+}
+
+/* ============================================
+   COMPONENT CLASS PATTERNS
+   Pre-built patterns for consistency
+   ============================================ */
+
+/* Card pattern */
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Input base pattern */
+.input-base {
+  height: var(--input-md);
+  padding-inline: var(--space-3);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  transition: border-color var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.input-base:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px oklch(from var(--color-primary) l c h / 20%);
+}
+
+.input-base::placeholder {
+  color: var(--color-text-muted);
+}
+
+.input-base:disabled {
+  background-color: var(--color-surface-sunken);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+/* Label pattern */
+.label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text);
+  margin-bottom: var(--space-1);
+}
+
+/* Error text pattern */
+.error-text {
+  font-size: var(--text-sm);
+  color: var(--color-error);
+  margin-top: var(--space-1);
+}
+
+/* Helper text pattern */
+.helper-text {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}

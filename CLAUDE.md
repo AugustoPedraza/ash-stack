@@ -84,6 +84,143 @@ class="text-gray-500"              # Use text-text-muted
 class="bg-gray-100"                # Use bg-surface-sunken
 ```
 
+---
+
+## UI/UX CONSISTENCY (ENFORCED)
+
+> **Tailwind is restricted** - raw colors like `bg-blue-500` do NOT exist.
+> Only design tokens are available. This is enforced at build time.
+
+### Available Design Tokens
+
+**Colors** (ONLY these work):
+- `primary`, `primary-hover`, `primary-active`, `on-primary`
+- `secondary`, `secondary-hover`, `on-secondary`
+- `success`, `success-soft`, `on-success`
+- `warning`, `warning-soft`, `on-warning`
+- `error`, `error-soft`, `on-error`
+- `info`, `info-soft`, `on-info`
+- `background`, `surface`, `surface-raised`, `surface-sunken`
+- `text`, `text-secondary`, `text-muted`, `text-disabled`
+- `border`, `border-strong`, `border-focus`
+
+**Spacing** (ONLY these work):
+- `0`, `px`, `0.5`, `1`, `2`, `3`, `4`, `6`, `8`, `12`, `16`, `20`, `24`
+- ❌ `p-5`, `m-7`, `gap-9` do NOT exist
+
+**Border Radius** (ONLY these work):
+- `rounded-none`, `rounded-sm`, `rounded-md`, `rounded-lg`, `rounded-full`
+- ❌ `rounded-xl`, `rounded-2xl`, `rounded-3xl` do NOT exist
+
+**Shadows** (ONLY these work):
+- `shadow-none`, `shadow-sm`, `shadow-md`, `shadow-lg`, `shadow-xl`
+- ❌ `shadow-2xl`, `shadow-inner` do NOT exist
+
+**Z-Index** (use named layers):
+- `z-below`, `z-base`, `z-raised`, `z-dropdown`, `z-sticky`
+- `z-overlay`, `z-modal`, `z-popover`, `z-toast`, `z-tooltip`
+- ❌ `z-10`, `z-50` do NOT exist
+
+### Svelte Component Usage
+
+**ALWAYS use existing components** - don't recreate:
+
+```svelte
+<!-- ✅ CORRECT - Use component library -->
+<script>
+  import { Button, Input, Card, Avatar } from '$lib/components/ui';
+</script>
+
+<Card title="User Profile">
+  <Input size="md" placeholder="Name" bind:value={name} />
+  <Button variant="primary" size="md">Save</Button>
+</Card>
+
+<!-- ❌ WRONG - Don't use raw HTML with classes -->
+<div class="bg-surface border rounded-lg p-6">
+  <input class="border p-2 rounded" />
+  <button class="bg-primary text-on-primary px-4 py-2">Save</button>
+</div>
+```
+
+**Components have NO class escape hatch** - use props:
+
+```svelte
+<!-- ✅ CORRECT - Use variant/size props -->
+<Button variant="danger" size="lg">Delete</Button>
+<Input size="sm" invalid={hasError} />
+
+<!-- ❌ WRONG - class prop doesn't exist -->
+<Button class="mt-4 bg-red-500">Delete</Button>
+```
+
+### Available Svelte Components
+
+**Form Components:**
+- `Button` - variant: primary|secondary|ghost|danger, size: sm|md|lg
+- `Input` - type, size, invalid, disabled
+- `Select` - options, size, invalid, placeholder
+- `Textarea` - rows, size, resizable, invalid
+- `Checkbox` - checked, label, description, size
+- `FormField` - label, error, helper, required (wrapper)
+
+**Layout Components:**
+- `Page` - size: sm|md|lg|xl|full, padded, centered
+- `PageHeader` - title, description, bordered (slots: actions, tabs)
+- `Card` - variant, padding, title, description (slots: header, footer, actions)
+- `Section` - title, description, spacing (slots: header, actions)
+
+**Display Components:**
+- `Avatar` - src, alt, size: xs|sm|md|lg|xl, shape, status
+- `Badge` - variant, size, dot
+
+### Form Pattern
+
+```svelte
+<script>
+  import { FormField, Input, Button } from '$lib/components/ui';
+  let name = '';
+  let error = null;
+</script>
+
+<FormField label="Full Name" {error} required>
+  <Input bind:value={name} invalid={!!error} placeholder="John Doe" />
+</FormField>
+
+<Button type="submit" variant="primary">Submit</Button>
+```
+
+### Page Pattern
+
+```svelte
+<script>
+  import { Page, PageHeader, Section, Card } from '$lib/components/ui';
+</script>
+
+<Page size="lg">
+  <PageHeader title="Dashboard" description="Overview of your account">
+    <svelte:fragment slot="actions">
+      <Button variant="primary">New Item</Button>
+    </svelte:fragment>
+  </PageHeader>
+
+  <Section title="Recent Activity">
+    <Card>
+      <!-- content -->
+    </Card>
+  </Section>
+</Page>
+```
+
+### Verification
+
+Run `just lint-tokens` to catch violations:
+- Raw Tailwind colors
+- Arbitrary values `[...]`
+- Non-standard spacing
+
+---
+
 ### LiveSvelte Integration
 
 ```elixir

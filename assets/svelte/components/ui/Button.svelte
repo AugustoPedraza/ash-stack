@@ -1,6 +1,7 @@
 <!--
   Button Component
   Primary interactive element for user actions.
+  NO class prop or restProps - use variant/size props only.
 -->
 <script>
   /**
@@ -30,7 +31,10 @@
    */
   export let type = 'button';
 
-  // Variant styles using design tokens via Tailwind
+  /** @type {string | null} - For icon-only buttons */
+  export let ariaLabel = null;
+
+  // Variant styles using design tokens
   const variants = {
     primary: 'bg-primary text-on-primary hover:bg-primary-hover active:bg-primary-active',
     secondary: 'bg-surface-raised text-text border border-border hover:bg-surface-sunken',
@@ -38,31 +42,34 @@
     danger: 'bg-error text-on-error hover:opacity-90 active:opacity-80',
   };
 
-  // Size styles
+  // Size styles - only using allowed spacing values
   const sizes = {
-    sm: 'h-8 px-3 text-sm gap-1.5 rounded-md',
-    md: 'h-10 px-4 text-base gap-2 rounded-lg',
-    lg: 'h-12 px-6 text-lg gap-2.5 rounded-lg',
+    sm: 'h-8 px-3 text-sm gap-2 rounded-md',
+    md: 'h-10 px-4 text-base gap-2 rounded-md',
+    lg: 'h-12 px-6 text-lg gap-3 rounded-lg',
   };
+
+  $: buttonClasses = [
+    'inline-flex items-center justify-center',
+    'font-medium',
+    'transition-colors',
+    'focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
+    'disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none',
+    variants[variant],
+    sizes[size],
+    fullWidth ? 'w-full' : ''
+  ].filter(Boolean).join(' ');
 </script>
 
 <button
   {type}
-  class="
-    inline-flex items-center justify-center
-    font-medium
-    transition-colors duration-fast ease-out
-    focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2
-    disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none
-    {variants[variant]}
-    {sizes[size]}
-    {fullWidth ? 'w-full' : ''}
-  "
+  class={buttonClasses}
   disabled={disabled || loading}
+  aria-label={ariaLabel}
+  aria-busy={loading}
   on:click
   on:focus
   on:blur
-  {...$$restProps}
 >
   {#if loading}
     <svg
@@ -70,6 +77,7 @@
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
+      aria-hidden="true"
     >
       <circle
         class="opacity-25"

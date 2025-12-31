@@ -1,41 +1,37 @@
 # Component Catalog
 
 > UI component reference for consistent design and AI generation.
+> **Components have NO class escape hatch** - use variant/size props.
 
-## Design Tokens
+## Design System Enforcement
 
-All components use CSS custom properties from `assets/css/tokens.css`.
+Tailwind is **restricted** to design tokens only. Raw classes like `bg-blue-500` don't exist.
 
-### Quick Reference
+### Available Values
 
-```css
-/* Spacing */
---space-{0,1,2,3,4,5,6,8,10,12,16,20,24}
-
-/* Colors */
---color-primary, --color-primary-hover, --color-on-primary
---color-secondary, --color-secondary-hover, --color-on-secondary
---color-success, --color-success-soft, --color-on-success
---color-warning, --color-warning-soft, --color-on-warning
---color-error, --color-error-soft, --color-on-error
---color-background, --color-surface, --color-surface-raised, --color-surface-sunken
---color-text, --color-text-secondary, --color-text-muted, --color-text-disabled
---color-border, --color-border-strong, --color-border-focus
-
-/* Typography */
---text-{xs,sm,base,lg,xl,2xl,3xl,4xl}
---font-{normal,medium,semibold,bold}
-
-/* Radii */
---radius-{none,sm,md,lg,xl,2xl,full}
-
-/* Shadows */
---shadow-{xs,sm,md,lg,xl}
 ```
+Colors:   primary, secondary, success, warning, error, info
+          surface, surface-raised, surface-sunken, background
+          text, text-secondary, text-muted, text-disabled
+          border, border-strong
+
+Spacing:  0, px, 0.5, 1, 2, 3, 4, 6, 8, 12, 16, 20, 24
+          ❌ p-5, m-7, gap-9 do NOT exist
+
+Radii:    none, sm, md, lg, full
+          ❌ xl, 2xl, 3xl do NOT exist
+
+Shadows:  none, sm, md, lg, xl
+
+Z-Index:  below, base, raised, dropdown, sticky, overlay, modal, popover, toast, tooltip
+          ❌ z-10, z-50 do NOT exist
+```
+
+Run `just lint-tokens` to catch violations.
 
 ---
 
-## Base Components
+## Form Components
 
 ### Button
 
@@ -46,86 +42,17 @@ All components use CSS custom properties from `assets/css/tokens.css`.
 | variant | 'primary' \| 'secondary' \| 'ghost' \| 'danger' | 'primary' | Visual style |
 | size | 'sm' \| 'md' \| 'lg' | 'md' | Size |
 | disabled | boolean | false | Disabled state |
-| loading | boolean | false | Loading state |
+| loading | boolean | false | Loading state with spinner |
 | fullWidth | boolean | false | Full width |
 | type | 'button' \| 'submit' \| 'reset' | 'button' | Button type |
-
-**Usage:**
-
-```svelte
-<Button variant="primary" on:click={handleClick}>
-  Click me
-</Button>
-
-<Button variant="secondary" loading={isSaving}>
-  {isSaving ? 'Saving...' : 'Save'}
-</Button>
-
-<Button variant="danger" size="sm">
-  Delete
-</Button>
-
-<Button variant="ghost" fullWidth>
-  Full Width Ghost
-</Button>
-```
-
-**Variants:**
-
-| Variant | Use Case |
-|---------|----------|
-| primary | Main actions, CTAs |
-| secondary | Secondary actions |
-| ghost | Tertiary actions, less emphasis |
-| danger | Destructive actions |
-
----
-
-### Avatar
-
-**File:** `assets/svelte/components/ui/Avatar.svelte`
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| size | 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' | 'md' | Size |
-| src | string \| null | null | Image URL |
-| alt | string | '' | Alt text / name for initials |
-| fallback | string \| null | null | Explicit initials |
-| shape | 'circle' \| 'rounded' | 'circle' | Shape |
-| status | 'online' \| 'offline' \| 'away' \| 'busy' \| null | null | Status indicator |
-
-**Usage:**
+| ariaLabel | string \| null | null | For icon-only buttons |
 
 ```svelte
-<!-- With image -->
-<Avatar src="/avatars/john.jpg" alt="John Doe" size="lg" />
-
-<!-- With initials (auto-generated) -->
-<Avatar alt="John Doe" size="md" />
-
-<!-- With explicit initials -->
-<Avatar fallback="JD" size="md" />
-
-<!-- With status indicator -->
-<Avatar alt="John Doe" status="online" />
-
-<!-- Avatar group -->
-<div class="flex -space-x-2">
-  <Avatar alt="User 1" size="sm" />
-  <Avatar alt="User 2" size="sm" />
-  <Avatar alt="User 3" size="sm" />
-</div>
+<Button variant="primary" on:click={save}>Save</Button>
+<Button variant="secondary" size="sm">Cancel</Button>
+<Button variant="danger" loading={isDeleting}>Delete</Button>
+<Button variant="ghost" fullWidth>Expand</Button>
 ```
-
-**Sizes:**
-
-| Size | Pixels | Use Case |
-|------|--------|----------|
-| xs | 24px | Compact lists |
-| sm | 32px | Comments, threads |
-| md | 40px | Default, cards |
-| lg | 48px | Profiles |
-| xl | 64px | Profile pages |
 
 ---
 
@@ -135,32 +62,43 @@ All components use CSS custom properties from `assets/css/tokens.css`.
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| type | 'text' \| 'email' \| 'password' \| 'tel' \| 'url' | 'text' | Input type |
+| type | 'text' \| 'email' \| 'password' \| 'tel' \| 'url' \| 'search' \| 'number' | 'text' | Input type |
 | value | string | '' | Bound value |
+| size | 'sm' \| 'md' \| 'lg' | 'md' | Size |
 | placeholder | string | '' | Placeholder |
-| label | string \| null | null | Label text |
-| error | string \| null | null | Error message |
-| hint | string \| null | null | Hint text |
+| invalid | boolean | false | Error state styling |
 | disabled | boolean | false | Disabled state |
-| required | boolean | false | Required indicator |
-
-**Usage:**
+| required | boolean | false | Required attribute |
 
 ```svelte
-<Input
-  label="Email"
-  type="email"
-  bind:value={email}
-  placeholder="you@example.com"
-  error={errors.email}
-  required
-/>
+<Input type="email" bind:value={email} placeholder="you@example.com" />
+<Input size="sm" invalid={!!error} />
+<Input type="password" disabled={isLoading} />
+```
 
-<Input
-  label="Password"
-  type="password"
-  bind:value={password}
-  hint="Must be at least 8 characters"
+---
+
+### Select
+
+**File:** `assets/svelte/components/ui/Select.svelte`
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| value | string | '' | Selected value |
+| options | Array<{value, label, disabled?}> | [] | Options list |
+| size | 'sm' \| 'md' \| 'lg' | 'md' | Size |
+| placeholder | string | 'Select...' | Placeholder |
+| invalid | boolean | false | Error state |
+| disabled | boolean | false | Disabled |
+
+```svelte
+<Select
+  bind:value={country}
+  options={[
+    { value: 'us', label: 'United States' },
+    { value: 'ca', label: 'Canada' },
+  ]}
+  placeholder="Select country"
 />
 ```
 
@@ -173,24 +111,189 @@ All components use CSS custom properties from `assets/css/tokens.css`.
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | value | string | '' | Bound value |
-| placeholder | string | '' | Placeholder |
-| label | string \| null | null | Label text |
-| error | string \| null | null | Error message |
+| size | 'sm' \| 'md' \| 'lg' | 'md' | Padding/text size |
 | rows | number | 3 | Number of rows |
-| maxLength | number \| null | null | Character limit |
-| disabled | boolean | false | Disabled state |
-
-**Usage:**
+| placeholder | string | '' | Placeholder |
+| resizable | boolean | true | Allow resize |
+| invalid | boolean | false | Error state |
 
 ```svelte
-<Textarea
-  label="Message"
-  bind:value={message}
-  placeholder="Type your message..."
-  rows={5}
-  maxLength={500}
+<Textarea bind:value={message} rows={5} placeholder="Your message..." />
+```
+
+---
+
+### Checkbox
+
+**File:** `assets/svelte/components/ui/Checkbox.svelte`
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| checked | boolean | false | Checked state |
+| label | string \| null | null | Label text |
+| description | string \| null | null | Description below label |
+| size | 'sm' \| 'md' \| 'lg' | 'md' | Size |
+| disabled | boolean | false | Disabled |
+
+```svelte
+<Checkbox bind:checked={agree} label="I agree to terms" />
+<Checkbox
+  bind:checked={newsletter}
+  label="Subscribe to newsletter"
+  description="Get weekly updates"
 />
 ```
+
+---
+
+### FormField
+
+**File:** `assets/svelte/components/ui/FormField.svelte`
+
+Wrapper for form inputs with label, error, and helper text.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| label | string | '' | Label text |
+| error | string \| null | null | Error message |
+| helper | string \| null | null | Helper text |
+| required | boolean | false | Show required indicator |
+| disabled | boolean | false | Dim label |
+
+```svelte
+<FormField label="Email" error={errors.email} required>
+  <Input type="email" bind:value={email} invalid={!!errors.email} />
+</FormField>
+
+<FormField label="Bio" helper="Max 500 characters">
+  <Textarea bind:value={bio} />
+</FormField>
+```
+
+---
+
+## Layout Components
+
+### Page
+
+**File:** `assets/svelte/components/ui/Page.svelte`
+
+Page wrapper with max-width and padding.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| size | 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full' | 'lg' | Max width |
+| padded | boolean | true | Vertical padding |
+| centered | boolean | true | Center content |
+
+```svelte
+<Page size="lg">
+  <PageHeader title="Dashboard" />
+  <!-- content -->
+</Page>
+```
+
+---
+
+### PageHeader
+
+**File:** `assets/svelte/components/ui/PageHeader.svelte`
+
+Consistent page header with title, description, and action slots.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| title | string | required | Page title |
+| description | string \| null | null | Description |
+| bordered | boolean | false | Border below |
+
+**Slots:** `actions`, `tabs`
+
+```svelte
+<PageHeader title="Settings" description="Manage your account">
+  <svelte:fragment slot="actions">
+    <Button variant="primary">Save Changes</Button>
+  </svelte:fragment>
+</PageHeader>
+```
+
+---
+
+### Card
+
+**File:** `assets/svelte/components/ui/Card.svelte`
+
+Container with optional header and footer.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| variant | 'default' \| 'raised' \| 'outline' \| 'ghost' | 'default' | Style |
+| padding | 'none' \| 'sm' \| 'md' \| 'lg' | 'md' | Padding |
+| title | string \| null | null | Card title |
+| description | string \| null | null | Card description |
+
+**Slots:** `header`, `footer`, `actions`
+
+```svelte
+<Card title="User Profile" description="Edit your information">
+  <form>...</form>
+  <svelte:fragment slot="footer">
+    <Button>Save</Button>
+  </svelte:fragment>
+</Card>
+
+<Card variant="raised" padding="lg">
+  <p>Elevated content</p>
+</Card>
+```
+
+---
+
+### Section
+
+**File:** `assets/svelte/components/ui/Section.svelte`
+
+Vertical rhythm for page sections.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| title | string \| null | null | Section title |
+| description | string \| null | null | Description |
+| spacing | 'sm' \| 'md' \| 'lg' | 'md' | Vertical spacing |
+
+**Slots:** `header`, `actions`
+
+```svelte
+<Section title="Recent Activity" spacing="lg">
+  <Card>...</Card>
+  <Card>...</Card>
+</Section>
+```
+
+---
+
+## Display Components
+
+### Avatar
+
+**File:** `assets/svelte/components/ui/Avatar.svelte`
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| size | 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' | 'md' | Size |
+| src | string \| null | null | Image URL |
+| alt | string | '' | Alt text / name for initials |
+| fallback | string \| null | null | Explicit initials |
+| shape | 'circle' \| 'rounded' | 'circle' | Shape |
+| status | 'online' \| 'offline' \| 'away' \| 'busy' \| null | null | Status dot |
+
+```svelte
+<Avatar src="/avatar.jpg" alt="John Doe" size="lg" />
+<Avatar alt="Jane Smith" status="online" />
+<Avatar fallback="AB" shape="rounded" />
+```
+
+**Sizes:** xs=24px, sm=32px, md=40px, lg=48px, xl=64px
 
 ---
 
@@ -200,191 +303,97 @@ All components use CSS custom properties from `assets/css/tokens.css`.
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| variant | 'default' \| 'success' \| 'warning' \| 'error' \| 'info' | 'default' | Color variant |
-| size | 'sm' \| 'md' | 'md' | Size |
-
-**Usage:**
+| variant | 'default' \| 'primary' \| 'success' \| 'warning' \| 'error' \| 'info' | 'default' | Color |
+| size | 'sm' \| 'md' \| 'lg' | 'md' | Size |
+| dot | boolean | false | Dot indicator only |
 
 ```svelte
 <Badge>Default</Badge>
 <Badge variant="success">Active</Badge>
-<Badge variant="warning">Pending</Badge>
-<Badge variant="error">Failed</Badge>
-<Badge variant="info" size="sm">New</Badge>
+<Badge variant="error" size="sm">Failed</Badge>
+<Badge variant="primary" dot />
 ```
 
 ---
 
-### Card
+## Usage Patterns
 
-**File:** `assets/svelte/components/ui/Card.svelte`
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| padding | 'none' \| 'sm' \| 'md' \| 'lg' | 'md' | Internal padding |
-| shadow | 'none' \| 'sm' \| 'md' \| 'lg' | 'sm' | Shadow depth |
-| hover | boolean | false | Hover effect |
-
-**Usage:**
-
-```svelte
-<Card>
-  <h3>Card Title</h3>
-  <p>Card content goes here.</p>
-</Card>
-
-<Card padding="lg" shadow="md" hover>
-  <slot name="header">
-    <h3>Header</h3>
-  </slot>
-  <p>Hoverable card with larger padding.</p>
-</Card>
-```
-
----
-
-### Modal
-
-**File:** `assets/svelte/components/ui/Modal.svelte`
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| open | boolean | false | Open state |
-| title | string | '' | Modal title |
-| size | 'sm' \| 'md' \| 'lg' \| 'full' | 'md' | Width |
-| closable | boolean | true | Show close button |
-
-**Events:**
-- `on:close` - Fired when modal should close
-
-**Usage:**
+### Complete Form
 
 ```svelte
 <script>
-  let showModal = $state(false);
+  import { FormField, Input, Select, Button } from '$lib/components/ui';
+
+  let name = '';
+  let role = '';
+  let errors = {};
 </script>
 
-<Button on:click={() => showModal = true}>Open Modal</Button>
+<form on:submit|preventDefault={handleSubmit}>
+  <FormField label="Name" error={errors.name} required>
+    <Input bind:value={name} invalid={!!errors.name} />
+  </FormField>
 
-<Modal bind:open={showModal} title="Confirm Action" size="sm">
-  <p>Are you sure you want to proceed?</p>
+  <FormField label="Role">
+    <Select
+      bind:value={role}
+      options={[
+        { value: 'admin', label: 'Admin' },
+        { value: 'user', label: 'User' }
+      ]}
+    />
+  </FormField>
 
-  <svelte:fragment slot="footer">
-    <Button variant="ghost" on:click={() => showModal = false}>
-      Cancel
-    </Button>
-    <Button variant="primary" on:click={handleConfirm}>
-      Confirm
-    </Button>
-  </svelte:fragment>
-</Modal>
+  <Button type="submit" variant="primary">Save</Button>
+</form>
 ```
 
----
-
-### Spinner
-
-**File:** `assets/svelte/components/ui/Spinner.svelte`
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| size | 'sm' \| 'md' \| 'lg' | 'md' | Size |
-| color | 'primary' \| 'current' | 'primary' | Color |
-
-**Usage:**
+### Complete Page
 
 ```svelte
-<Spinner />
-<Spinner size="lg" />
-<Spinner size="sm" color="current" />
-```
+<script>
+  import { Page, PageHeader, Section, Card, Button } from '$lib/components/ui';
+</script>
 
----
+<Page size="lg">
+  <PageHeader
+    title="Dashboard"
+    description="Overview of your account"
+    bordered
+  >
+    <svelte:fragment slot="actions">
+      <Button variant="primary">New Project</Button>
+    </svelte:fragment>
+  </PageHeader>
 
-### Toast
+  <Section title="Projects" spacing="md">
+    <svelte:fragment slot="actions">
+      <Button variant="ghost" size="sm">View All</Button>
+    </svelte:fragment>
 
-**File:** `assets/svelte/components/ui/Toast.svelte`
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| variant | 'info' \| 'success' \| 'warning' \| 'error' | 'info' | Type |
-| message | string | '' | Message text |
-| dismissible | boolean | true | Can dismiss |
-| duration | number | 5000 | Auto-dismiss (ms) |
-
-**Usage:**
-
-```svelte
-<Toast variant="success" message="Changes saved!" />
-<Toast variant="error" message="Something went wrong" dismissible />
-```
-
----
-
-## Layout Components
-
-### Stack
-
-**File:** `assets/svelte/components/layout/Stack.svelte`
-
-Vertical or horizontal flex layout with consistent spacing.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| direction | 'vertical' \| 'horizontal' | 'vertical' | Direction |
-| gap | 'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' | 'md' | Gap size |
-| align | 'start' \| 'center' \| 'end' \| 'stretch' | 'stretch' | Alignment |
-
-**Usage:**
-
-```svelte
-<Stack gap="lg">
-  <div>Item 1</div>
-  <div>Item 2</div>
-  <div>Item 3</div>
-</Stack>
-
-<Stack direction="horizontal" gap="sm" align="center">
-  <Avatar size="sm" />
-  <span>Username</span>
-</Stack>
-```
-
----
-
-### Container
-
-**File:** `assets/svelte/components/layout/Container.svelte`
-
-Centered container with max-width.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| size | 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full' | 'lg' | Max width |
-| padding | boolean | true | Horizontal padding |
-
-**Usage:**
-
-```svelte
-<Container size="md">
-  <h1>Page Content</h1>
-  <p>Centered with max-width.</p>
-</Container>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <Card title="Project A">
+        <p class="text-text-muted">Description here</p>
+      </Card>
+      <Card title="Project B">
+        <p class="text-text-muted">Description here</p>
+      </Card>
+    </div>
+  </Section>
+</Page>
 ```
 
 ---
 
 ## Creating New Components
 
-### Checklist
+### Rules
 
-- [ ] Use design tokens (no hardcoded values)
-- [ ] Add JSDoc comments for all props
-- [ ] Provide default values
-- [ ] Use semantic HTML
-- [ ] Support keyboard navigation
-- [ ] Add to index.js exports
-- [ ] Document in this file
+1. **NO class prop** - Use variant/size props instead
+2. **NO $$restProps** - Explicit props only
+3. **Use design tokens** - No raw Tailwind colors
+4. **Use valid spacing** - 0,1,2,3,4,6,8,12,16,20,24 only
+5. **Add JSDoc** - Type all props
 
 ### Template
 
@@ -392,42 +401,51 @@ Centered container with max-width.
 <!--
   ComponentName
   Description of the component.
+  NO class prop - use variant/size props.
 -->
 <script>
   /**
-   * Description of prop
-   * @type {'option1' | 'option2'}
+   * Visual variant
+   * @type {'default' | 'primary'}
    */
-  export let propName = 'option1';
+  export let variant = 'default';
+
+  /**
+   * Size
+   * @type {'sm' | 'md' | 'lg'}
+   */
+  export let size = 'md';
 
   /** @type {boolean} */
   export let disabled = false;
 
-  // Computed classes
-  const variantClasses = {
-    option1: 'bg-primary text-on-primary',
-    option2: 'bg-secondary text-on-secondary',
+  // Variant styles - only design tokens
+  const variants = {
+    default: 'bg-surface text-text border border-border',
+    primary: 'bg-primary text-on-primary',
+  };
+
+  // Size styles - only valid spacing
+  const sizes = {
+    sm: 'p-2 text-sm',
+    md: 'p-4 text-base',
+    lg: 'p-6 text-lg',
   };
 </script>
 
 <div
-  class="
-    base-classes
-    {variantClasses[propName]}
-    {disabled ? 'opacity-50 cursor-not-allowed' : ''}
-  "
-  {...$$restProps}
+  class="{variants[variant]} {sizes[size]} rounded-md"
+  class:opacity-50={disabled}
+  class:cursor-not-allowed={disabled}
 >
   <slot />
 </div>
 ```
 
-### Export from Index
+### Export
+
+Add to `assets/svelte/components/ui/index.js`:
 
 ```javascript
-// assets/svelte/components/ui/index.js
-export { default as Button } from './Button.svelte';
-export { default as Avatar } from './Avatar.svelte';
-export { default as Input } from './Input.svelte';
 export { default as NewComponent } from './NewComponent.svelte';
 ```

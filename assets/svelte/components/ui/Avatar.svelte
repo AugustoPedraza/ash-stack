@@ -1,6 +1,7 @@
 <!--
   Avatar Component
   User representation with image, initials, and optional status.
+  NO class prop or restProps - use size/shape props only.
 -->
 <script>
   /**
@@ -47,7 +48,7 @@
     .slice(0, 2)
     .toUpperCase();
 
-  // Size classes
+  // Size classes - using only valid spacing values
   const sizes = {
     xs: 'w-6 h-6 text-xs',
     sm: 'w-8 h-8 text-sm',
@@ -64,12 +65,12 @@
     busy: 'bg-error',
   };
 
-  // Status indicator sizes
+  // Status indicator sizes - using only valid sizes (w-2, w-3, w-4)
   const statusSizes = {
     xs: 'w-2 h-2',
-    sm: 'w-2.5 h-2.5',
+    sm: 'w-2 h-2',
     md: 'w-3 h-3',
-    lg: 'w-3.5 h-3.5',
+    lg: 'w-3 h-3',
     xl: 'w-4 h-4',
   };
 
@@ -81,7 +82,7 @@
   }
 </script>
 
-<div class="relative inline-flex" {...$$restProps}>
+<div class="relative inline-flex">
   <div
     class="
       {sizes[size]}

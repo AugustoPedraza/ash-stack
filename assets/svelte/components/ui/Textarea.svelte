@@ -1,18 +1,12 @@
 <!--
-  Input Component
-  Controlled text input with consistent styling.
-  NO class prop - use size/variant props for customization.
+  Textarea Component
+  Controlled textarea with consistent styling.
+  NO class prop - use size prop for customization.
 -->
 <script>
   import { createEventDispatcher } from 'svelte';
 
   const dispatch = createEventDispatcher();
-
-  /**
-   * Input type
-   * @type {'text' | 'email' | 'password' | 'tel' | 'url' | 'search' | 'number'}
-   */
-  export let type = 'text';
 
   /** @type {string} */
   export let value = '';
@@ -20,8 +14,11 @@
   /** @type {string} */
   export let placeholder = '';
 
-  /** @type {'sm' | 'md' | 'lg'} */
+  /** @type {'sm' | 'md' | 'lg'} - Affects padding/text size, not height */
   export let size = 'md';
+
+  /** @type {number} */
+  export let rows = 3;
 
   /** @type {boolean} */
   export let disabled = false;
@@ -32,23 +29,25 @@
   /** @type {boolean} - Shows error styling */
   export let invalid = false;
 
+  /** @type {boolean} - Allow manual resize */
+  export let resizable = true;
+
   /** @type {string | null} */
   export let name = null;
 
   /** @type {string} */
-  export let id = `input-${Math.random().toString(36).slice(2, 9)}`;
+  export let id = `textarea-${Math.random().toString(36).slice(2, 9)}`;
 
   /** @type {string | null} - For aria-describedby */
   export let describedBy = null;
 
-  // Size variants - NO arbitrary classes allowed
+  // Size variants (padding/text only, not height)
   const sizes = {
-    sm: 'h-8 px-2 text-sm',
-    md: 'h-10 px-3 text-base',
-    lg: 'h-12 px-4 text-lg'
+    sm: 'p-2 text-sm',
+    md: 'p-3 text-base',
+    lg: 'p-4 text-lg'
   };
 
-  // Base classes using only design tokens
   const baseClasses = `
     w-full
     bg-surface
@@ -61,10 +60,11 @@
     disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-surface-sunken
   `.trim().replace(/\s+/g, ' ');
 
-  $: inputClasses = [
+  $: textareaClasses = [
     baseClasses,
     sizes[size],
-    invalid ? 'border-error focus:ring-error' : 'hover:border-border-strong'
+    invalid ? 'border-error focus:ring-error' : 'hover:border-border-strong',
+    resizable ? 'resize-y' : 'resize-none'
   ].join(' ');
 
   function handleInput(e) {
@@ -73,21 +73,18 @@
   }
 </script>
 
-<input
-  {type}
+<textarea
   {id}
   {name}
-  {value}
+  {rows}
   {placeholder}
   {disabled}
   {required}
-  class={inputClasses}
+  class={textareaClasses}
   aria-invalid={invalid}
   aria-describedby={describedBy}
   on:input={handleInput}
   on:focus
   on:blur
   on:keydown
-  on:keyup
-  on:change
-/>
+>{value}</textarea>

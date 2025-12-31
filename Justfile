@@ -209,8 +209,45 @@ docker-build:
 # AI / VIBE CODING
 # =============================================================================
 
+# Lint for design token violations (colors, spacing, etc.)
+lint-tokens:
+    #!/usr/bin/env bash
+    echo "🎨 Checking design token usage..."
+    ERRORS=0
+
+    # Check for raw Tailwind colors
+    if grep -rn --include="*.svelte" --include="*.ex" --include="*.heex" \
+        -E "(bg|text|border|ring|fill|stroke)-(red|blue|green|yellow|gray|slate|zinc|neutral|stone|orange|amber|lime|emerald|teal|cyan|sky|indigo|violet|purple|fuchsia|pink|rose)-[0-9]" \
+        lib/ assets/ 2>/dev/null; then
+        echo "❌ Found raw Tailwind colors. Use design tokens instead:"
+        echo "   bg-primary, bg-surface, text-muted, border-border, etc."
+        ERRORS=1
+    fi
+
+    # Check for arbitrary values (escape hatches)
+    if grep -rn --include="*.svelte" --include="*.ex" --include="*.heex" \
+        -E "class=\"[^\"]*\[(#|[0-9]+px|[0-9]+rem)" \
+        lib/ assets/ 2>/dev/null; then
+        echo "❌ Found arbitrary values in classes. Use design tokens instead."
+        ERRORS=1
+    fi
+
+    # Check for common wrong spacing (p-5, p-7, m-5, etc.)
+    if grep -rn --include="*.svelte" --include="*.ex" --include="*.heex" \
+        -E "(^|[^0-9a-z-])(p|m|px|py|mx|my|gap|space)-(5|7|9|10|11|14|18|22)" \
+        lib/ assets/ 2>/dev/null; then
+        echo "⚠️  Found non-standard spacing. Available: 0,1,2,3,4,6,8,12,16,20,24"
+        ERRORS=1
+    fi
+
+    if [ $ERRORS -eq 0 ]; then
+        echo "✅ All design tokens valid"
+    else
+        exit 1
+    fi
+
 # Verify code after AI changes (quick check)
-verify:
+verify: lint-tokens
     #!/usr/bin/env bash
     echo "🔍 Verifying code..."
     mix compile --warnings-as-errors 2>&1 | head -30
