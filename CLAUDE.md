@@ -184,6 +184,12 @@ class="bg-gray-100"                # Use bg-surface-sunken
 **Animation Components:**
 - `AnimatedList` - items, animation: fade|slide|scale|fly, direction, stagger
 
+**Data Components:**
+- `DataTable` - columns, data, selectable, sortable, mobileCards (slots: cell, empty)
+- `InfiniteScroll` - loading, hasMore, pullToRefresh, threshold (events: loadMore, refresh)
+- `Pagination` - page, totalPages, mode: full|simple|minimal, showPageSize
+- `EmptyState` - preset: default|search|error|success|offline, title, description
+
 **Mobile Components:**
 - `Sheet` - open, title, gestureEnabled, snapPoints (slots: footer)
 

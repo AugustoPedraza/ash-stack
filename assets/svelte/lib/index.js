@@ -58,3 +58,11 @@ export {
   pan,
   pinch
 } from './gestures.js';
+
+// Optimistic Updates
+export {
+  createOptimisticStore,
+  createOptimisticList,
+  optimistic,
+  debounceOptimistic
+} from './optimistic.js';

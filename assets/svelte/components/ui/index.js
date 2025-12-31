@@ -45,6 +45,12 @@ export { default as Dropdown } from './Dropdown.svelte';
 // Animation Components
 export { default as AnimatedList } from './AnimatedList.svelte';
 
+// Data Components
+export { default as DataTable } from './DataTable.svelte';
+export { default as InfiniteScroll } from './InfiniteScroll.svelte';
+export { default as Pagination } from './Pagination.svelte';
+export { default as EmptyState } from './EmptyState.svelte';
+
 // Mobile Components
 export { default as Sheet } from './Sheet.svelte';
 
@@ -92,3 +98,11 @@ export {
   validateField,
   createFormStore
 } from '../../lib/validation.js';
+
+// Re-export optimistic update utilities
+export {
+  createOptimisticStore,
+  createOptimisticList,
+  optimistic,
+  debounceOptimistic
+} from '../../lib/optimistic.js';

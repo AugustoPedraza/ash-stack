@@ -350,6 +350,150 @@ unlockScroll(); // Restore scroll
 
 ---
 
+## Data Components
+
+### DataTable
+
+```svelte
+<script>
+  import { DataTable } from '$lib/components/ui';
+
+  const columns = [
+    { key: 'name', label: 'Name', sortable: true, primary: true },
+    { key: 'email', label: 'Email', sortable: true },
+    { key: 'status', label: 'Status' }
+  ];
+
+  let data = [...];
+  let selected = [];
+</script>
+
+<DataTable
+  {columns}
+  {data}
+  selectable
+  bind:selected
+  on:sort={handleSort}
+  on:rowClick={handleRowClick}
+  mobileCards
+>
+  <svelte:fragment slot="cell" let:row let:column let:value>
+    {#if column.key === 'status'}
+      <Badge variant={value === 'active' ? 'success' : 'secondary'}>{value}</Badge>
+    {:else}
+      {value}
+    {/if}
+  </svelte:fragment>
+</DataTable>
+```
+
+### InfiniteScroll
+
+```svelte
+<script>
+  import { InfiniteScroll } from '$lib/components/ui';
+
+  let items = [];
+  let loading = false;
+  let hasMore = true;
+
+  async function loadMore() {
+    loading = true;
+    const newItems = await fetchItems(items.length);
+    items = [...items, ...newItems];
+    hasMore = newItems.length > 0;
+    loading = false;
+  }
+
+  async function refresh({ detail }) {
+    items = await fetchItems(0);
+    detail.done();
+  }
+</script>
+
+<InfiniteScroll
+  {loading}
+  {hasMore}
+  pullToRefresh
+  on:loadMore={loadMore}
+  on:refresh={refresh}
+>
+  {#each items as item}
+    <ItemCard {item} />
+  {/each}
+</InfiniteScroll>
+```
+
+### Pagination
+
+```svelte
+<script>
+  import { Pagination } from '$lib/components/ui';
+
+  let page = 1;
+  let pageSize = 10;
+  const totalItems = 150;
+  $: totalPages = Math.ceil(totalItems / pageSize);
+</script>
+
+<Pagination
+  bind:page
+  {totalPages}
+  {totalItems}
+  {pageSize}
+  showPageSize
+  on:change={fetchPage}
+/>
+```
+
+### EmptyState
+
+```svelte
+<script>
+  import { EmptyState, Button } from '$lib/components/ui';
+</script>
+
+<EmptyState preset="search" title="No results" description="Try different keywords">
+  <svelte:fragment slot="actions">
+    <Button variant="primary" on:click={clearFilters}>Clear Filters</Button>
+  </svelte:fragment>
+</EmptyState>
+```
+
+### Optimistic Updates
+
+```javascript
+import { createOptimisticList, toast } from '$lib/components/ui';
+
+// Create an optimistic list store
+const todos = createOptimisticList([], { getId: (t) => t.id });
+
+// Add item with optimistic update
+async function addTodo(text) {
+  const tempTodo = { id: `temp_${Date.now()}`, text, completed: false };
+
+  try {
+    await todos.add(tempTodo, async () => {
+      return await api.createTodo({ text });
+    });
+    toast.success('Todo added');
+  } catch (error) {
+    toast.error('Failed to add todo');
+  }
+}
+
+// Delete with optimistic update
+async function deleteTodo(id) {
+  try {
+    await todos.remove(id, () => api.deleteTodo(id));
+  } catch (error) {
+    toast.error('Failed to delete');
+  }
+}
+```
+
+---
+
 ## shadcn-svelte Components
 
 For complex components not in our library, use shadcn-svelte:
