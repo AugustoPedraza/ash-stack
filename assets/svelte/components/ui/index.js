@@ -55,6 +55,10 @@ export { default as EmptyState } from './EmptyState.svelte';
 export { default as RealtimeList } from './RealtimeList.svelte';
 export { default as TypingIndicator } from './TypingIndicator.svelte';
 
+// DX Components
+export { default as ErrorBoundary } from './ErrorBoundary.svelte';
+export { default as ConnectionStatus } from './ConnectionStatus.svelte';
+
 // Mobile Components
 export { default as Sheet } from './Sheet.svelte';
 

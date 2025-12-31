@@ -99,3 +99,54 @@ export {
   // Merge strategies
   mergeStrategies
 } from './realtime.js';
+
+// Debug Utilities (dev only)
+export {
+  // Configuration
+  debugConfig,
+  enableDebug,
+  disableDebug,
+  isDebugEnabled,
+  // Event logging
+  logEvent,
+  getEventLog,
+  clearEventLog,
+  eventLogStore,
+  // Timing
+  startTiming,
+  endTiming,
+  timeAsync,
+  // Store inspection
+  registerDebugStore,
+  inspectStore,
+  listStores,
+  dumpStores,
+  // Connection state
+  connectionState,
+  updateConnectionState,
+  // Export
+  getDebugSummary,
+  exportDebugData
+} from './debug.js';
+
+// Testing Utilities
+export {
+  // LiveSocket mocking
+  mockLiveSocket,
+  mockPushEvent,
+  // Store testing
+  createTestStore,
+  waitForStore,
+  collectStoreValues,
+  // Component mocks
+  mockPresenceStore,
+  mockRealtimeStore,
+  // Async helpers
+  tick,
+  wait,
+  flushPromises,
+  createDeferred,
+  // Event testing
+  createEventSpy,
+  waitForEvent
+} from './testing.js';

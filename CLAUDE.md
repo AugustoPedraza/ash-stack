@@ -224,6 +224,10 @@ class="bg-gray-100"                # Use bg-surface-sunken
 - `RealtimeList` - store, items, getId, sort, duration, showOptimistic (slots: default, empty)
 - `TypingIndicator` - users, maxNames, format
 
+**DX Components:**
+- `ErrorBoundary` - fallback, reportToServer, showDetails, message, retryable
+- `ConnectionStatus` - position, showOnlyWhenDisconnected, autoHideDelay, messages
+
 **Mobile Components:**
 - `Sheet` - open, title, gestureEnabled, snapPoints (slots: footer)
 
@@ -433,6 +437,37 @@ let liveSocket = new LiveSocket("/live", Socket, {
 
 <TypingIndicator users={$presence.typingUsers} />
 ```
+
+### Debug & DX Tools
+
+```javascript
+// Enable debug mode in development
+import { enableDebug, logEvent, timeAsync } from '$lib';
+
+enableDebug({ events: true, stores: true, verbose: true });
+
+// Log custom events
+logEvent('send', 'save_user', { id: 1 });
+
+// Time async operations
+await timeAsync('api_call', () => fetchData());
+
+// From browser console:
+window.__ASH_STACK__.dumpStores();
+window.__ASH_STACK__.getEventLog();
+```
+
+```svelte
+<!-- Error boundaries -->
+<ErrorBoundary reportToServer>
+  <RiskyComponent />
+</ErrorBoundary>
+
+<!-- Connection status indicator -->
+<ConnectionStatus position="bottom-right" showOnlyWhenDisconnected />
+```
+
+See `docs/DX.md` for full DX guide.
 
 ---
 
