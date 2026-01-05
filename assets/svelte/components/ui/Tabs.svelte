@@ -156,7 +156,7 @@
       <div
         class="tabs-indicator {styles.indicator}"
         style="left: {$indicatorX}px; width: {$indicatorWidth}px"
-      />
+      ></div>
     {/if}
 
     {#each tabs as tab, index (tab.id)}
@@ -187,7 +187,7 @@
       <div
         class="tabs-indicator-underline"
         style="left: {$indicatorX}px; width: {$indicatorWidth}px"
-      />
+      ></div>
     {/if}
   </div>
 
@@ -202,7 +202,7 @@
         tabindex="0"
       >
         {#if value === tab.id}
-          <slot name={tab.id} />
+          <slot tabId={tab.id} />
         {/if}
       </div>
     {/each}

@@ -182,7 +182,7 @@
   }
 
   $: colorVar = `var(--color-${variant})`;
-  $: colorSoftVar = `var(--color-${variant}-soft)`;
+  $: _colorSoftVar = `var(--color-${variant}-soft)`;
 </script>
 
 <div

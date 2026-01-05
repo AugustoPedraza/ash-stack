@@ -116,6 +116,6 @@
         ring-2 ring-surface
       "
       aria-label={status}
-    />
+    ></span>
   {/if}
 </div>

@@ -148,7 +148,7 @@
     >
       <div class="pull-content" style="opacity: {pullProgress}">
         {#if isRefreshing}
-          <div class="spinner" />
+          <div class="spinner"></div>
           <span>{refreshingText}</span>
         {:else if shouldRelease}
           <svg class="pull-arrow release" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -170,12 +170,12 @@
     <slot />
 
     <!-- Sentinel for IntersectionObserver -->
-    <div bind:this={sentinelEl} class="sentinel" aria-hidden="true" />
+    <div bind:this={sentinelEl} class="sentinel" aria-hidden="true"></div>
 
     <!-- Loading indicator -->
     {#if loading}
       <div class="loading-indicator" in:fade={{ duration: 150 }}>
-        <div class="spinner" />
+        <div class="spinner"></div>
         <span>{loadingText}</span>
       </div>
     {/if}

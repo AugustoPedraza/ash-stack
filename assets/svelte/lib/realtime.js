@@ -17,7 +17,6 @@
  */
 
 import { writable, derived, get } from 'svelte/store';
-import { getLiveSocket } from './liveview.js';
 
 // =============================================================================
 // Real-time Store
@@ -53,7 +52,7 @@ const realtimeStores = new Map();
 export function createRealtimeStore(name, initialValue = [], options = {}) {
   const getId = options.getId || ((item) => item.id);
   const sortFn = options.sort;
-  const mergeFn = options.merge || ((_, incoming) => incoming);
+  // Note: options.merge is available for custom merge strategies
 
   const store = writable(initialValue);
   const pendingOptimistic = new Map(); // temp_id -> original item
@@ -537,7 +536,7 @@ export const mergeStrategies = {
   /**
    * Client wins - keep existing data
    */
-  clientWins: (existing, incoming) => existing,
+  clientWins: (existing, _incoming) => existing,
 
   /**
    * Last write wins - use most recent by timestamp

@@ -6,7 +6,7 @@
 <script>
   import { createEventDispatcher } from 'svelte';
 
-  const dispatch = createEventDispatcher();
+  const _dispatch = createEventDispatcher();
 
   /** @type {'primary' | 'secondary' | 'ghost' | 'danger'} */
   export let variant = 'primary';

@@ -1,7 +1,6 @@
-/** @type { import('@storybook/sveltekit').StorybookConfig } */
+/** @type { import('@storybook/svelte-vite').StorybookConfig } */
 const config = {
   stories: [
-    '../svelte/**/*.mdx',
     '../svelte/**/*.stories.@(js|ts|svelte)'
   ],
   addons: [
@@ -10,13 +9,12 @@ const config = {
     '@storybook/addon-a11y'
   ],
   framework: {
-    name: '@storybook/sveltekit',
+    name: '@storybook/svelte-vite',
     options: {}
   },
   docs: {
     autodocs: 'tag'
-  },
-  staticDirs: ['../static']
+  }
 };
 
 export default config;

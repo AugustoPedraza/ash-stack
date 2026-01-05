@@ -51,7 +51,7 @@
   <span
     class="inline-block rounded-full {dotSizes[size]} {variants[variant]}"
     role="status"
-  />
+  ></span>
 {:else}
   <span
     class="inline-flex items-center font-medium rounded-full {variants[variant]} {sizes[size]}"

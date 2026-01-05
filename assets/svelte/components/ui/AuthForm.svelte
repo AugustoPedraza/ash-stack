@@ -273,7 +273,7 @@
               <div
                 class="strength-fill strength-{passwordStrength.color}"
                 style="width: {(passwordStrength.score / 5) * 100}%"
-              />
+              ></div>
             </div>
             <span class="strength-label">{passwordStrength.label}</span>
           </div>

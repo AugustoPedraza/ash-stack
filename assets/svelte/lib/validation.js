@@ -155,7 +155,7 @@ export function url(message = 'Please enter a valid URL') {
  * @returns {function} Validation rule
  */
 export function phone(message = 'Please enter a valid phone number') {
-  const phoneRegex = /^[\d\s\-\+\(\)]+$/;
+  const phoneRegex = /^[\d\s\-+()]+$/;
   return (value) => {
     if (!value) return null;
     const digits = value.replace(/\D/g, '');

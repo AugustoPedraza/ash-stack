@@ -183,7 +183,7 @@
       <div class="panel-content">
         {#if loading}
           <div class="loading-state">
-            <span class="spinner" />
+            <span class="spinner"></span>
             <span>Loading...</span>
           </div>
         {:else if notifications.length === 0}
@@ -228,7 +228,7 @@
 
                   <!-- Unread indicator -->
                   {#if !notification.read}
-                    <span class="unread-dot" />
+                    <span class="unread-dot"></span>
                   {/if}
                 </button>
               </li>

@@ -4,7 +4,7 @@
   Useful for real-time apps where connection awareness matters.
 -->
 <script>
-  import { onMount, onDestroy } from 'svelte';
+  import { onMount } from 'svelte';
   import { fade, fly } from 'svelte/transition';
   import { getLiveSocket } from '../../lib/liveview.js';
   import { connectionState, updateConnectionState } from '../../lib/debug.js';

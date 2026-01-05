@@ -3,8 +3,8 @@
   Calendar-based date picker with range selection support.
 -->
 <script>
-  import { createEventDispatcher, tick } from 'svelte';
-  import { fade, fly } from 'svelte/transition';
+  import { createEventDispatcher } from 'svelte';
+  import { fly } from 'svelte/transition';
 
   const dispatch = createEventDispatcher();
 
@@ -268,7 +268,7 @@
   }
 
   function handleKeydown(e) {
-    if (e.key === 'Escape') {
+    if (e.key === 'Escape' && open) {
       open = false;
     }
   }
@@ -280,33 +280,35 @@
   }
 </script>
 
-<svelte:window on:click={handleClickOutside} />
+<svelte:window on:click={handleClickOutside} on:keydown={handleKeydown} />
 
-<div class="date-picker size-{size}" class:open class:invalid on:keydown={handleKeydown}>
-  <button
-    type="button"
-    class="date-input"
-    bind:this={inputEl}
-    on:click={toggle}
-    aria-haspopup="dialog"
-    aria-expanded={open}
-  >
-    <svg class="calendar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-      <line x1="16" y1="2" x2="16" y2="6" />
-      <line x1="8" y1="2" x2="8" y2="6" />
-      <line x1="3" y1="10" x2="21" y2="10" />
-    </svg>
+<div class="date-picker size-{size}" class:open class:invalid role="group">
+  <div class="date-input-wrapper">
+    <button
+      type="button"
+      class="date-input"
+      bind:this={inputEl}
+      on:click={toggle}
+      aria-haspopup="dialog"
+      aria-expanded={open}
+    >
+      <svg class="calendar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+        <line x1="16" y1="2" x2="16" y2="6" />
+        <line x1="8" y1="2" x2="8" y2="6" />
+        <line x1="3" y1="10" x2="21" y2="10" />
+      </svg>
 
-    <span class="date-value" class:placeholder={!displayValue}>
-      {displayValue || placeholder}
-    </span>
+      <span class="date-value" class:placeholder={!displayValue}>
+        {displayValue || placeholder}
+      </span>
+    </button>
 
     {#if value}
       <button
         type="button"
         class="clear-button"
-        on:click|stopPropagation={clear}
+        on:click={clear}
         aria-label="Clear date"
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -314,7 +316,7 @@
         </svg>
       </button>
     {/if}
-  </button>
+  </div>
 
   {#if open}
     <div
@@ -352,7 +354,7 @@
           {/each}
         </div>
 
-        {#each calendarDays as week, weekIndex}
+        {#each calendarDays as week}
           <div class="week" role="row">
             {#if showWeekNumbers}
               <span class="week-number">{getWeekNumber(week[0].date)}</span>

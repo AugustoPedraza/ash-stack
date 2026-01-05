@@ -4,7 +4,7 @@
   Supports optimistic updates with reconciliation.
 -->
 <script>
-  import { onMount, onDestroy, createEventDispatcher } from 'svelte';
+  import { onDestroy, createEventDispatcher } from 'svelte';
   import { flip } from 'svelte/animate';
   import { fade, fly } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';

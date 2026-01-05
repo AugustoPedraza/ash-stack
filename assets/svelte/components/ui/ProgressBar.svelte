@@ -121,7 +121,7 @@
             class="progress-segment variant-{variant}"
             class:completed={i < completedSegments}
             class:animated
-          />
+          ></div>
         {/each}
       </div>
     {:else if indeterminate}
@@ -130,7 +130,7 @@
         class="progress-bar indeterminate variant-{variant}"
         class:striped
         class:striped-animated={stripedAnimated}
-      />
+      ></div>
     {:else}
       <!-- Standard progress -->
       <div

@@ -92,15 +92,15 @@
     <span
       class="toggle-thumb {sizeConfig.thumb}"
       style="transform: translateX({$thumbPosition * sizeConfig.translate}px)"
-    />
+    ></span>
   </button>
 
   {#if label || description}
     <div class="toggle-content">
       {#if label}
-        <label for={id} class="toggle-label" on:click={toggle}>
+        <span class="toggle-label" on:click={toggle} on:keydown={handleKeydown} role="button" tabindex="-1">
           {label}
-        </label>
+        </span>
       {/if}
       {#if description}
         <p class="toggle-description">{description}</p>

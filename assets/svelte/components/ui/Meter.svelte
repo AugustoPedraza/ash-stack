@@ -134,7 +134,7 @@
         class="linear-fill variant-{activeVariant}"
         class:gradient
         style="width: {clampedPercentage}%"
-      />
+      ></div>
     </div>
     {#if showValue || showLabels}
       <div class="linear-labels">

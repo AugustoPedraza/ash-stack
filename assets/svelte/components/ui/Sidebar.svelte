@@ -77,12 +77,12 @@
 
   // Screen size detection
   let isMobile = false;
-  let isTablet = false;
+  let _isTablet = false;
 
   onMount(() => {
     const checkSize = () => {
       isMobile = window.innerWidth < 768;
-      isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+      _isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
     };
 
     checkSize();
@@ -111,7 +111,7 @@
     }
   }
 
-  function handleChildClick(parent, child, e) {
+  function handleChildClick(parent, child, _e) {
     dispatch('navigate', { item: child, parent });
     if (isMobile) {
       mobileOpen = false;
@@ -150,7 +150,7 @@
     on:keydown={(e) => e.key === 'Escape' && closeMobile()}
     transition:fade={{ duration: 200 }}
     role="presentation"
-  />
+  ></div>
 {/if}
 
 <!-- Sidebar -->

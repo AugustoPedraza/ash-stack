@@ -53,9 +53,9 @@
 {#if users.length > 0}
   <div class="typing-indicator" in:fade={{ duration: 150 }} out:fade={{ duration: 100 }}>
     <div class="typing-dots">
-      <span class="dot" style="animation-delay: 0ms" />
-      <span class="dot" style="animation-delay: 150ms" />
-      <span class="dot" style="animation-delay: 300ms" />
+      <span class="dot" style="animation-delay: 0ms"></span>
+      <span class="dot" style="animation-delay: 150ms"></span>
+      <span class="dot" style="animation-delay: 300ms"></span>
     </div>
     <span class="typing-text">{typingText}</span>
   </div>

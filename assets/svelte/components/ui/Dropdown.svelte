@@ -64,7 +64,7 @@
   function handleKeydown(e) {
     if (!open) return;
 
-    const enabledItems = items.filter(i => !i.disabled && !i.separator);
+    const _enabledItems = items.filter(i => !i.disabled && !i.separator);
     const enabledIndices = items.map((item, i) =>
       !item.disabled && !item.separator ? i : -1
     ).filter(i => i !== -1);
@@ -177,7 +177,7 @@
     >
       {#each items as item, index (item.id || index)}
         {#if item.separator}
-          <div class="dropdown-separator" role="separator" />
+          <div class="dropdown-separator" role="separator"></div>
         {:else}
           <button
             type="button"
@@ -205,7 +205,7 @@
       <div class="sheet-menu" role="menu">
         {#each items as item, index (item.id || index)}
           {#if item.separator}
-            <div class="dropdown-separator" role="separator" />
+            <div class="dropdown-separator" role="separator"></div>
           {:else}
             <button
               type="button"

@@ -17,6 +17,25 @@ const MANIFEST_FILE = path.join(__dirname, '../../components.json');
 const OUTPUT_FILE = path.join(__dirname, '../svelte/components/dev/ComponentPlayground.svelte');
 
 /**
+ * Escape HTML entities and simplify types to prevent Svelte parsing issues
+ */
+function escapeHtml(str) {
+  return str
+    // Collapse newlines and extra whitespace from multi-line types
+    .replace(/\n\s*\*/g, ' ')
+    .replace(/\n/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    // Escape HTML entities
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    // Escape curly braces for Svelte
+    .replace(/\{/g, '&#123;')
+    .replace(/\}/g, '&#125;');
+}
+
+/**
  * Generate prop controls for a component
  */
 function generatePropControls(component) {
@@ -72,7 +91,7 @@ function generatePlayground(manifest) {
     <div class="component-block">
       <div class="component-header">
         <h3>${comp.name}</h3>
-        <p class="component-desc">${comp.description.substring(0, 100)}${comp.description.length > 100 ? '...' : ''}</p>
+        <p class="component-desc">${escapeHtml(comp.description.substring(0, 100))}${comp.description.length > 100 ? '...' : ''}</p>
       </div>
       <div class="component-preview">
         ${generatePreview(comp)}
@@ -80,7 +99,7 @@ function generatePlayground(manifest) {
       <details class="component-props">
         <summary>Props (${comp.props.length})</summary>
         <ul>
-          ${comp.props.map(p => `<li><code>${p.name}</code>: ${p.type}${p.default ? ` = ${p.default}` : ' (required)'}</li>`).join('\n          ')}
+          ${comp.props.map(p => `<li><code>${p.name}</code>: ${escapeHtml(p.type)}${p.default ? ` = ${escapeHtml(p.default)}` : ' (required)'}</li>`).join('\n          ')}
         </ul>
       </details>
     </div>`;

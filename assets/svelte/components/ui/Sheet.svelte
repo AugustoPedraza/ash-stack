@@ -93,13 +93,13 @@
   }
 
   // Gesture handling
-  let dragStartY = 0;
+  let _dragStartY = 0;
   let dragStartTranslate = 0;
 
   function handlePanStart(e) {
     if (!gestureEnabled) return;
     isDragging = true;
-    dragStartY = e.detail.y;
+    _dragStartY = e.detail.y;
     dragStartTranslate = $translateY;
     translateY.stiffness = 1;
     translateY.damping = 1;
@@ -169,10 +169,11 @@
     class="fixed inset-0 z-modal bg-black/50 backdrop-blur-ios"
     transition:fade={{ duration: 200 }}
     on:click={handleBackdropClick}
+    on:keydown={(e) => e.key === 'Escape' && close()}
     role="button"
     tabindex="-1"
     aria-label="Close sheet"
-  />
+  ></div>
 
   <!-- Sheet -->
   <div
@@ -196,7 +197,7 @@
     <!-- Drag handle -->
     {#if gestureEnabled}
       <div class="flex justify-center pt-3 pb-2">
-        <div class="w-10 h-1 rounded-full bg-border-strong" />
+        <div class="w-10 h-1 rounded-full bg-border-strong"></div>
       </div>
     {/if}
 
@@ -208,7 +209,7 @@
             {title}
           </h2>
         {:else}
-          <div />
+          <div></div>
         {/if}
 
         {#if showClose}

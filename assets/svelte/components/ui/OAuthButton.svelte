@@ -145,7 +145,7 @@
   aria-label={iconOnly ? displayLabel : undefined}
 >
   {#if loading}
-    <span class="spinner" />
+    <span class="spinner"></span>
   {:else}
     <span class="oauth-icon">
       {@html config.icon}

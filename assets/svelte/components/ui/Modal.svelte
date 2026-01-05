@@ -5,8 +5,8 @@
 -->
 <script>
   import { createEventDispatcher, onMount, onDestroy } from 'svelte';
-  import { fade, scale } from 'svelte/transition';
-  import { quintOut, backOut } from 'svelte/easing';
+  import { fade } from 'svelte/transition';
+  import { backOut } from 'svelte/easing';
   import { lockScroll, unlockScroll, haptic, HapticType } from '../../lib/mobile.js';
 
   const dispatch = createEventDispatcher();
@@ -171,7 +171,7 @@
     >
       <!-- Drag indicator for gesture-enabled modals -->
       {#if gestureEnabled}
-        <div class="drag-indicator" />
+        <div class="drag-indicator"></div>
       {/if}
 
       <!-- Header -->

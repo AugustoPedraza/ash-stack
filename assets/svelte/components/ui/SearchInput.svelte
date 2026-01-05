@@ -3,8 +3,8 @@
   Search input with suggestions dropdown and keyboard navigation.
 -->
 <script>
-  import { createEventDispatcher, tick } from 'svelte';
-  import { fade, fly } from 'svelte/transition';
+  import { createEventDispatcher } from 'svelte';
+  import { fly } from 'svelte/transition';
 
   const dispatch = createEventDispatcher();
 
@@ -97,7 +97,7 @@
     try {
       const stored = localStorage.getItem(storageKey);
       if (stored) recentSearches = JSON.parse(stored);
-    } catch (e) {}
+    } catch { /* ignore storage errors */ }
   }
 
   // Filter and limit suggestions
@@ -210,14 +210,14 @@
 
     try {
       localStorage.setItem(storageKey, JSON.stringify(recentSearches));
-    } catch (e) {}
+    } catch { /* ignore storage errors */ }
   }
 
   function clearRecent() {
     recentSearches = [];
     try {
       localStorage.removeItem(storageKey);
-    } catch (e) {}
+    } catch { /* ignore storage errors */ }
   }
 
   function removeRecent(search, e) {
@@ -225,7 +225,7 @@
     recentSearches = recentSearches.filter(s => s !== search);
     try {
       localStorage.setItem(storageKey, JSON.stringify(recentSearches));
-    } catch (e) {}
+    } catch { /* ignore storage errors */ }
   }
 </script>
 
@@ -249,13 +249,14 @@
       on:keydown={handleKeydown}
       role="combobox"
       aria-expanded={shouldShowDropdown}
+      aria-controls="search-listbox"
       aria-haspopup="listbox"
       aria-autocomplete="list"
       autocomplete="off"
     />
 
     {#if loading}
-      <span class="spinner" />
+      <span class="spinner"></span>
     {:else if clearable && value}
       <button
         type="button"
@@ -272,6 +273,7 @@
 
   {#if shouldShowDropdown}
     <div
+      id="search-listbox"
       class="dropdown"
       role="listbox"
       transition:fly={{ y: -10, duration: 150 }}
@@ -285,11 +287,14 @@
           </button>
         </div>
         {#each recentSearches as search, i}
-          <button
-            type="button"
+          <div
             class="suggestion-item recent"
             class:selected={i === selectedIndex}
             on:click={() => selectSuggestion({ id: search, label: search })}
+            on:keydown={(e) => e.key === 'Enter' && selectSuggestion({ id: search, label: search })}
+            role="option"
+            tabindex="0"
+            aria-selected={i === selectedIndex}
           >
             <svg class="recent-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="12" cy="12" r="10" />
@@ -306,11 +311,11 @@
                 <path d="M18 6 6 18M6 6l12 12" />
               </svg>
             </button>
-          </button>
+          </div>
         {/each}
       {:else if loading}
         <div class="dropdown-loading">
-          <span class="spinner" />
+          <span class="spinner"></span>
           <span>Searching...</span>
         </div>
       {:else if displaySuggestions.length === 0}
@@ -322,7 +327,7 @@
           {#if groupName}
             <div class="dropdown-group">{groupName}</div>
           {/if}
-          {#each items as item, i}
+          {#each items as item}
             {@const globalIndex = displaySuggestions.indexOf(item)}
             <button
               type="button"

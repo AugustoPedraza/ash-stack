@@ -1,12 +1,42 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "generated": "2025-12-31T05:33:14.621Z",
+  "generated": "2025-12-31T17:06:40.885Z",
   "version": "1.0.0",
   "description": "Auto-generated component manifest for AI context. DO NOT EDIT MANUALLY.",
   "usage": "import { ComponentName } from '$lib/components/ui';",
   "categories": {
+    "other": [
+      "ActivityFeed",
+      "Breadcrumbs",
+      "CommandPalette",
+      "ConnectionStatus",
+      "DatePicker",
+      "ErrorBoundary",
+      "FileUpload",
+      "Meter",
+      "MiniChart",
+      "NotificationCenter",
+      "ProgressBar",
+      "RealtimeList",
+      "Sidebar",
+      "TypingIndicator"
+    ],
     "animation": [
       "AnimatedList"
+    ],
+    "form": [
+      "AuthForm",
+      "Button",
+      "Checkbox",
+      "Form",
+      "FormField",
+      "Input",
+      "OAuthButton",
+      "SearchInput",
+      "Select",
+      "SubmitButton",
+      "Textarea",
+      "Toggle"
     ],
     "display": [
       "Avatar",
@@ -14,22 +44,12 @@
       "EmptyState",
       "Skeleton"
     ],
-    "form": [
-      "Button",
-      "Checkbox",
-      "Form",
-      "FormField",
-      "Input",
-      "Select",
-      "SubmitButton",
-      "Textarea",
-      "Toggle"
-    ],
     "layout": [
       "Card",
       "Page",
       "PageHeader",
-      "Section"
+      "Section",
+      "StatCard"
     ],
     "data": [
       "DataTable",
@@ -48,6 +68,77 @@
     ]
   },
   "components": [
+    {
+      "name": "ActivityFeed",
+      "description": "ActivityFeed Component Timeline-style activity/event feed with grouping and real-time support.",
+      "category": "other",
+      "props": [
+        {
+          "name": "items",
+          "type": "Array<{\n   *   id: string | number,\n   *   type: string,\n   *   title: string,\n   *   description?: string,\n   *   timestamp: Date | string,\n   *   user?: { name: string, avatar?: string",
+          "default": "[]",
+          "description": "Activity items id: string | number, type: string, title: string, description?: string, timestamp: Date | string, user?: { name: string, avatar?: string }, icon?: string, metadata?: Record<string, any>, href?: string }>}",
+          "required": false
+        },
+        {
+          "name": "groupByDate",
+          "type": "boolean",
+          "default": "true",
+          "description": "Group items by date",
+          "required": false
+        },
+        {
+          "name": "showAvatars",
+          "type": "boolean",
+          "default": "true",
+          "description": "Show user avatars",
+          "required": false
+        },
+        {
+          "name": "showTimeline",
+          "type": "boolean",
+          "default": "true",
+          "description": "Show timeline connector",
+          "required": false
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "default": "false",
+          "description": "Loading state",
+          "required": false
+        },
+        {
+          "name": "emptyMessage",
+          "type": "string",
+          "default": "'No activity yet'",
+          "description": "Empty state message",
+          "required": false
+        },
+        {
+          "name": "compact",
+          "type": "boolean",
+          "default": "false",
+          "description": "Compact mode",
+          "required": false
+        },
+        {
+          "name": "typeConfig",
+          "type": "Record<string, { icon?: string, color?: string",
+          "default": "{}",
+          "description": "Activity type icons/colors mapping",
+          "required": false
+        }
+      ],
+      "slots": [
+        "metadata"
+      ],
+      "events": [
+        "click"
+      ],
+      "file": "assets/svelte/components/ui/ActivityFeed.svelte",
+      "example": "<ActivityFeed>\n  <!-- content -->\n</ActivityFeed>"
+    },
     {
       "name": "AnimatedList",
       "description": "AnimatedList Component List with FLIP animations for add/remove/reorder. Items animate smoothly when the list changes.",
@@ -109,6 +200,91 @@
       "events": [],
       "file": "assets/svelte/components/ui/AnimatedList.svelte",
       "example": "<AnimatedList>\n  <!-- content -->\n</AnimatedList>"
+    },
+    {
+      "name": "AuthForm",
+      "description": "AuthForm Component Flexible authentication form supporting login, register, and forgot password modes. Integrates with Phoenix LiveView and Ash authentication.",
+      "category": "form",
+      "props": [
+        {
+          "name": "mode",
+          "type": "'login' | 'register' | 'forgot' | 'reset'",
+          "default": "'login'",
+          "description": "Form mode",
+          "required": false
+        },
+        {
+          "name": "errors",
+          "type": "{ [field: string]: string",
+          "default": "{}",
+          "description": "Form errors from server",
+          "required": false
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "default": "false",
+          "description": "Whether form is submitting",
+          "required": false
+        },
+        {
+          "name": "showRemember",
+          "type": "boolean",
+          "default": "true",
+          "description": "Show \"Remember me\" checkbox (login only)",
+          "required": false
+        },
+        {
+          "name": "showOAuth",
+          "type": "boolean",
+          "default": "true",
+          "description": "Show OAuth providers",
+          "required": false
+        },
+        {
+          "name": "oauthProviders",
+          "type": "Array<{ id: string, name: string, icon?: string",
+          "default": "[]",
+          "description": "Available OAuth providers",
+          "required": false
+        },
+        {
+          "name": "showPasswordStrength",
+          "type": "boolean",
+          "default": "true",
+          "description": "Show password strength indicator (register only)",
+          "required": false
+        },
+        {
+          "name": "minPasswordLength",
+          "type": "number",
+          "default": "8",
+          "description": "Minimum password length",
+          "required": false
+        },
+        {
+          "name": "submitEvent",
+          "type": "string",
+          "default": "''",
+          "description": "Custom submit event name",
+          "required": false
+        },
+        {
+          "name": "links",
+          "type": "{ login?: string, register?: string, forgot?: string",
+          "default": "{}",
+          "description": "Links configuration",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [
+        "submit",
+        "oauth",
+        "modeChange"
+      ],
+      "file": "assets/svelte/components/ui/AuthForm.svelte",
+      "example": "<AuthForm />"
     },
     {
       "name": "Avatar",
@@ -196,6 +372,54 @@
       "events": [],
       "file": "assets/svelte/components/ui/Badge.svelte",
       "example": "<Badge>\n  <!-- content -->\n</Badge>"
+    },
+    {
+      "name": "Breadcrumbs",
+      "description": "Breadcrumbs Component Navigation breadcrumb trail with responsive collapse.",
+      "category": "other",
+      "props": [
+        {
+          "name": "items",
+          "type": "Array<{ label: string, href?: string, icon?: string",
+          "default": "[]",
+          "description": "Breadcrumb items",
+          "required": false
+        },
+        {
+          "name": "separator",
+          "type": "'slash' | 'chevron' | 'arrow' | 'dot'",
+          "default": "'chevron'",
+          "description": "Separator style",
+          "required": false
+        },
+        {
+          "name": "maxItems",
+          "type": "number",
+          "default": "0",
+          "description": "Maximum items to show before collapsing (0 = no collapse)",
+          "required": false
+        },
+        {
+          "name": "home",
+          "type": "{ href?: string, icon?: string, label?: string",
+          "default": "null",
+          "description": "Home icon/link config",
+          "required": false
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "'md'",
+          "description": "Size variant",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [
+        "navigate"
+      ],
+      "file": "assets/svelte/components/ui/Breadcrumbs.svelte",
+      "example": "<Breadcrumbs />"
     },
     {
       "name": "Button",
@@ -373,6 +597,122 @@
       "example": "<Checkbox />"
     },
     {
+      "name": "CommandPalette",
+      "description": "CommandPalette Component Keyboard-driven command palette (⌘K / Ctrl+K). Supports search, keyboard navigation, and grouped commands.",
+      "category": "other",
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "default": "false",
+          "description": "Whether palette is open",
+          "required": false
+        },
+        {
+          "name": "commands",
+          "type": "Array<{\n   *   id: string,\n   *   label: string,\n   *   description?: string,\n   *   icon?: string,\n   *   shortcut?: string,\n   *   group?: string,\n   *   action?: () => void,\n   *   href?: string\n   *",
+          "default": "[]",
+          "description": "Commands to display id: string, label: string, description?: string, icon?: string, shortcut?: string, group?: string, action?: () => void, href?: string }>}",
+          "required": false
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "'Search commands...'",
+          "description": "Placeholder text",
+          "required": false
+        },
+        {
+          "name": "showRecent",
+          "type": "boolean",
+          "default": "true",
+          "description": "Show recent commands",
+          "required": false
+        },
+        {
+          "name": "maxRecent",
+          "type": "number",
+          "default": "5",
+          "description": "Maximum recent commands to store",
+          "required": false
+        },
+        {
+          "name": "storageKey",
+          "type": "string",
+          "default": "'command-palette-recent'",
+          "description": "Storage key for recent commands",
+          "required": false
+        },
+        {
+          "name": "filter",
+          "type": "((command: object, query: string) => boolean) | null",
+          "default": "null",
+          "description": "Custom filter function",
+          "required": false
+        },
+        {
+          "name": "closeOnSelect",
+          "type": "boolean",
+          "default": "true",
+          "description": "Close on command select",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [
+        "close",
+        "select"
+      ],
+      "file": "assets/svelte/components/ui/CommandPalette.svelte",
+      "example": "<CommandPalette />"
+    },
+    {
+      "name": "ConnectionStatus",
+      "description": "ConnectionStatus Component Shows LiveView connection state with reconnection UI. Useful for real-time apps where connection awareness matters.",
+      "category": "other",
+      "props": [
+        {
+          "name": "position",
+          "type": "'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'inline'",
+          "default": "'bottom-right'",
+          "description": "Position of the indicator",
+          "required": false
+        },
+        {
+          "name": "showOnlyWhenDisconnected",
+          "type": "boolean",
+          "default": "true",
+          "description": "Show indicator only when disconnected",
+          "required": false
+        },
+        {
+          "name": "autoHideDelay",
+          "type": "number",
+          "default": "3000",
+          "description": "Auto-hide connected indicator after ms (0 = never)",
+          "required": false
+        },
+        {
+          "name": "showReconnectButton",
+          "type": "boolean",
+          "default": "true",
+          "description": "Show reconnect button",
+          "required": false
+        },
+        {
+          "name": "messages",
+          "type": "{ connecting?: string, connected?: string, disconnected?: string, error?: string",
+          "default": "{}",
+          "description": "Custom messages",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [],
+      "file": "assets/svelte/components/ui/ConnectionStatus.svelte",
+      "example": "<ConnectionStatus />"
+    },
+    {
       "name": "DataTable",
       "description": "DataTable Component Responsive data table with sorting, selection, and mobile card view.",
       "category": "data",
@@ -468,6 +808,104 @@
       ],
       "file": "assets/svelte/components/ui/DataTable.svelte",
       "example": "<DataTable>\n  <!-- content -->\n</DataTable>"
+    },
+    {
+      "name": "DatePicker",
+      "description": "DatePicker Component Calendar-based date picker with range selection support.",
+      "category": "other",
+      "props": [
+        {
+          "name": "value",
+          "type": "Date | null",
+          "default": "null",
+          "description": "Selected date (or start date for range)",
+          "required": false
+        },
+        {
+          "name": "endValue",
+          "type": "Date | null",
+          "default": "null",
+          "description": "End date (for range mode)",
+          "required": false
+        },
+        {
+          "name": "range",
+          "type": "boolean",
+          "default": "false",
+          "description": "Enable range selection",
+          "required": false
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "'Select date'",
+          "description": "Placeholder text",
+          "required": false
+        },
+        {
+          "name": "format",
+          "type": "string",
+          "default": "'MMM d, yyyy'",
+          "description": "Date format for display",
+          "required": false
+        },
+        {
+          "name": "min",
+          "type": "Date | null",
+          "default": "null",
+          "description": "Minimum selectable date",
+          "required": false
+        },
+        {
+          "name": "max",
+          "type": "Date | null",
+          "default": "null",
+          "description": "Maximum selectable date",
+          "required": false
+        },
+        {
+          "name": "disabled",
+          "type": "Array<Date> | ((date: Date) => boolean)",
+          "default": "[]",
+          "description": "Disabled dates",
+          "required": false
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "'md'",
+          "description": "Size variant",
+          "required": false
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "default": "false",
+          "description": "Invalid state",
+          "required": false
+        },
+        {
+          "name": "firstDayOfWeek",
+          "type": "number",
+          "default": "0",
+          "description": "First day of week (0 = Sunday, 1 = Monday)",
+          "required": false
+        },
+        {
+          "name": "showWeekNumbers",
+          "type": "boolean",
+          "default": "false",
+          "description": "Show week numbers",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [
+        "change",
+        "clear"
+      ],
+      "file": "assets/svelte/components/ui/DatePicker.svelte",
+      "example": "<DatePicker />"
     },
     {
       "name": "Dropdown",
@@ -569,6 +1007,150 @@
       "events": [],
       "file": "assets/svelte/components/ui/EmptyState.svelte",
       "example": "<EmptyState>\n  <!-- content -->\n</EmptyState>"
+    },
+    {
+      "name": "ErrorBoundary",
+      "description": "ErrorBoundary Component Catches errors in child components and displays fallback UI. Integrates with Phoenix for error reporting.",
+      "category": "other",
+      "props": [
+        {
+          "name": "fallback",
+          "type": "any",
+          "default": "null",
+          "description": "Custom fallback component or snippet",
+          "required": false
+        },
+        {
+          "name": "reportToServer",
+          "type": "boolean",
+          "default": "false",
+          "description": "Whether to report errors to the server",
+          "required": false
+        },
+        {
+          "name": "reportEvent",
+          "type": "string",
+          "default": "'client_error'",
+          "description": "Event name for server error reporting",
+          "required": false
+        },
+        {
+          "name": "showDetails",
+          "type": "boolean",
+          "default": "import.meta.env?.DEV ?? false",
+          "description": "Whether to show error details in dev mode",
+          "required": false
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "default": "'Something went wrong'",
+          "description": "Custom error message",
+          "required": false
+        },
+        {
+          "name": "retryable",
+          "type": "boolean",
+          "default": "true",
+          "description": "Whether to allow retry",
+          "required": false
+        }
+      ],
+      "slots": [
+        "default"
+      ],
+      "events": [
+        "reset",
+        "error"
+      ],
+      "file": "assets/svelte/components/ui/ErrorBoundary.svelte",
+      "example": "<ErrorBoundary>\n  <!-- content -->\n</ErrorBoundary>"
+    },
+    {
+      "name": "FileUpload",
+      "description": "FileUpload Component Drag & drop file upload with preview, progress, and validation.",
+      "category": "other",
+      "props": [
+        {
+          "name": "accept",
+          "type": "string",
+          "default": "''",
+          "description": "Accepted file types (MIME types or extensions)",
+          "required": false
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "default": "false",
+          "description": "Allow multiple files",
+          "required": false
+        },
+        {
+          "name": "maxSize",
+          "type": "number",
+          "default": "0",
+          "description": "Maximum file size in bytes (0 = no limit)",
+          "required": false
+        },
+        {
+          "name": "maxFiles",
+          "type": "number",
+          "default": "0",
+          "description": "Maximum number of files (0 = no limit)",
+          "required": false
+        },
+        {
+          "name": "showPreview",
+          "type": "boolean",
+          "default": "true",
+          "description": "Show file previews",
+          "required": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false",
+          "description": "Disabled state",
+          "required": false
+        },
+        {
+          "name": "files",
+          "type": "Array<{ file: File, id: string, progress?: number, error?: string, url?: string",
+          "default": "[]",
+          "description": "Current files (for controlled usage)",
+          "required": false
+        },
+        {
+          "name": "uploadFn",
+          "type": "((file: File) => Promise<string>) | null",
+          "default": "null",
+          "description": "Upload function (if provided, handles upload automatically)",
+          "required": false
+        },
+        {
+          "name": "variant",
+          "type": "'default' | 'compact' | 'avatar'",
+          "default": "'default'",
+          "description": "Variant style",
+          "required": false
+        },
+        {
+          "name": "helperText",
+          "type": "string",
+          "default": "''",
+          "description": "Helper text",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [
+        "error",
+        "add",
+        "upload",
+        "remove"
+      ],
+      "file": "assets/svelte/components/ui/FileUpload.svelte",
+      "example": "<FileUpload />"
     },
     {
       "name": "Form",
@@ -844,6 +1426,210 @@
       "example": "<Input />"
     },
     {
+      "name": "Meter",
+      "description": "Meter Component Circular or semi-circular gauge for displaying bounded values.",
+      "category": "other",
+      "props": [
+        {
+          "name": "value",
+          "type": "number",
+          "default": "0",
+          "description": "Current value",
+          "required": false
+        },
+        {
+          "name": "min",
+          "type": "number",
+          "default": "0",
+          "description": "Minimum value",
+          "required": false
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "default": "100",
+          "description": "Maximum value",
+          "required": false
+        },
+        {
+          "name": "type",
+          "type": "'circle' | 'semicircle' | 'linear'",
+          "default": "'circle'",
+          "description": "Display type",
+          "required": false
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "default": "120",
+          "description": "Size in pixels",
+          "required": false
+        },
+        {
+          "name": "strokeWidth",
+          "type": "number",
+          "default": "10",
+          "description": "Stroke width",
+          "required": false
+        },
+        {
+          "name": "variant",
+          "type": "'primary' | 'success' | 'warning' | 'error' | 'info' | 'auto'",
+          "default": "'primary'",
+          "description": "Color variant or 'auto' for threshold-based",
+          "required": false
+        },
+        {
+          "name": "thresholds",
+          "type": "{ warning: number, error: number",
+          "default": "{ warning: 70, error: 90 }",
+          "description": "Thresholds for auto color (percentages)",
+          "required": false
+        },
+        {
+          "name": "showValue",
+          "type": "boolean",
+          "default": "true",
+          "description": "Show value label",
+          "required": false
+        },
+        {
+          "name": "showLabels",
+          "type": "boolean",
+          "default": "false",
+          "description": "Show min/max labels",
+          "required": false
+        },
+        {
+          "name": "formatValue",
+          "type": "(value: number) => string",
+          "default": "(v) => Math.round(v).toString()",
+          "description": "Custom value format",
+          "required": false
+        },
+        {
+          "name": "unit",
+          "type": "string",
+          "default": "''",
+          "description": "Unit label",
+          "required": false
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": "''",
+          "description": "Label text",
+          "required": false
+        },
+        {
+          "name": "animated",
+          "type": "boolean",
+          "default": "true",
+          "description": "Animate on mount",
+          "required": false
+        },
+        {
+          "name": "gradient",
+          "type": "boolean",
+          "default": "false",
+          "description": "Gradient fill",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [],
+      "file": "assets/svelte/components/ui/Meter.svelte",
+      "example": "<Meter />"
+    },
+    {
+      "name": "MiniChart",
+      "description": "MiniChart Component Lightweight inline charts (sparkline, bar, dot) without external dependencies.",
+      "category": "other",
+      "props": [
+        {
+          "name": "data",
+          "type": "Array<number | { value: number, label?: string",
+          "default": "[]",
+          "description": "Data points",
+          "required": false
+        },
+        {
+          "name": "type",
+          "type": "'line' | 'bar' | 'dot' | 'area'",
+          "default": "'line'",
+          "description": "Chart type",
+          "required": false
+        },
+        {
+          "name": "width",
+          "type": "number | 'auto'",
+          "default": "'auto'",
+          "description": "Width in pixels or 'auto'",
+          "required": false
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "default": "40",
+          "description": "Height in pixels",
+          "required": false
+        },
+        {
+          "name": "showTooltip",
+          "type": "boolean",
+          "default": "true",
+          "description": "Show tooltip on hover",
+          "required": false
+        },
+        {
+          "name": "variant",
+          "type": "'primary' | 'success' | 'warning' | 'error' | 'info'",
+          "default": "'primary'",
+          "description": "Color variant",
+          "required": false
+        },
+        {
+          "name": "fill",
+          "type": "boolean",
+          "default": "false",
+          "description": "Fill area under line",
+          "required": false
+        },
+        {
+          "name": "animated",
+          "type": "boolean",
+          "default": "true",
+          "description": "Animate on mount",
+          "required": false
+        },
+        {
+          "name": "showPoints",
+          "type": "boolean",
+          "default": "false",
+          "description": "Show data points on line/area",
+          "required": false
+        },
+        {
+          "name": "curve",
+          "type": "'linear' | 'smooth'",
+          "default": "'smooth'",
+          "description": "Curve type for line/area",
+          "required": false
+        },
+        {
+          "name": "formatValue",
+          "type": "(value: number) => string",
+          "default": "(v) => v.toLocaleString()",
+          "description": "Format value for tooltip",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [],
+      "file": "assets/svelte/components/ui/MiniChart.svelte",
+      "example": "<MiniChart />"
+    },
+    {
       "name": "Modal",
       "description": "Modal Component iOS-style modal with spring animations and gesture dismiss. Accessible, keyboard navigable, with backdrop blur.",
       "category": "interactive",
@@ -915,6 +1701,133 @@
       ],
       "file": "assets/svelte/components/ui/Modal.svelte",
       "example": "<Modal>\n  <!-- content -->\n</Modal>"
+    },
+    {
+      "name": "NotificationCenter",
+      "description": "NotificationCenter Component Notification bell with dropdown panel showing notifications.",
+      "category": "other",
+      "props": [
+        {
+          "name": "notifications",
+          "type": "Array<{\n   *   id: string | number,\n   *   title: string,\n   *   message?: string,\n   *   type?: 'info' | 'success' | 'warning' | 'error',\n   *   read?: boolean,\n   *   timestamp?: Date | string,\n   *   href?: string,\n   *   avatar?: string,\n   *   icon?: string\n   *",
+          "default": "[]",
+          "description": "Notifications list id: string | number, title: string, message?: string, type?: 'info' | 'success' | 'warning' | 'error', read?: boolean, timestamp?: Date | string, href?: string, avatar?: string, icon?: string }>}",
+          "required": false
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "default": "false",
+          "description": "Whether panel is open",
+          "required": false
+        },
+        {
+          "name": "position",
+          "type": "'left' | 'right'",
+          "default": "'right'",
+          "description": "Panel position",
+          "required": false
+        },
+        {
+          "name": "showBadge",
+          "type": "boolean",
+          "default": "true",
+          "description": "Show unread count badge",
+          "required": false
+        },
+        {
+          "name": "maxVisible",
+          "type": "number",
+          "default": "5",
+          "description": "Maximum notifications to show before \"View all\"",
+          "required": false
+        },
+        {
+          "name": "emptyMessage",
+          "type": "string",
+          "default": "'No notifications'",
+          "description": "Empty state message",
+          "required": false
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "default": "false",
+          "description": "Loading state",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [
+        "open",
+        "read",
+        "click",
+        "markAllRead",
+        "viewAll"
+      ],
+      "file": "assets/svelte/components/ui/NotificationCenter.svelte",
+      "example": "<NotificationCenter />"
+    },
+    {
+      "name": "OAuthButton",
+      "description": "OAuthButton Component Pre-styled buttons for common OAuth providers. Includes official brand colors and icons.",
+      "category": "form",
+      "props": [
+        {
+          "name": "provider",
+          "type": "'google' | 'github' | 'apple' | 'microsoft' | 'facebook' | 'twitter' | 'discord' | 'slack'",
+          "description": "OAuth provider",
+          "required": true
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "'md'",
+          "description": "Button size",
+          "required": false
+        },
+        {
+          "name": "iconOnly",
+          "type": "boolean",
+          "default": "false",
+          "description": "Show provider name or icon only",
+          "required": false
+        },
+        {
+          "name": "label",
+          "type": "string | null",
+          "default": "null",
+          "description": "Custom label (overrides default)",
+          "required": false
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "default": "false",
+          "description": "Loading state",
+          "required": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false",
+          "description": "Disabled state",
+          "required": false
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "default": "false",
+          "description": "Full width button",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [
+        "click"
+      ],
+      "file": "assets/svelte/components/ui/OAuthButton.svelte",
+      "example": "<OAuthButton provider={value} />"
     },
     {
       "name": "Page",
@@ -1059,6 +1972,301 @@
       ],
       "file": "assets/svelte/components/ui/Pagination.svelte",
       "example": "<Pagination />"
+    },
+    {
+      "name": "ProgressBar",
+      "description": "ProgressBar Component Visual progress indicator with multiple variants and states.",
+      "category": "other",
+      "props": [
+        {
+          "name": "value",
+          "type": "number",
+          "default": "0",
+          "description": "Progress value (0-100)",
+          "required": false
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "default": "100",
+          "description": "Maximum value",
+          "required": false
+        },
+        {
+          "name": "showLabel",
+          "type": "boolean",
+          "default": "false",
+          "description": "Show percentage label",
+          "required": false
+        },
+        {
+          "name": "labelPosition",
+          "type": "'inside' | 'outside' | 'top'",
+          "default": "'outside'",
+          "description": "Label position",
+          "required": false
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": "''",
+          "description": "Custom label (overrides percentage)",
+          "required": false
+        },
+        {
+          "name": "variant",
+          "type": "'primary' | 'success' | 'warning' | 'error' | 'info'",
+          "default": "'primary'",
+          "description": "Color variant",
+          "required": false
+        },
+        {
+          "name": "size",
+          "type": "'xs' | 'sm' | 'md' | 'lg'",
+          "default": "'md'",
+          "description": "Size variant",
+          "required": false
+        },
+        {
+          "name": "animated",
+          "type": "boolean",
+          "default": "true",
+          "description": "Animated transition",
+          "required": false
+        },
+        {
+          "name": "indeterminate",
+          "type": "boolean",
+          "default": "false",
+          "description": "Indeterminate loading state",
+          "required": false
+        },
+        {
+          "name": "striped",
+          "type": "boolean",
+          "default": "false",
+          "description": "Striped pattern",
+          "required": false
+        },
+        {
+          "name": "stripedAnimated",
+          "type": "boolean",
+          "default": "false",
+          "description": "Animate stripes",
+          "required": false
+        },
+        {
+          "name": "segments",
+          "type": "number",
+          "default": "0",
+          "description": "Show segments (multi-step progress)",
+          "required": false
+        },
+        {
+          "name": "rounded",
+          "type": "boolean",
+          "default": "true",
+          "description": "Rounded corners",
+          "required": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "default": "''",
+          "description": "Additional description below",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [],
+      "file": "assets/svelte/components/ui/ProgressBar.svelte",
+      "example": "<ProgressBar />"
+    },
+    {
+      "name": "RealtimeList",
+      "description": "RealtimeList Component List that auto-syncs with server broadcasts. Supports optimistic updates with reconciliation.",
+      "category": "other",
+      "props": [
+        {
+          "name": "store",
+          "type": "string",
+          "description": "Store name - must match server-side broadcasts",
+          "required": true
+        },
+        {
+          "name": "items",
+          "type": "Array<{ id: string | number, [key: string]: any",
+          "default": "[]",
+          "description": "Initial items",
+          "required": false
+        },
+        {
+          "name": "getId",
+          "type": "(item: any) => string | number",
+          "default": "(item) => item.id",
+          "description": "Key function to identify items",
+          "required": false
+        },
+        {
+          "name": "sort",
+          "type": "((a: any, b: any) => number) | null",
+          "default": "null",
+          "description": "Sort function",
+          "required": false
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "default": "300",
+          "description": "Animation duration",
+          "required": false
+        },
+        {
+          "name": "showOptimistic",
+          "type": "boolean",
+          "default": "true",
+          "description": "Show optimistic items differently",
+          "required": false
+        },
+        {
+          "name": "optimisticAdd",
+          "type": "boolean",
+          "default": "true",
+          "description": "Enable optimistic add",
+          "required": false
+        },
+        {
+          "name": "addEvent",
+          "type": "string",
+          "default": "'add'",
+          "description": "Event to send for adding items",
+          "required": false
+        },
+        {
+          "name": "removeEvent",
+          "type": "string",
+          "default": "'remove'",
+          "description": "Event to send for removing items",
+          "required": false
+        }
+      ],
+      "slots": [
+        "empty"
+      ],
+      "events": [
+        "add",
+        "remove",
+        "update"
+      ],
+      "file": "assets/svelte/components/ui/RealtimeList.svelte",
+      "example": "<RealtimeList store=\"value\">\n  <!-- content -->\n</RealtimeList>"
+    },
+    {
+      "name": "SearchInput",
+      "description": "SearchInput Component Search input with suggestions dropdown and keyboard navigation.",
+      "category": "form",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "default": "''",
+          "description": "Current search value",
+          "required": false
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "'Search...'",
+          "description": "Placeholder text",
+          "required": false
+        },
+        {
+          "name": "suggestions",
+          "type": "Array<{ id: string | number, label: string, description?: string, icon?: string, group?: string",
+          "default": "[]",
+          "description": "Suggestions to display",
+          "required": false
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "default": "false",
+          "description": "Loading state (fetching suggestions)",
+          "required": false
+        },
+        {
+          "name": "minChars",
+          "type": "number",
+          "default": "1",
+          "description": "Minimum characters before showing suggestions",
+          "required": false
+        },
+        {
+          "name": "debounce",
+          "type": "number",
+          "default": "300",
+          "description": "Debounce delay in ms",
+          "required": false
+        },
+        {
+          "name": "maxSuggestions",
+          "type": "number",
+          "default": "10",
+          "description": "Maximum suggestions to show",
+          "required": false
+        },
+        {
+          "name": "clearable",
+          "type": "boolean",
+          "default": "true",
+          "description": "Show clear button",
+          "required": false
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "'md'",
+          "description": "Size variant",
+          "required": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false",
+          "description": "Disabled state",
+          "required": false
+        },
+        {
+          "name": "showRecent",
+          "type": "boolean",
+          "default": "true",
+          "description": "Show recent searches",
+          "required": false
+        },
+        {
+          "name": "maxRecent",
+          "type": "number",
+          "default": "5",
+          "description": "Maximum recent searches",
+          "required": false
+        },
+        {
+          "name": "storageKey",
+          "type": "string",
+          "default": "'search-recent'",
+          "description": "Storage key for recent searches",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [
+        "search",
+        "select",
+        "submit",
+        "clear"
+      ],
+      "file": "assets/svelte/components/ui/SearchInput.svelte",
+      "example": "<SearchInput />"
     },
     {
       "name": "Section",
@@ -1260,6 +2468,85 @@
       "example": "<Sheet>\n  <!-- content -->\n</Sheet>"
     },
     {
+      "name": "Sidebar",
+      "description": "Sidebar Component Responsive navigation sidebar with collapsible sections. Collapses to icon-only on tablet, bottom sheet on mobile.",
+      "category": "other",
+      "props": [
+        {
+          "name": "items",
+          "type": "Array<{\n   *   id: string,\n   *   label: string,\n   *   href?: string,\n   *   icon?: string,\n   *   badge?: string | number,\n   *   active?: boolean,\n   *   children?: Array<{ id: string, label: string, href?: string, active?: boolean",
+          "default": "[]",
+          "description": "Navigation items id: string, label: string, href?: string, icon?: string, badge?: string | number, active?: boolean, children?: Array<{ id: string, label: string, href?: string, active?: boolean }> }>}",
+          "required": false
+        },
+        {
+          "name": "activeId",
+          "type": "string | null",
+          "default": "null",
+          "description": "Currently active item ID",
+          "required": false
+        },
+        {
+          "name": "collapsed",
+          "type": "boolean",
+          "default": "false",
+          "description": "Whether sidebar is collapsed (icon-only)",
+          "required": false
+        },
+        {
+          "name": "mobileOpen",
+          "type": "boolean",
+          "default": "false",
+          "description": "Whether mobile menu is open",
+          "required": false
+        },
+        {
+          "name": "header",
+          "type": "{ logo?: string, title?: string, href?: string",
+          "default": "null",
+          "description": "Header content",
+          "required": false
+        },
+        {
+          "name": "showFooter",
+          "type": "boolean",
+          "default": "false",
+          "description": "Footer content slot",
+          "required": false
+        },
+        {
+          "name": "gestureEnabled",
+          "type": "boolean",
+          "default": "true",
+          "description": "Enable gesture to close on mobile",
+          "required": false
+        },
+        {
+          "name": "width",
+          "type": "string",
+          "default": "'16rem'",
+          "description": "Width when expanded",
+          "required": false
+        },
+        {
+          "name": "collapsedWidth",
+          "type": "string",
+          "default": "'4rem'",
+          "description": "Width when collapsed",
+          "required": false
+        }
+      ],
+      "slots": [
+        "footer"
+      ],
+      "events": [
+        "navigate",
+        "collapse"
+      ],
+      "file": "assets/svelte/components/ui/Sidebar.svelte",
+      "example": "<Sidebar>\n  <!-- content -->\n</Sidebar>"
+    },
+    {
       "name": "Skeleton",
       "description": "Skeleton Component Animated loading placeholder with shimmer effect. Supports various shapes and sizes for content loading states.",
       "category": "display",
@@ -1320,6 +2607,122 @@
       "events": [],
       "file": "assets/svelte/components/ui/Skeleton.svelte",
       "example": "<Skeleton>\n  <!-- content -->\n</Skeleton>"
+    },
+    {
+      "name": "StatCard",
+      "description": "StatCard Component Display key metrics/KPIs with optional trend indicator and sparkline.",
+      "category": "layout",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "default": "''",
+          "description": "Stat label/title",
+          "required": false
+        },
+        {
+          "name": "value",
+          "type": "string | number",
+          "default": "''",
+          "description": "Main value to display",
+          "required": false
+        },
+        {
+          "name": "previousValue",
+          "type": "string | number | null",
+          "default": "null",
+          "description": "Previous value for comparison",
+          "required": false
+        },
+        {
+          "name": "format",
+          "type": "'number' | 'currency' | 'percent' | 'custom'",
+          "default": "'number'",
+          "description": "Format for display (currency, percent, number)",
+          "required": false
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "default": "'USD'",
+          "description": "Currency code for currency format",
+          "required": false
+        },
+        {
+          "name": "decimals",
+          "type": "number",
+          "default": "0",
+          "description": "Decimal places",
+          "required": false
+        },
+        {
+          "name": "prefix",
+          "type": "string",
+          "default": "''",
+          "description": "Prefix for value (e.g., \"$\")",
+          "required": false
+        },
+        {
+          "name": "suffix",
+          "type": "string",
+          "default": "''",
+          "description": "Suffix for value (e.g., \"users\")",
+          "required": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "default": "''",
+          "description": "Description or helper text",
+          "required": false
+        },
+        {
+          "name": "icon",
+          "type": "string",
+          "default": "''",
+          "description": "Icon (SVG string)",
+          "required": false
+        },
+        {
+          "name": "iconColor",
+          "type": "'primary' | 'success' | 'warning' | 'error' | 'info'",
+          "default": "'primary'",
+          "description": "Icon background color",
+          "required": false
+        },
+        {
+          "name": "sparkline",
+          "type": "number[]",
+          "default": "[]",
+          "description": "Sparkline data points",
+          "required": false
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "default": "false",
+          "description": "Loading state",
+          "required": false
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "'md'",
+          "description": "Size variant",
+          "required": false
+        },
+        {
+          "name": "inverseTrend",
+          "type": "boolean",
+          "default": "false",
+          "description": "Inverse trend (decrease is good)",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [],
+      "file": "assets/svelte/components/ui/StatCard.svelte",
+      "example": "<StatCard />"
     },
     {
       "name": "SubmitButton",
@@ -1634,6 +3037,38 @@
       ],
       "file": "assets/svelte/components/ui/Toggle.svelte",
       "example": "<Toggle />"
+    },
+    {
+      "name": "TypingIndicator",
+      "description": "TypingIndicator Component Shows who is currently typing with animated dots.",
+      "category": "other",
+      "props": [
+        {
+          "name": "users",
+          "type": "Array<{ id: string | number, name: string",
+          "default": "[]",
+          "description": "Users who are typing",
+          "required": false
+        },
+        {
+          "name": "maxNames",
+          "type": "number",
+          "default": "2",
+          "description": "Maximum names to show before \"and X others\"",
+          "required": false
+        },
+        {
+          "name": "format",
+          "type": "((users: Array<{ name: string",
+          "default": "null",
+          "description": "Custom format function",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [],
+      "file": "assets/svelte/components/ui/TypingIndicator.svelte",
+      "example": "<TypingIndicator />"
     }
   ]
 }

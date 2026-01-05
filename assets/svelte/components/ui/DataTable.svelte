@@ -166,7 +166,7 @@
 
     <tbody>
       {#if loading}
-        {#each Array(skeletonRows) as _, i}
+        {#each Array(skeletonRows) as _}
           <tr>
             {#if selectable}
               <td class="select-cell">
@@ -220,7 +220,7 @@
   {#if mobileCards}
     <div class="mobile-cards-container">
       {#if loading}
-        {#each Array(skeletonRows) as _, i}
+        {#each Array(skeletonRows) as _}
           <div class="mobile-card">
             <Skeleton variant="card" height="80px" />
           </div>
@@ -233,11 +233,12 @@
             on:click={() => handleRowClick(row)}
             on:keydown={(e) => e.key === 'Enter' && handleRowClick(row)}
             tabindex="0"
+            role="button"
             animate:flip={{ duration: 200 }}
           >
             <div class="mobile-card-header">
               {#if selectable}
-                <div on:click|stopPropagation>
+                <div on:click|stopPropagation role="presentation">
                   <Checkbox
                     checked={selected.includes(row.id)}
                     on:change={() => toggleSelectRow(row.id)}

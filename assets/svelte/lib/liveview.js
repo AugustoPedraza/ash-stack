@@ -22,7 +22,7 @@
  *   pushEvent("save", { data })
  */
 
-import { writable, get } from 'svelte/store';
+import { writable } from 'svelte/store';
 import { toast } from './toast.js';
 
 // =============================================================================
@@ -209,7 +209,7 @@ export function pushEventAsync(event, payload = {}) {
       return;
     }
 
-    view.pushEvent(event, payload, (reply, ref) => {
+    view.pushEvent(event, payload, (reply, _ref) => {
       resolve(reply);
     });
   });
@@ -398,7 +398,7 @@ export const presence = writable({
  *   return cleanup;
  * });
  */
-export function initPresence(topic) {
+export function initPresence(_topic) {
   const socket = getLiveSocket();
   if (!socket?.channel) {
     console.warn('LiveSocket channel not available for presence');

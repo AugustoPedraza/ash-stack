@@ -4,7 +4,7 @@
   Supports search, keyboard navigation, and grouped commands.
 -->
 <script>
-  import { onMount, onDestroy, createEventDispatcher, tick } from 'svelte';
+  import { onMount, createEventDispatcher, tick } from 'svelte';
   import { fade, scale } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
 
@@ -81,9 +81,7 @@
         if (stored) {
           recentIds = JSON.parse(stored);
         }
-      } catch (e) {
-        // Ignore storage errors
-      }
+      } catch { /* ignore storage errors */ }
     }
 
     // Global keyboard shortcut
@@ -188,9 +186,7 @@
       recentIds = [command.id, ...recentIds.filter(id => id !== command.id)].slice(0, maxRecent);
       try {
         localStorage.setItem(storageKey, JSON.stringify(recentIds));
-      } catch (e) {
-        // Ignore storage errors
-      }
+      } catch { /* ignore storage errors */ }
     }
 
     dispatch('select', { command });
@@ -300,10 +296,10 @@
             <p>No commands found</p>
           </div>
         {:else}
-          {#each [...groupedCommands] as [groupName, groupCommands], groupIndex}
+          {#each [...groupedCommands] as [groupName, groupCommands]}
             <div class="command-group">
               <div class="group-label">{groupName}</div>
-              {#each groupCommands as command, cmdIndex}
+              {#each groupCommands as command}
                 {@const globalIndex = flatCommands.indexOf(command)}
                 <button
                   type="button"
@@ -316,7 +312,7 @@
                   {#if command.icon}
                     <span class="command-icon">{@html command.icon}</span>
                   {:else}
-                    <span class="command-icon-placeholder" />
+                    <span class="command-icon-placeholder"></span>
                   {/if}
 
                   <div class="command-content">

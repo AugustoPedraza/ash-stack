@@ -4,7 +4,7 @@
 -->
 <script>
   import { createEventDispatcher } from 'svelte';
-  import { fade, fly } from 'svelte/transition';
+  import { fly } from 'svelte/transition';
 
   const dispatch = createEventDispatcher();
 
@@ -156,7 +156,7 @@
 <div class="activity-feed" class:compact class:has-timeline={showTimeline}>
   {#if loading}
     <div class="loading-state">
-      <span class="spinner" />
+      <span class="spinner"></span>
       <span>Loading activity...</span>
     </div>
   {:else if items.length === 0}
@@ -194,7 +194,7 @@
                   {/if}
                 </div>
                 {#if !isLast}
-                  <div class="timeline-line" />
+                  <div class="timeline-line"></div>
                 {/if}
               </div>
             {/if}

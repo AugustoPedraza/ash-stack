@@ -38,13 +38,14 @@
   function getStyles() {
     switch (variant) {
       case 'circle':
-      case 'avatar':
+      case 'avatar': {
         const avatarSize = avatarSizes[size] || '40px';
         return {
           width: width || avatarSize,
           height: height || avatarSize,
           borderRadius: '50%'
         };
+      }
       case 'button':
         return {
           width: width || '80px',
@@ -89,7 +90,7 @@
         "
         role="presentation"
         aria-hidden="true"
-      />
+      ></div>
     {/each}
   </div>
 {:else}

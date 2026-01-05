@@ -33,7 +33,7 @@
   const formContext = getContext(FORM_CONTEXT);
 
   // Internal state
-  let fieldValue = '';
+  let _fieldValue = '';
   let validationError = null;
   let touched = false;
   let fieldRegistration = null;
@@ -67,7 +67,7 @@
   // Handle value changes from child input
   function handleInput(event) {
     const value = event.detail?.value ?? event.target?.value ?? '';
-    fieldValue = value;
+    _fieldValue = value;
 
     if (fieldRegistration) {
       fieldRegistration.setValue(value);
@@ -115,7 +115,7 @@
     <!-- Pass props to slotted input -->
     <slot
       id={inputId}
-      {name}
+      fieldName={name}
       {error}
       {disabled}
       invalid={hasError}

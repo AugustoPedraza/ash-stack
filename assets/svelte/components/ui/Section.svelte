@@ -28,7 +28,7 @@
   };
 </script>
 
-<section class="{spacings[spacing]}">
+<section class={spacings[spacing]}>
   <div class="flex flex-col {gaps[spacing]}">
     {#if title || description || $$slots.header}
       <header class="flex items-start justify-between gap-4">

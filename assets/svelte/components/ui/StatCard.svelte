@@ -170,10 +170,10 @@
 
 <div class="stat-card size-{size}" class:loading>
   {#if loading}
-    <div class="skeleton-icon" />
+    <div class="skeleton-icon"></div>
     <div class="skeleton-content">
-      <div class="skeleton-label" />
-      <div class="skeleton-value" />
+      <div class="skeleton-label"></div>
+      <div class="skeleton-value"></div>
     </div>
   {:else}
     {#if icon}
