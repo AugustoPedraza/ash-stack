@@ -1,6 +1,7 @@
 <!--
   Component Playground
   Interactive component browser with sidebar navigation
+  Supports style presets: linear, clean, friendly
 -->
 <script>
   // Import all components
@@ -34,6 +35,45 @@
   let activeCategory = 'Form';
   let activeComponent = 'Button';
   let sidebarOpen = false;
+
+  // Preset controls
+  let currentPreset = '';
+  let currentTheme = 'light';
+  let currentDensity = '';
+
+  const presets = [
+    { id: '', label: 'Default' },
+    { id: 'linear', label: 'Linear' },
+    { id: 'clean', label: 'Clean' },
+    { id: 'friendly', label: 'Friendly' }
+  ];
+
+  function setPreset(preset) {
+    currentPreset = preset;
+    if (preset) {
+      document.documentElement.setAttribute('data-preset', preset);
+    } else {
+      document.documentElement.removeAttribute('data-preset');
+    }
+  }
+
+  function setTheme(theme) {
+    currentTheme = theme;
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }
+
+  function setDensity(density) {
+    currentDensity = density;
+    if (density) {
+      document.documentElement.setAttribute('data-density', density);
+    } else {
+      document.documentElement.removeAttribute('data-density');
+    }
+  }
 
   function toggleSidebar() {
     sidebarOpen = !sidebarOpen;
@@ -130,6 +170,68 @@
     <div class="sidebar-header">
       <h1>Components</h1>
       <span class="component-count">{Object.values(categories).flat().length}</span>
+    </div>
+
+    <!-- Preset Controls -->
+    <div class="preset-controls">
+      <div class="control-group">
+        <span class="control-label">Style</span>
+        <div class="control-buttons">
+          {#each presets as preset}
+            <button
+              class="preset-btn"
+              class:active={currentPreset === preset.id}
+              onclick={() => setPreset(preset.id)}
+            >
+              {preset.label}
+            </button>
+          {/each}
+        </div>
+      </div>
+
+      <div class="control-row">
+        <div class="control-group">
+          <span class="control-label">Theme</span>
+          <div class="control-buttons">
+            <button
+              class="preset-btn"
+              class:active={currentTheme === 'light'}
+              onclick={() => setTheme('light')}
+              aria-label="Light theme"
+            >☀️</button>
+            <button
+              class="preset-btn"
+              class:active={currentTheme === 'dark'}
+              onclick={() => setTheme('dark')}
+              aria-label="Dark theme"
+            >🌙</button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <span class="control-label">Density</span>
+          <div class="control-buttons">
+            <button
+              class="preset-btn"
+              class:active={currentDensity === 'compact'}
+              onclick={() => setDensity('compact')}
+              aria-label="Compact density"
+            >−</button>
+            <button
+              class="preset-btn"
+              class:active={currentDensity === ''}
+              onclick={() => setDensity('')}
+              aria-label="Default density"
+            >○</button>
+            <button
+              class="preset-btn"
+              class:active={currentDensity === 'comfortable'}
+              onclick={() => setDensity('comfortable')}
+              aria-label="Comfortable density"
+            >+</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <nav class="sidebar-nav">
@@ -672,6 +774,68 @@
     background-color: var(--color-primary);
     color: var(--color-on-primary);
     border-radius: 9999px;
+  }
+
+  /* Preset Controls */
+  .preset-controls {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .control-row {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .control-row .control-group {
+    flex: 1;
+  }
+
+  .control-label {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+  }
+
+  .control-buttons {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .preset-btn {
+    flex: 1;
+    padding: 0.375rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-align: center;
+    background-color: var(--color-surface-sunken);
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .preset-btn:hover {
+    background-color: var(--color-surface-raised);
+    color: var(--color-text);
+  }
+
+  .preset-btn.active {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+    border-color: var(--color-primary);
   }
 
   .sidebar-nav {

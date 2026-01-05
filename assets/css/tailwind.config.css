@@ -73,36 +73,37 @@
 
   /* ============================================
      RESTRICTED SPACING SCALE
-     Only these spacing values are available
+     References CSS variables from tokens.css (density-aware)
      ============================================ */
   --spacing-*: initial;
 
-  --spacing-0: 0;
-  --spacing-px: 1px;
-  --spacing-0-5: 0.125rem;
-  --spacing-1: 0.25rem;
-  --spacing-2: 0.5rem;
-  --spacing-3: 0.75rem;
-  --spacing-4: 1rem;
-  --spacing-6: 1.5rem;
-  --spacing-8: 2rem;
-  --spacing-12: 3rem;
-  --spacing-16: 4rem;
-  --spacing-20: 5rem;
-  --spacing-24: 6rem;
-  /* NOTE: p-5, p-7, p-9, p-10, p-11, etc. do NOT exist */
+  --spacing-0: var(--space-0);
+  --spacing-px: var(--space-px);
+  --spacing-0-5: var(--space-0-5);
+  --spacing-1: var(--space-1);
+  --spacing-2: var(--space-2);
+  --spacing-3: var(--space-3);
+  --spacing-4: var(--space-4);
+  --spacing-5: var(--space-5);
+  --spacing-6: var(--space-6);
+  --spacing-8: var(--space-8);
+  --spacing-10: var(--space-10);
+  --spacing-12: var(--space-12);
+  --spacing-16: var(--space-16);
+  --spacing-20: var(--space-20);
+  --spacing-24: var(--space-24);
 
   /* ============================================
      RESTRICTED BORDER RADIUS
-     Only 4 options: sm, md, lg, full
+     References CSS variables from tokens.css (scale-aware)
      ============================================ */
   --radius-*: initial;
 
-  --radius-none: 0;
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
-  --radius-full: 9999px;
+  --radius-none: var(--radius-none);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-full: var(--radius-full);
   /* NOTE: rounded-xl, rounded-2xl, rounded-3xl do NOT exist */
 
   /* ============================================

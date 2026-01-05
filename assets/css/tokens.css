@@ -8,28 +8,42 @@
  * - Always use these tokens, never hardcode values
  * - Use semantic names (--color-primary not --color-blue-500)
  * - Add new tokens here when needed, don't inline values
+ *
+ * PRESET SYSTEM:
+ * - Use data-preset="linear|clean|friendly" on <html>
+ * - Use data-density="compact|default|comfortable" for spacing
+ * - Use data-motion="reduced|default|expressive" for animations
  */
 
 :root {
   /* ============================================
-     SPACING SCALE
-     Based on 4px grid (0.25rem)
+     PRESET MULTIPLIERS (defaults)
+     These are overridden by [data-preset] selectors
+     ============================================ */
+  --density: 1;              /* Spacing multiplier */
+  --radius-scale: 1;         /* Border radius multiplier */
+  --elevation-scale: 1;      /* Shadow intensity (0=flat, 1=normal, 2=elevated) */
+  --motion-scale: 1;         /* Animation duration multiplier (0=none, 1=normal) */
+  --motion-bounce: 0;        /* Spring bounce amount (0=none, 1=bouncy) */
+  /* ============================================
+     SPACING SCALE (density-aware)
+     Base values * density multiplier
      ============================================ */
   --space-0: 0;
   --space-px: 1px;
-  --space-0-5: 0.125rem;  /* 2px */
-  --space-1: 0.25rem;     /* 4px - tight gaps */
-  --space-2: 0.5rem;      /* 8px - default gaps */
-  --space-3: 0.75rem;     /* 12px - comfortable */
-  --space-4: 1rem;        /* 16px - section padding */
-  --space-5: 1.25rem;     /* 20px */
-  --space-6: 1.5rem;      /* 24px - card padding */
-  --space-8: 2rem;        /* 32px - large spacing */
-  --space-10: 2.5rem;     /* 40px */
-  --space-12: 3rem;       /* 48px */
-  --space-16: 4rem;       /* 64px - section margins */
-  --space-20: 5rem;       /* 80px */
-  --space-24: 6rem;       /* 96px */
+  --space-0-5: calc(0.125rem * var(--density));
+  --space-1: calc(0.25rem * var(--density));
+  --space-2: calc(0.5rem * var(--density));
+  --space-3: calc(0.75rem * var(--density));
+  --space-4: calc(1rem * var(--density));
+  --space-5: calc(1.25rem * var(--density));
+  --space-6: calc(1.5rem * var(--density));
+  --space-8: calc(2rem * var(--density));
+  --space-10: calc(2.5rem * var(--density));
+  --space-12: calc(3rem * var(--density));
+  --space-16: calc(4rem * var(--density));
+  --space-20: calc(5rem * var(--density));
+  --space-24: calc(6rem * var(--density));
 
   /* ============================================
      TYPOGRAPHY
@@ -113,65 +127,73 @@
   --color-border-focus: var(--color-primary);
 
   /* ============================================
-     BORDER RADIUS
+     BORDER RADIUS (scale-aware)
+     Base values * radius-scale multiplier
      ============================================ */
   --radius-none: 0;
-  --radius-sm: 0.25rem;   /* 4px */
-  --radius-md: 0.5rem;    /* 8px */
-  --radius-lg: 0.75rem;   /* 12px */
-  --radius-xl: 1rem;      /* 16px */
-  --radius-2xl: 1.5rem;   /* 24px */
+  --radius-sm: calc(0.25rem * var(--radius-scale));
+  --radius-md: calc(0.5rem * var(--radius-scale));
+  --radius-lg: calc(0.75rem * var(--radius-scale));
+  --radius-xl: calc(1rem * var(--radius-scale));
+  --radius-2xl: calc(1.5rem * var(--radius-scale));
   --radius-full: 9999px;
 
   /* ============================================
-     SHADOWS
+     SHADOWS (elevation-aware)
+     Opacity scales with elevation-scale (0=flat, 1=normal, 2=elevated)
      ============================================ */
-  --shadow-xs: 0 1px 2px 0 oklch(0% 0 0 / 3%);
-  --shadow-sm: 0 1px 3px 0 oklch(0% 0 0 / 5%), 0 1px 2px -1px oklch(0% 0 0 / 5%);
-  --shadow-md: 0 4px 6px -1px oklch(0% 0 0 / 7%), 0 2px 4px -2px oklch(0% 0 0 / 5%);
-  --shadow-lg: 0 10px 15px -3px oklch(0% 0 0 / 8%), 0 4px 6px -4px oklch(0% 0 0 / 5%);
-  --shadow-xl: 0 20px 25px -5px oklch(0% 0 0 / 10%), 0 8px 10px -6px oklch(0% 0 0 / 5%);
+  --shadow-opacity: calc(5% * var(--elevation-scale));
+  --shadow-opacity-lg: calc(8% * var(--elevation-scale));
+
+  --shadow-xs: 0 1px 2px 0 oklch(0% 0 0 / calc(3% * var(--elevation-scale)));
+  --shadow-sm: 0 1px 3px 0 oklch(0% 0 0 / var(--shadow-opacity)), 0 1px 2px -1px oklch(0% 0 0 / var(--shadow-opacity));
+  --shadow-md: 0 4px 6px -1px oklch(0% 0 0 / calc(7% * var(--elevation-scale))), 0 2px 4px -2px oklch(0% 0 0 / var(--shadow-opacity));
+  --shadow-lg: 0 10px 15px -3px oklch(0% 0 0 / var(--shadow-opacity-lg)), 0 4px 6px -4px oklch(0% 0 0 / var(--shadow-opacity));
+  --shadow-xl: 0 20px 25px -5px oklch(0% 0 0 / calc(10% * var(--elevation-scale))), 0 8px 10px -6px oklch(0% 0 0 / var(--shadow-opacity));
 
   /* ============================================
-     ANIMATION & TRANSITIONS
-     iOS-inspired timing for native feel
+     ANIMATION & TRANSITIONS (motion-aware)
+     Durations scale with motion-scale (0=instant, 1=normal)
+     PWA-optimized: GPU-only transforms, subtle timing
      ============================================ */
 
-  /* Durations - Use these consistently */
+  /* Base durations (scaled by motion-scale) */
   --duration-instant: 0ms;
-  --duration-micro: 50ms;       /* Micro-interactions (button press) */
-  --duration-fast: 150ms;       /* Quick feedback (hover, focus) */
-  --duration-normal: 250ms;     /* Standard transitions */
-  --duration-slow: 350ms;       /* Modal, sheet open */
-  --duration-slower: 500ms;     /* Complex animations */
+  --duration-micro: calc(50ms * var(--motion-scale));
+  --duration-fast: calc(150ms * var(--motion-scale));
+  --duration-normal: calc(200ms * var(--motion-scale));
+  --duration-slow: calc(300ms * var(--motion-scale));
+  --duration-slower: calc(400ms * var(--motion-scale));
 
-  /* Easings - iOS-style curves */
+  /* Easings - clean, professional curves */
   --ease-linear: linear;
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 
-  /* iOS Spring Curves */
-  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  --ease-spring-soft: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-spring-bouncy: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  /* Spring curves - bounce controlled by motion-bounce */
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  /* iOS-style curves for specific use cases */
-  --ease-modal-in: cubic-bezier(0.32, 0.72, 0, 1);      /* Modal/sheet appear */
-  --ease-modal-out: cubic-bezier(0.32, 0.72, 0, 1);     /* Modal/sheet dismiss */
-  --ease-button-press: cubic-bezier(0.3, 0, 0.8, 0.15); /* Button tap down */
-  --ease-button-release: cubic-bezier(0.2, 0.8, 0.4, 1); /* Button release */
+  /* Use cases */
+  --ease-modal-in: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-modal-out: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-button-press: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --ease-button-release: cubic-bezier(0.2, 0.8, 0.4, 1);
 
-  /* Animation presets */
+  /* Primary easing - changes per preset */
+  --ease-primary: var(--ease-out);
+
+  /* Transition presets (use these in components) */
   --transition-micro: var(--duration-micro) var(--ease-out);
-  --transition-fast: var(--duration-fast) var(--ease-out);
-  --transition-normal: var(--duration-normal) var(--ease-in-out);
-  --transition-spring: var(--duration-slow) var(--ease-spring);
+  --transition-fast: var(--duration-fast) var(--ease-primary);
+  --transition-normal: var(--duration-normal) var(--ease-primary);
+  --transition-slow: var(--duration-slow) var(--ease-primary);
 
-  /* Scale values for press states */
-  --scale-press: 0.97;          /* Button/card press */
-  --scale-press-sm: 0.95;       /* Smaller elements */
-  --scale-hover: 1.02;          /* Subtle hover lift */
+  /* GPU-friendly transforms only */
+  --scale-press: 0.97;
+  --scale-press-sm: 0.95;
+  --scale-hover: 1.02;
 
   /* ============================================
      Z-INDEX SCALE
@@ -286,3 +308,271 @@
 .transition-fast { transition-duration: var(--duration-fast); }
 .transition-normal { transition-duration: var(--duration-normal); }
 .transition-slow { transition-duration: var(--duration-slow); }
+
+/* ============================================
+   STYLE PRESETS
+   Apply via: <html data-preset="linear|clean|friendly">
+   ============================================ */
+
+/* LINEAR - Dense, professional, Linear/Notion style */
+[data-preset="linear"] {
+  --density: 0.875;
+  --radius-scale: 0.75;
+  --elevation-scale: 0.5;
+  --motion-scale: 0.8;
+  --ease-primary: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Tighter component sizing */
+  --button-sm: 1.75rem;
+  --button-md: 2.25rem;
+  --button-lg: 2.75rem;
+  --input-sm: 1.75rem;
+  --input-md: 2.25rem;
+  --input-lg: 2.75rem;
+}
+
+/* CLEAN - Minimal, technical, Vercel style */
+[data-preset="clean"] {
+  --density: 1;
+  --radius-scale: 0.875;
+  --elevation-scale: 0;
+  --motion-scale: 1;
+  --ease-primary: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Border-based depth instead of shadows */
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-xl: none;
+
+  /* Stronger borders for definition */
+  --color-border: oklch(85% 0 0);
+}
+[data-preset="clean"].dark,
+.dark[data-preset="clean"] {
+  --color-border: oklch(30% 0 0);
+}
+
+/* FRIENDLY - Rounded, warm, Stripe style */
+[data-preset="friendly"] {
+  --density: 1.125;
+  --radius-scale: 1.5;
+  --elevation-scale: 1.25;
+  --motion-scale: 1.1;
+  --ease-primary: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Larger, more comfortable components */
+  --button-sm: 2.25rem;
+  --button-md: 2.75rem;
+  --button-lg: 3.25rem;
+  --input-sm: 2.25rem;
+  --input-md: 2.75rem;
+  --input-lg: 3.25rem;
+}
+
+/* ============================================
+   DENSITY OVERRIDES
+   Apply via: <html data-density="compact|comfortable">
+   ============================================ */
+
+[data-density="compact"] {
+  --density: 0.75;
+}
+
+[data-density="comfortable"] {
+  --density: 1.25;
+}
+
+/* ============================================
+   MOTION PREFERENCES
+   Automatically respects prefers-reduced-motion
+   Or manually: <html data-motion="reduced|expressive">
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-scale: 0;
+    --scale-press: 1;
+    --scale-press-sm: 1;
+    --scale-hover: 1;
+  }
+}
+
+[data-motion="reduced"] {
+  --motion-scale: 0;
+  --scale-press: 1;
+  --scale-press-sm: 1;
+  --scale-hover: 1;
+}
+
+[data-motion="expressive"] {
+  --motion-scale: 1.25;
+  --ease-primary: var(--ease-spring-bounce);
+}
+
+/* ============================================
+   ANIMATION UTILITIES (GPU-optimized)
+   All animations use transform/opacity only
+   Durations respect motion-scale
+   ============================================ */
+
+/* Keyframes */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-left {
+  from { opacity: 0; transform: translateX(8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slide-right {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes scale-out {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.95); }
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(var(--scale-hover)); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Animation utility classes */
+.animate-fade-in {
+  animation: fade-in var(--duration-normal) var(--ease-primary) both;
+}
+
+.animate-fade-out {
+  animation: fade-out var(--duration-fast) var(--ease-primary) both;
+}
+
+.animate-slide-up {
+  animation: slide-up var(--duration-normal) var(--ease-primary) both;
+}
+
+.animate-slide-down {
+  animation: slide-down var(--duration-normal) var(--ease-primary) both;
+}
+
+.animate-slide-left {
+  animation: slide-left var(--duration-normal) var(--ease-primary) both;
+}
+
+.animate-slide-right {
+  animation: slide-right var(--duration-normal) var(--ease-primary) both;
+}
+
+.animate-scale-in {
+  animation: scale-in var(--duration-normal) var(--ease-spring) both;
+}
+
+.animate-scale-out {
+  animation: scale-out var(--duration-fast) var(--ease-primary) both;
+}
+
+.animate-pop {
+  animation: pop var(--duration-fast) var(--ease-spring);
+}
+
+.animate-shimmer {
+  animation: shimmer 1.5s infinite;
+}
+
+.animate-pulse {
+  animation: pulse calc(1.5s * var(--motion-scale)) infinite;
+}
+
+.animate-spin {
+  animation: spin calc(1s * var(--motion-scale)) linear infinite;
+}
+
+/* Stagger delays for lists */
+.stagger-1 { animation-delay: calc(50ms * var(--motion-scale)); }
+.stagger-2 { animation-delay: calc(100ms * var(--motion-scale)); }
+.stagger-3 { animation-delay: calc(150ms * var(--motion-scale)); }
+.stagger-4 { animation-delay: calc(200ms * var(--motion-scale)); }
+.stagger-5 { animation-delay: calc(250ms * var(--motion-scale)); }
+
+/* Interactive state animations */
+.press-scale {
+  transition: transform var(--duration-micro) var(--ease-button-press);
+}
+.press-scale:active {
+  transform: scale(var(--scale-press));
+}
+
+.hover-lift {
+  transition: transform var(--duration-fast) var(--ease-primary),
+              box-shadow var(--duration-fast) var(--ease-primary);
+}
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* GPU optimization hints */
+.will-animate {
+  will-change: transform, opacity;
+}
+
+/* Disable animations when motion-scale is 0 */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-fade-out,
+  .animate-slide-up,
+  .animate-slide-down,
+  .animate-slide-left,
+  .animate-slide-right,
+  .animate-scale-in,
+  .animate-scale-out,
+  .animate-pop,
+  .animate-pulse {
+    animation: none;
+  }
+
+  .press-scale:active,
+  .hover-lift:hover {
+    transform: none;
+  }
+}
