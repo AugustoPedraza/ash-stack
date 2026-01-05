@@ -363,6 +363,17 @@ class="bg-gray-100"                # Use bg-surface-sunken
 **Mobile Components:**
 - `Sheet` - open, title, gestureEnabled, snapPoints (slots: footer)
 
+**Conversation Components:**
+- `VoiceNote` - state (idle|recording|playing|paused), src, duration, allowRecording, waveformData, hasTranscription (events: play, pause, recorded)
+- `ChatMessage` - sender, content, timestamp, isOwn, showAvatar, showName, type (default|voice|image|file), mentions (slots: default, footer)
+- `QuotedMessage` - sender, content, type (text|voice|image|file), thumbnail, duration, clickable (events: click)
+- `ChatInput` - value, placeholder, enableVoice, enableAttachments, acceptedFiles, replyTo, disabled (events: send, voicesend, attachments)
+- `DecisionItem` - title, description, status (pending|approved|rejected|expired), voters, deadline, canVote, currentVote (events: vote, click)
+- `TaskItem` - title, completed, assignee, dueDate, priority (low|medium|high|urgent), description, tags (events: toggle, click, assigneeclick)
+- `ParticipantRow` - participants, maxVisible, size (xs|sm|md), stacked, showStatus, showNames, label (events: participantclick, overflowclick)
+- `ChannelPills` - channels, active, multiple, selected, variant (default|compact), showAll (events: change)
+- `MessageThread` - title, date, replyCount, unreadCount, collapsed, collapsible, showDate, hasMore (slots: default, actions) (events: toggle, reply, loadmore)
+
 ### Form Pattern
 
 ```svelte

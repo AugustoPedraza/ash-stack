@@ -17,18 +17,34 @@
 
 ## Quick Start
 
-### Prerequisites
+### Option A: Frontend Only (Fastest)
+
+Just want to explore the UI components? Only Node.js required:
+
+```bash
+git clone <repo-url> my_app
+cd my_app/assets
+npm install
+npm run playground
+```
+
+Visit [http://localhost:5173](http://localhost:5173) to browse all components.
+
+### Option B: Full Stack
+
+For the complete Phoenix application with backend:
+
+**Prerequisites:**
 
 | Tool | Purpose | Install |
 |------|---------|---------|
 | **Docker** | PostgreSQL, services | [docker.com](https://docker.com) |
 | **mise** | Elixir/Node versions | `curl https://mise.run \| sh` |
-| **just** | Task runner | `brew install just` |
+| **just** | Task runner | `brew install just` or `cargo install just` |
 
-### Setup
+**Setup:**
 
 ```bash
-# Clone
 git clone <repo-url> my_app
 cd my_app
 
@@ -47,15 +63,31 @@ Visit [http://localhost:4000](http://localhost:4000)
 ### Common Commands
 
 ```bash
-just              # List all commands
-just dev          # Start dev server with IEx
-just test         # Run tests
-just check        # Run all quality checks (format, credo, dialyzer)
-just db-migrate   # Run migrations
-just db-reset     # Reset database
+just                # List all commands
+just playground     # Run component playground (frontend only)
+just dev            # Start full dev server with IEx
+just test           # Run tests
+just check          # Run all quality checks
+just db-reset       # Reset database
 ```
 
 See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for complete guide.
+
+## UI Components
+
+50+ production-ready components organized by category:
+
+| Category | Components |
+|----------|------------|
+| **Form** | Button, Input, Select, Toggle, Checkbox, DatePicker, FileUpload, SearchInput |
+| **Display** | Avatar, Badge, Skeleton, StatCard, ProgressBar, MiniChart, Meter |
+| **Layout** | Card, Page, Tabs, Modal, Sheet, Dropdown, Sidebar, Breadcrumbs |
+| **Data** | DataTable, Pagination, EmptyState, InfiniteScroll, ActivityFeed |
+| **Conversation** | ChatMessage, ChatInput, VoiceNote, QuotedMessage, DecisionItem, TaskItem, ParticipantRow, ChannelPills, MessageThread |
+| **Auth** | AuthForm, OAuthButton |
+| **Realtime** | RealtimeList, TypingIndicator, ConnectionStatus |
+
+Run `just playground` to explore all components with live demos, style presets (Linear/Clean/Friendly), and theme switching.
 
 ## Project Structure
 

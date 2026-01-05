@@ -17,7 +17,10 @@
     StatCard, ProgressBar, MiniChart, Meter,
     AuthForm, OAuthButton,
     TypingIndicator,
-    ConnectionStatus
+    ConnectionStatus,
+    // Conversation Components
+    VoiceNote, ChatMessage, QuotedMessage, ChatInput,
+    DecisionItem, TaskItem, ParticipantRow, ChannelPills, MessageThread
   } from '../ui';
 
   // Component categories
@@ -29,7 +32,8 @@
     'Data': ['DataTable', 'Pagination', 'EmptyState', 'AnimatedList', 'InfiniteScroll', 'ActivityFeed'],
     'Feedback': ['NotificationCenter', 'ErrorBoundary', 'ConnectionStatus', 'TypingIndicator'],
     'Auth': ['AuthForm', 'OAuthButton'],
-    'Realtime': ['RealtimeList']
+    'Realtime': ['RealtimeList'],
+    'Conversation': ['ChatMessage', 'ChatInput', 'VoiceNote', 'QuotedMessage', 'MessageThread', 'DecisionItem', 'TaskItem', 'ParticipantRow', 'ChannelPills']
   };
 
   let activeCategory = 'Form';
@@ -133,6 +137,35 @@
   ];
 
   const chartData = [10, 25, 15, 30, 20, 35, 25, 40, 30, 45];
+
+  // Conversation demo data
+  const demoSender = { id: '1', name: 'Alice Johnson', avatar: null, role: 'Designer' };
+  const demoSender2 = { id: '2', name: 'Bob Smith', avatar: null };
+  const demoParticipants = [
+    { id: '1', name: 'Alice', status: 'online' },
+    { id: '2', name: 'Bob', status: 'away' },
+    { id: '3', name: 'Charlie', status: 'offline' },
+    { id: '4', name: 'Diana', status: 'online' },
+    { id: '5', name: 'Eve', status: 'busy' },
+    { id: '6', name: 'Frank', status: 'online' }
+  ];
+  const demoChannels = [
+    { id: 'general', label: 'General', icon: 'chat', count: 3 },
+    { id: 'voice', label: 'Voice', icon: 'voice' },
+    { id: 'files', label: 'Files', icon: 'file', count: 12 },
+    { id: 'decisions', label: 'Decisions', icon: 'decision', count: 2 },
+    { id: 'tasks', label: 'Tasks', icon: 'task', count: 5 }
+  ];
+  const demoVoters = [
+    { id: '1', name: 'Alice', vote: 'approve' },
+    { id: '2', name: 'Bob', vote: 'approve' },
+    { id: '3', name: 'Charlie', vote: null },
+    { id: '4', name: 'Diana', vote: 'reject' }
+  ];
+  let activeChannel = 'general';
+  let chatInputValue = '';
+  let voiceNoteState = 'idle';
+  let replyTo = null;
 
   function selectComponent(category, component) {
     activeCategory = category;
@@ -718,6 +751,249 @@
         <section class="demo-section">
           <h3>Usage</h3>
           <p class="demo-note">Connects to a realtime store for live updates. Use with createRealtimeStore().</p>
+        </section>
+
+      <!-- CONVERSATION COMPONENTS -->
+      {:else if activeComponent === 'ChatMessage'}
+        <section class="demo-section">
+          <h3>Basic Message</h3>
+          <div style="max-width: 500px">
+            <ChatMessage
+              sender={demoSender}
+              content="Hey everyone! Check out this new design I've been working on. Let me know what you think @Bob"
+              timestamp={new Date()}
+              mentions={[{ id: '2', name: 'Bob' }]}
+            />
+          </div>
+        </section>
+        <section class="demo-section">
+          <h3>Own Message</h3>
+          <div style="max-width: 500px">
+            <ChatMessage
+              sender={demoSender2}
+              content="Looks great! I'll review it this afternoon."
+              timestamp={new Date()}
+              isOwn={true}
+            />
+          </div>
+        </section>
+        <section class="demo-section">
+          <h3>With Link</h3>
+          <div style="max-width: 500px">
+            <ChatMessage
+              sender={demoSender}
+              content="Here's the documentation: https://example.com/docs"
+              timestamp={new Date()}
+            />
+          </div>
+        </section>
+
+      {:else if activeComponent === 'ChatInput'}
+        <section class="demo-section">
+          <h3>Default</h3>
+          <div style="max-width: 500px">
+            <ChatInput
+              bind:value={chatInputValue}
+              placeholder="Type a message..."
+              enableVoice
+              enableAttachments
+            />
+          </div>
+        </section>
+        <section class="demo-section">
+          <h3>With Reply</h3>
+          <div style="max-width: 500px">
+            <ChatInput
+              placeholder="Type a message..."
+              replyTo={demoSender}
+              on:cancelreply={() => {}}
+            />
+          </div>
+        </section>
+
+      {:else if activeComponent === 'VoiceNote'}
+        <section class="demo-section">
+          <h3>Recording Mode</h3>
+          <div style="max-width: 400px">
+            <VoiceNote allowRecording />
+          </div>
+        </section>
+        <section class="demo-section">
+          <h3>Playback Mode</h3>
+          <p class="demo-note">Record a voice note above to see playback mode, or provide an audio src.</p>
+        </section>
+
+      {:else if activeComponent === 'QuotedMessage'}
+        <section class="demo-section">
+          <h3>Text Quote</h3>
+          <div style="max-width: 400px">
+            <QuotedMessage
+              sender={demoSender}
+              content="This is the original message that was quoted. It can be quite long and will be truncated automatically."
+              type="text"
+            />
+          </div>
+        </section>
+        <section class="demo-section">
+          <h3>Voice Quote</h3>
+          <div style="max-width: 400px">
+            <QuotedMessage
+              sender={demoSender2}
+              type="voice"
+              duration={45}
+            />
+          </div>
+        </section>
+        <section class="demo-section">
+          <h3>File Quote</h3>
+          <div style="max-width: 400px">
+            <QuotedMessage
+              sender={demoSender}
+              type="file"
+              fileName="design-specs.pdf"
+            />
+          </div>
+        </section>
+
+      {:else if activeComponent === 'MessageThread'}
+        <section class="demo-section">
+          <h3>With Date Separator</h3>
+          <div style="max-width: 500px">
+            <MessageThread date={new Date()} showDate>
+              <ChatMessage
+                sender={demoSender}
+                content="Starting the discussion about the new feature."
+                timestamp={new Date()}
+              />
+              <ChatMessage
+                sender={demoSender2}
+                content="I have some ideas to share!"
+                timestamp={new Date()}
+                showAvatar={false}
+                showName={false}
+              />
+            </MessageThread>
+          </div>
+        </section>
+        <section class="demo-section">
+          <h3>Topic Thread</h3>
+          <div style="max-width: 500px">
+            <MessageThread
+              title="Q3 Planning Discussion"
+              replyCount={12}
+              unreadCount={3}
+              collapsible
+            >
+              <ChatMessage
+                sender={demoSender}
+                content="Let's discuss the Q3 roadmap priorities."
+                timestamp={new Date()}
+              />
+            </MessageThread>
+          </div>
+        </section>
+
+      {:else if activeComponent === 'DecisionItem'}
+        <section class="demo-section">
+          <h3>Pending Decision</h3>
+          <div style="max-width: 500px">
+            <DecisionItem
+              title="Should we proceed with the new design system?"
+              description="This will affect all our products and require significant resources."
+              status="pending"
+              voters={demoVoters}
+              deadline={new Date(Date.now() + 86400000 * 2)}
+              canVote
+            />
+          </div>
+        </section>
+        <section class="demo-section">
+          <h3>Approved Decision</h3>
+          <div style="max-width: 500px">
+            <DecisionItem
+              title="Use Svelte for the frontend"
+              status="approved"
+              voters={demoVoters}
+              compact
+            />
+          </div>
+        </section>
+
+      {:else if activeComponent === 'TaskItem'}
+        <section class="demo-section">
+          <h3>Pending Task</h3>
+          <div style="max-width: 500px">
+            <TaskItem
+              title="Review the new component designs"
+              assignee={demoSender}
+              dueDate={new Date(Date.now() + 86400000)}
+              priority="high"
+              tags={['design', 'urgent']}
+            />
+          </div>
+        </section>
+        <section class="demo-section">
+          <h3>Completed Task</h3>
+          <div style="max-width: 500px">
+            <TaskItem
+              title="Set up the development environment"
+              completed
+              assignee={demoSender2}
+            />
+          </div>
+        </section>
+        <section class="demo-section">
+          <h3>Overdue Task</h3>
+          <div style="max-width: 500px">
+            <TaskItem
+              title="Submit quarterly report"
+              dueDate={new Date(Date.now() - 86400000)}
+              priority="urgent"
+            />
+          </div>
+        </section>
+
+      {:else if activeComponent === 'ParticipantRow'}
+        <section class="demo-section">
+          <h3>Stacked Avatars</h3>
+          <ParticipantRow
+            participants={demoParticipants}
+            maxVisible={4}
+            showStatus
+          />
+        </section>
+        <section class="demo-section">
+          <h3>With Label</h3>
+          <ParticipantRow
+            participants={demoParticipants}
+            maxVisible={3}
+            label="6 participants"
+          />
+        </section>
+        <section class="demo-section">
+          <h3>Different Sizes</h3>
+          <div class="demo-stack">
+            <ParticipantRow participants={demoParticipants.slice(0, 3)} size="xs" />
+            <ParticipantRow participants={demoParticipants.slice(0, 3)} size="sm" />
+            <ParticipantRow participants={demoParticipants.slice(0, 3)} size="md" />
+          </div>
+        </section>
+
+      {:else if activeComponent === 'ChannelPills'}
+        <section class="demo-section">
+          <h3>Default</h3>
+          <ChannelPills
+            channels={demoChannels}
+            bind:active={activeChannel}
+          />
+        </section>
+        <section class="demo-section">
+          <h3>Compact</h3>
+          <ChannelPills
+            channels={demoChannels}
+            variant="compact"
+            bind:active={activeChannel}
+          />
         </section>
 
       {:else}

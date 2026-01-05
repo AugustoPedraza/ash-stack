@@ -41,6 +41,10 @@ deps:
     mix deps.get
     npm install --prefix assets
 
+# Install frontend dependencies only (no Elixir needed)
+deps-frontend:
+    npm install --prefix assets
+
 # =============================================================================
 # DEVELOPMENT
 # =============================================================================
@@ -192,6 +196,12 @@ assets-build:
 # Watch assets (separate terminal)
 assets-watch:
     npm run dev --prefix assets
+
+# Run component playground (frontend only, no backend needed)
+playground:
+    @echo "🎨 Starting component playground..."
+    @echo "   Open http://localhost:5173"
+    npm run playground --prefix assets
 
 # =============================================================================
 # RELEASES

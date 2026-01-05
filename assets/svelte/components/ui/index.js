@@ -86,6 +86,17 @@ export { default as Meter } from './Meter.svelte';
 // Mobile Components
 export { default as Sheet } from './Sheet.svelte';
 
+// Conversation Components
+export { default as VoiceNote } from './VoiceNote.svelte';
+export { default as ChatMessage } from './ChatMessage.svelte';
+export { default as QuotedMessage } from './QuotedMessage.svelte';
+export { default as ChatInput } from './ChatInput.svelte';
+export { default as DecisionItem } from './DecisionItem.svelte';
+export { default as TaskItem } from './TaskItem.svelte';
+export { default as ParticipantRow } from './ParticipantRow.svelte';
+export { default as ChannelPills } from './ChannelPills.svelte';
+export { default as MessageThread } from './MessageThread.svelte';
+
 // Re-export toast store for convenience
 export { toast } from '../../lib/toast.js';
 

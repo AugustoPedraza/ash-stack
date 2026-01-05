@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "generated": "2025-12-31T17:06:40.885Z",
+  "generated": "2026-01-05T16:18:27.733Z",
   "version": "1.0.0",
   "description": "Auto-generated component manifest for AI context. DO NOT EDIT MANUALLY.",
   "usage": "import { ComponentName } from '$lib/components/ui';",
@@ -8,18 +8,26 @@
     "other": [
       "ActivityFeed",
       "Breadcrumbs",
+      "ChannelPills",
+      "ChatMessage",
       "CommandPalette",
       "ConnectionStatus",
       "DatePicker",
+      "DecisionItem",
       "ErrorBoundary",
       "FileUpload",
+      "MessageThread",
       "Meter",
       "MiniChart",
       "NotificationCenter",
+      "ParticipantRow",
       "ProgressBar",
+      "QuotedMessage",
       "RealtimeList",
       "Sidebar",
-      "TypingIndicator"
+      "TaskItem",
+      "TypingIndicator",
+      "VoiceNote"
     ],
     "animation": [
       "AnimatedList"
@@ -27,6 +35,7 @@
     "form": [
       "AuthForm",
       "Button",
+      "ChatInput",
       "Checkbox",
       "Form",
       "FormField",
@@ -535,6 +544,221 @@
       "example": "<Card>\n  <!-- content -->\n</Card>"
     },
     {
+      "name": "ChannelPills",
+      "description": "ChannelPills Component Horizontal scrollable pill-style filter tabs. Used for filtering messages by channel/category.",
+      "category": "other",
+      "props": [
+        {
+          "name": "channels",
+          "type": "Channel[]",
+          "default": "[]",
+          "description": "/ /** @type {Channel[]}",
+          "required": false
+        },
+        {
+          "name": "active",
+          "type": "string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "selected",
+          "type": "string[]",
+          "default": "[]",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "variant",
+          "type": "'default' | 'compact'",
+          "default": "'default'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "showAll",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "allLabel",
+          "type": "string",
+          "default": "'All'",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [
+        "change"
+      ],
+      "file": "assets/svelte/components/ui/ChannelPills.svelte",
+      "example": "<ChannelPills />"
+    },
+    {
+      "name": "ChatInput",
+      "description": "ChatInput Component Message composer with text input, voice recording, and file attachments. PWA-optimized with mobile keyboard handling.",
+      "category": "form",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "default": "''",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "'Type a message...'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "enableVoice",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "enableAttachments",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "acceptedFiles",
+          "type": "string[]",
+          "default": "['image/*', 'application/pdf', '.doc', '.docx']",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "maxFileSize",
+          "type": "number",
+          "default": "10 * 1024 * 1024",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "alwaysShowSend",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "replyTo",
+          "type": "{ id: string, name: string, avatar?: string",
+          "default": "null",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [
+        "input",
+        "send",
+        "cancelreply",
+        "voicesend",
+        "error",
+        "attachments"
+      ],
+      "file": "assets/svelte/components/ui/ChatInput.svelte",
+      "example": "<ChatInput />"
+    },
+    {
+      "name": "ChatMessage",
+      "description": "ChatMessage Component Message bubble with avatar, timestamp, mentions, and rich content. Supports text, voice notes, attachments, quotes, decisions, and tasks.",
+      "category": "other",
+      "props": [
+        {
+          "name": "sender",
+          "type": "{ id: string, name: string, avatar?: string, role?: string",
+          "description": "",
+          "required": true
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "default": "''",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "timestamp",
+          "type": "Date | string",
+          "description": "",
+          "required": true
+        },
+        {
+          "name": "isOwn",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "showAvatar",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "showName",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "type",
+          "type": "'default' | 'voice' | 'image' | 'file'",
+          "default": "'default'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "mentions",
+          "type": "Array<{ id: string, name: string",
+          "default": "[]",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [
+        "default",
+        "footer"
+      ],
+      "events": [
+        "mentionclick",
+        "linkclick",
+        "avatarclick"
+      ],
+      "file": "assets/svelte/components/ui/ChatMessage.svelte",
+      "example": "<ChatMessage sender=\"value\" timestamp=\"value\">\n  <!-- content -->\n</ChatMessage>"
+    },
+    {
       "name": "Checkbox",
       "description": "Checkbox Component Controlled checkbox with label support. NO class prop - consistent styling enforced.",
       "category": "form",
@@ -906,6 +1130,75 @@
       ],
       "file": "assets/svelte/components/ui/DatePicker.svelte",
       "example": "<DatePicker />"
+    },
+    {
+      "name": "DecisionItem",
+      "description": "DecisionItem Component Displays a decision requiring approval with status, voters, and actions. Used in collaboration/meeting contexts.",
+      "category": "other",
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "description": "",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "default": "''",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "status",
+          "type": "'pending' | 'approved' | 'rejected' | 'expired'",
+          "default": "'pending'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "voters",
+          "type": "Array<{ id: string, name: string, avatar?: string, vote?: 'approve' | 'reject' | null",
+          "default": "[]",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "deadline",
+          "type": "Date | string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "canVote",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "currentVote",
+          "type": "'approve' | 'reject' | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "compact",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [
+        "vote",
+        "click"
+      ],
+      "file": "assets/svelte/components/ui/DecisionItem.svelte",
+      "example": "<DecisionItem title=\"value\" />"
     },
     {
       "name": "Dropdown",
@@ -1424,6 +1717,94 @@
       ],
       "file": "assets/svelte/components/ui/Input.svelte",
       "example": "<Input />"
+    },
+    {
+      "name": "MessageThread",
+      "description": "MessageThread Component Groups messages into a thread with date separators, reply counts, and actions. Container for ChatMessage components.",
+      "category": "other",
+      "props": [
+        {
+          "name": "title",
+          "type": "string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "date",
+          "type": "Date | string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "replyCount",
+          "type": "number",
+          "default": "0",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "unreadCount",
+          "type": "number",
+          "default": "0",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "collapsed",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "showDate",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "collapsible",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "showActions",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "hasMore",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [
+        "default",
+        "actions"
+      ],
+      "events": [
+        "toggle",
+        "reply",
+        "loadmore"
+      ],
+      "file": "assets/svelte/components/ui/MessageThread.svelte",
+      "example": "<MessageThread>\n  <!-- content -->\n</MessageThread>"
     },
     {
       "name": "Meter",
@@ -1974,6 +2355,77 @@
       "example": "<Pagination />"
     },
     {
+      "name": "ParticipantRow",
+      "description": "ParticipantRow Component Horizontal list of participant avatars with status indicators. Shows stacked avatars with overflow count.",
+      "category": "other",
+      "props": [
+        {
+          "name": "participants",
+          "type": "Array<{ id: string, name: string, avatar?: string, status?: 'online' | 'away' | 'busy' | 'offline', role?: string",
+          "default": "[]",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "maxVisible",
+          "type": "number",
+          "default": "5",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "size",
+          "type": "'xs' | 'sm' | 'md'",
+          "default": "'sm'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "stacked",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "showStatus",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "showNames",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "label",
+          "type": "string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "labelPosition",
+          "type": "'left' | 'right'",
+          "default": "'right'",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [
+        "participantclick",
+        "overflowclick",
+        "click"
+      ],
+      "file": "assets/svelte/components/ui/ParticipantRow.svelte",
+      "example": "<ParticipantRow />"
+    },
+    {
       "name": "ProgressBar",
       "description": "ProgressBar Component Visual progress indicator with multiple variants and states.",
       "category": "other",
@@ -2081,6 +2533,74 @@
       "events": [],
       "file": "assets/svelte/components/ui/ProgressBar.svelte",
       "example": "<ProgressBar />"
+    },
+    {
+      "name": "QuotedMessage",
+      "description": "QuotedMessage Component Nested reply block showing the quoted/original message being replied to. Used inside ChatMessage for reply threads.",
+      "category": "other",
+      "props": [
+        {
+          "name": "sender",
+          "type": "{ id: string, name: string, avatar?: string",
+          "description": "",
+          "required": true
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "default": "''",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "type",
+          "type": "'text' | 'voice' | 'image' | 'file'",
+          "default": "'text'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "thumbnail",
+          "type": "string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "duration",
+          "type": "number | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "fileName",
+          "type": "string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "clickable",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "maxLength",
+          "type": "number",
+          "default": "100",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [
+        "click"
+      ],
+      "file": "assets/svelte/components/ui/QuotedMessage.svelte",
+      "example": "<QuotedMessage sender=\"value\" />"
     },
     {
       "name": "RealtimeList",
@@ -2828,6 +3348,83 @@
       "example": "<Tabs />"
     },
     {
+      "name": "TaskItem",
+      "description": "TaskItem Component Inline task with checkbox, title, due date, and assignee. Can be embedded in messages or standalone.",
+      "category": "other",
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "description": "",
+          "required": true
+        },
+        {
+          "name": "completed",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "assignee",
+          "type": "{ id: string, name: string, avatar?: string",
+          "default": "null",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "dueDate",
+          "type": "Date | string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "priority",
+          "type": "'low' | 'medium' | 'high' | 'urgent'",
+          "default": "'medium'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "default": "''",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "editable",
+          "type": "boolean",
+          "default": "true",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "compact",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "tags",
+          "type": "Array<string>",
+          "default": "[]",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [
+        "toggle",
+        "click",
+        "assigneeclick"
+      ],
+      "file": "assets/svelte/components/ui/TaskItem.svelte",
+      "example": "<TaskItem title=\"value\" />"
+    },
+    {
       "name": "Textarea",
       "description": "Textarea Component Controlled textarea with consistent styling. NO class prop - use size prop for customization.",
       "category": "form",
@@ -3069,6 +3666,76 @@
       "events": [],
       "file": "assets/svelte/components/ui/TypingIndicator.svelte",
       "example": "<TypingIndicator />"
+    },
+    {
+      "name": "VoiceNote",
+      "description": "VoiceNote Component Audio recording and playback with waveform visualization. PWA-optimized, works offline with recorded audio.",
+      "category": "other",
+      "props": [
+        {
+          "name": "state",
+          "type": "'idle' | 'recording' | 'playing' | 'paused'",
+          "default": "'idle'",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "src",
+          "type": "string | null",
+          "default": "null",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "default": "0",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "hasTranscription",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "transcription",
+          "type": "string",
+          "default": "''",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "allowRecording",
+          "type": "boolean",
+          "default": "false",
+          "description": "",
+          "required": false
+        },
+        {
+          "name": "waveformData",
+          "type": "number[]",
+          "default": "[]",
+          "description": "",
+          "required": false
+        }
+      ],
+      "slots": [],
+      "events": [
+        "play",
+        "pause",
+        "ended",
+        "recorded",
+        "recordingstart",
+        "error",
+        "recordingstop",
+        "recordingcancel",
+        "transcription"
+      ],
+      "file": "assets/svelte/components/ui/VoiceNote.svelte",
+      "example": "<VoiceNote />"
     }
   ]
 }
