@@ -44,13 +44,13 @@
 <svelte:window onkeydown={handleKeydown} />
 
 <!-- Outer container with max-width for desktop - h-screen ensures scroll containment -->
-<div class="h-screen bg-base-300 overflow-hidden">
+<div class="h-screen bg-accent overflow-hidden">
   <div class="max-w-7xl mx-auto bg-base-100 h-full shadow-xl flex flex-col overflow-hidden">
 
     <!-- Mobile Header (visible on small screens) -->
-    <header class="lg:hidden shrink-0 flex items-center h-14 px-4 border-b border-base-300 bg-base-100 z-30">
+    <header class="lg:hidden shrink-0 flex items-center h-14 px-4 border-b border-accent bg-base-100 z-30">
       <button
-        class="p-2 -ml-2 rounded-lg hover:bg-base-200 active:bg-base-300 transition-colors"
+        class="p-2 -ml-2 rounded-lg hover:bg-muted active:bg-accent transition-colors"
         onclick={() => mobileMenuOpen = true}
         aria-label="Open menu"
       >
@@ -58,13 +58,13 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
-      <h1 class="ml-3 text-lg font-semibold text-base-content">Dev Playground</h1>
+      <h1 class="ml-3 text-lg font-semibold text-foreground">Dev Playground</h1>
     </header>
 
     <!-- Main layout - min-h-0 prevents flex items from overflowing -->
     <div class="flex flex-1 min-h-0 overflow-hidden">
       <!-- Desktop Sidebar (hidden on mobile) -->
-      <aside class="hidden lg:flex flex-col w-64 border-r border-base-300 bg-base-200 overflow-hidden">
+      <aside class="hidden lg:flex flex-col w-64 border-r border-accent bg-muted overflow-hidden">
         <Sidebar
           {categories}
           {activeCategory}
@@ -88,28 +88,28 @@
           <!-- Welcome screen -->
           <div class="flex-1 flex items-center justify-center p-6">
             <div class="text-center max-w-md">
-              <h1 class="text-xl lg:text-2xl font-semibold text-base-content mb-4">
+              <h1 class="text-xl lg:text-2xl font-semibold text-foreground mb-4">
                 Dev Playground
               </h1>
-              <p class="text-base-content/60 mb-8 text-sm lg:text-base">
+              <p class="text-muted-foreground mb-8 text-sm lg:text-base">
                 Select a recipe from the {window.innerWidth < 1024 ? 'menu' : 'sidebar'} to see fully working UI patterns.
               </p>
               <div class="grid grid-cols-2 gap-3 text-left">
-                <div class="card bg-base-200 p-3 lg:p-4">
+                <div class="card bg-muted p-3 lg:p-4">
                   <h3 class="font-semibold text-sm">53 Recipes</h3>
-                  <p class="text-xs text-base-content/60">Copy-paste ready</p>
+                  <p class="text-xs text-muted-foreground">Copy-paste ready</p>
                 </div>
-                <div class="card bg-base-200 p-3 lg:p-4">
+                <div class="card bg-muted p-3 lg:p-4">
                   <h3 class="font-semibold text-sm">13 Categories</h3>
-                  <p class="text-xs text-base-content/60">Auth, Forms, etc.</p>
+                  <p class="text-xs text-muted-foreground">Auth, Forms, etc.</p>
                 </div>
-                <div class="card bg-base-200 p-3 lg:p-4">
+                <div class="card bg-muted p-3 lg:p-4">
                   <h3 class="font-semibold text-sm">6 Scenarios</h3>
-                  <p class="text-xs text-base-content/60">Test all states</p>
+                  <p class="text-xs text-muted-foreground">Test all states</p>
                 </div>
-                <div class="card bg-base-200 p-3 lg:p-4">
+                <div class="card bg-muted p-3 lg:p-4">
                   <h3 class="font-semibold text-sm">Mock API</h3>
-                  <p class="text-xs text-base-content/60">Simulates backend</p>
+                  <p class="text-xs text-muted-foreground">Simulates backend</p>
                 </div>
               </div>
 
@@ -141,10 +141,10 @@
     <!-- Drawer -->
     <aside class="absolute inset-y-0 left-0 w-72 max-w-[85vw] bg-base-100 shadow-2xl flex flex-col animate-slide-in-left">
       <!-- Drawer Header -->
-      <div class="flex items-center justify-between h-14 px-4 border-b border-base-300">
-        <h2 class="text-lg font-bold text-base-content">Recipes</h2>
+      <div class="flex items-center justify-between h-14 px-4 border-b border-accent">
+        <h2 class="text-lg font-bold text-foreground">Recipes</h2>
         <button
-          class="p-2 -mr-2 rounded-lg hover:bg-base-200 active:bg-base-300 transition-colors"
+          class="p-2 -mr-2 rounded-lg hover:bg-muted active:bg-accent transition-colors"
           onclick={() => mobileMenuOpen = false}
           aria-label="Close menu"
         >

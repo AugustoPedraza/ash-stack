@@ -107,7 +107,7 @@
   });
 </script>
 
-<div class="h-full bg-surface flex flex-col overflow-hidden">
+<div class="h-full bg-background flex flex-col overflow-hidden">
   <!-- Chat Header -->
   <div class="shrink-0 px-5 py-4 border-b border-border">
     <div class="flex items-center gap-3">
@@ -118,11 +118,11 @@
         <div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-success rounded-full ring-2 ring-surface"></div>
       </div>
       <div class="flex-1 min-w-0">
-        <h1 class="text-base font-semibold text-text">Project Chat</h1>
-        <p class="text-xs text-text-muted">3 members online</p>
+        <h1 class="text-base font-semibold text-foreground">Project Chat</h1>
+        <p class="text-xs text-muted-foreground">3 members online</p>
       </div>
       <button type="button" class="p-2 rounded-lg hover:bg-surface-sunken transition-colors" aria-label="More options">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
         </svg>
       </button>
@@ -154,9 +154,9 @@
             class="w-8 h-8 rounded-full bg-surface-sunken shrink-0 mt-1"
           />
           <div class="max-w-[75%]">
-            <p class="text-xs text-text-muted mb-1">{msg.user}</p>
+            <p class="text-xs text-muted-foreground mb-1">{msg.user}</p>
             <div class="bg-surface-sunken px-4 py-2.5 rounded-t-2xl rounded-br-2xl rounded-bl-sm">
-              <p class="text-sm text-text">{msg.text}</p>
+              <p class="text-sm text-foreground">{msg.text}</p>
             </div>
             <p class="text-xs text-text-disabled mt-1">{formatTime(msg.time)}</p>
           </div>
@@ -173,7 +173,7 @@
           class="w-8 h-8 rounded-full bg-surface-sunken shrink-0 mt-1"
         />
         <div>
-          <p class="text-xs text-text-muted mb-1">{othersTyping[0].name}</p>
+          <p class="text-xs text-muted-foreground mb-1">{othersTyping[0].name}</p>
           <div class="bg-surface-sunken px-4 py-3 rounded-t-2xl rounded-br-2xl rounded-bl-sm inline-flex gap-1">
             <span class="w-2 h-2 bg-text-disabled rounded-full animate-bounce" style="animation-delay: 0ms"></span>
             <span class="w-2 h-2 bg-text-disabled rounded-full animate-bounce" style="animation-delay: 150ms"></span>
@@ -185,10 +185,10 @@
   </div>
 
   <!-- Message Input -->
-  <div class="shrink-0 px-4 py-3 border-t border-border bg-surface">
+  <div class="shrink-0 px-4 py-3 border-t border-border bg-background">
     <div class="flex items-end gap-2">
       <button type="button" class="p-2 rounded-full hover:bg-surface-sunken transition-colors shrink-0" aria-label="Attach file">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
         </svg>
       </button>
@@ -199,7 +199,7 @@
           onkeydown={handleKeydown}
           placeholder="Type a message..."
           rows="1"
-          class="flex-1 bg-transparent resize-none outline-none text-sm text-text placeholder:text-text-disabled max-h-32"
+          class="flex-1 bg-transparent resize-none outline-none text-sm text-foreground placeholder:text-text-disabled max-h-32"
         ></textarea>
       </div>
 

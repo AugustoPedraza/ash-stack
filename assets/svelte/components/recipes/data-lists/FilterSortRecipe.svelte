@@ -179,14 +179,14 @@
         <input
           type="text"
           placeholder="Search products..."
-          class="flex-1 bg-transparent text-sm text-text"
+          class="flex-1 bg-transparent text-sm text-foreground"
           style="outline: none !important; border: none !important; box-shadow: none !important;"
           bind:value={searchQuery}
         />
       </div>
       <button
         type="button"
-        class="w-12 h-12 flex items-center justify-center rounded-lg text-text-muted hover:text-text hover:bg-surface-sunken transition-colors relative"
+        class="w-12 h-12 flex items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors relative"
         onclick={() => showFilters = !showFilters}
         aria-label="Toggle filters"
       >
@@ -207,25 +207,25 @@
         <div class="grid grid-cols-2 gap-3">
           <!-- Category Dropdown -->
           <div class="flex flex-col gap-1.5">
-            <span class="text-sm font-medium text-text">Category</span>
+            <span class="text-sm font-medium text-foreground">Category</span>
             <div class="relative">
               <button
                 type="button"
-                class="w-full flex items-center justify-between px-3 py-2 text-sm border border-border-strong rounded-lg bg-surface text-left hover:border-primary transition-colors"
+                class="w-full flex items-center justify-between px-3 py-2 text-sm border border-border rounded-lg bg-background text-left hover:border-primary transition-colors"
                 onclick={() => { closeAllDropdowns(); showCategoryDropdown = !showCategoryDropdown; }}
               >
-                <span class="{categoryFilter ? 'text-text' : 'text-text-disabled'}">{categoryLabel}</span>
+                <span class="{categoryFilter ? 'text-foreground' : 'text-text-disabled'}">{categoryLabel}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-text-disabled" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
               {#if showCategoryDropdown}
-                <div class="absolute top-full left-0 right-0 mt-1 bg-surface border border-border-strong rounded-lg shadow-lg z-20 overflow-hidden">
+                <div class="absolute top-full left-0 right-0 mt-1 bg-background border border-border rounded-lg shadow-lg z-20 overflow-hidden">
                   {#each categories as cat}
                     <button
                       type="button"
                       class="w-full px-3 py-2 text-left text-sm transition-colors
-                        {categoryFilter === cat.value ? 'bg-primary/10 text-primary font-medium' : 'text-text hover:bg-surface-sunken'}"
+                        {categoryFilter === cat.value ? 'bg-primary/10 text-primary font-medium' : 'text-foreground hover:bg-muted'}"
                       onclick={() => selectCategory(cat.value)}
                     >
                       {cat.label}
@@ -238,25 +238,25 @@
 
           <!-- Price Dropdown -->
           <div class="flex flex-col gap-1.5">
-            <span class="text-sm font-medium text-text">Price Range</span>
+            <span class="text-sm font-medium text-foreground">Price Range</span>
             <div class="relative">
               <button
                 type="button"
-                class="w-full flex items-center justify-between px-3 py-2 text-sm border border-border-strong rounded-lg bg-surface text-left hover:border-primary transition-colors"
+                class="w-full flex items-center justify-between px-3 py-2 text-sm border border-border rounded-lg bg-background text-left hover:border-primary transition-colors"
                 onclick={() => { closeAllDropdowns(); showPriceDropdown = !showPriceDropdown; }}
               >
-                <span class="{priceFilter ? 'text-text' : 'text-text-disabled'}">{priceLabel}</span>
+                <span class="{priceFilter ? 'text-foreground' : 'text-text-disabled'}">{priceLabel}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-text-disabled" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
               {#if showPriceDropdown}
-                <div class="absolute top-full left-0 right-0 mt-1 bg-surface border border-border-strong rounded-lg shadow-lg z-20 overflow-hidden">
+                <div class="absolute top-full left-0 right-0 mt-1 bg-background border border-border rounded-lg shadow-lg z-20 overflow-hidden">
                   {#each priceRanges as range}
                     <button
                       type="button"
                       class="w-full px-3 py-2 text-left text-sm transition-colors
-                        {priceFilter === range.value ? 'bg-primary/10 text-primary font-medium' : 'text-text hover:bg-surface-sunken'}"
+                        {priceFilter === range.value ? 'bg-primary/10 text-primary font-medium' : 'text-foreground hover:bg-muted'}"
                       onclick={() => selectPrice(range.value)}
                     >
                       {range.label}
@@ -271,30 +271,30 @@
         <div class="flex items-center justify-between">
           <label class="flex items-center gap-2 cursor-pointer">
             <input type="checkbox" class="w-4 h-4 rounded border-border-strong accent-primary" bind:checked={inStockOnly} />
-            <span class="text-sm text-text">In Stock Only</span>
+            <span class="text-sm text-foreground">In Stock Only</span>
           </label>
 
           <!-- Sort Dropdown -->
           <div class="flex items-center gap-2">
-            <span class="text-sm text-text-muted">Sort:</span>
+            <span class="text-sm text-muted-foreground">Sort:</span>
             <div class="relative">
               <button
                 type="button"
-                class="flex items-center gap-1 px-3 py-1.5 text-sm border border-border-strong rounded-lg bg-surface hover:border-primary transition-colors"
+                class="flex items-center gap-1 px-3 py-1.5 text-sm border border-border rounded-lg bg-background hover:border-primary transition-colors"
                 onclick={() => { closeAllDropdowns(); showSortDropdown = !showSortDropdown; }}
               >
-                <span class="text-text">{sortLabel}</span>
+                <span class="text-foreground">{sortLabel}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-text-disabled" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
               {#if showSortDropdown}
-                <div class="absolute top-full right-0 mt-1 bg-surface border border-border-strong rounded-lg shadow-lg z-20 overflow-hidden min-w-40">
+                <div class="absolute top-full right-0 mt-1 bg-background border border-border rounded-lg shadow-lg z-20 overflow-hidden min-w-40">
                   {#each sortOptions as opt}
                     <button
                       type="button"
                       class="w-full px-3 py-2 text-left text-sm transition-colors
-                        {sortBy === opt.value ? 'bg-primary/10 text-primary font-medium' : 'text-text hover:bg-surface-sunken'}"
+                        {sortBy === opt.value ? 'bg-primary/10 text-primary font-medium' : 'text-foreground hover:bg-muted'}"
                       onclick={() => selectSort(opt.value)}
                     >
                       {opt.label}
@@ -312,8 +312,8 @@
   <div class="px-5 py-4">
     <!-- Active Filters & Result Count -->
     <div class="flex items-center justify-between mb-4">
-      <p class="text-sm text-text-muted">
-        <span class="font-medium text-text">{filteredProducts.length}</span>
+      <p class="text-sm text-muted-foreground">
+        <span class="font-medium text-foreground">{filteredProducts.length}</span>
         {filteredProducts.length === 1 ? 'result' : 'results'}
         {#if searchQuery.trim()}
           for "{searchQuery}"
@@ -331,7 +331,7 @@
     {#if activeFilters.length > 0}
       <div class="flex flex-wrap gap-2 mb-4">
         {#each activeFilters as filter}
-          <span class="inline-flex items-center gap-1 px-3 py-1 bg-surface-sunken text-text rounded-full text-sm">
+          <span class="inline-flex items-center gap-1 px-3 py-1 bg-surface-sunken text-foreground rounded-full text-sm">
             {filter.label}
             <button
               type="button"
@@ -356,8 +356,8 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
         </div>
-        <h3 class="text-lg font-semibold text-text mb-2">No products found</h3>
-        <p class="text-text-muted mb-4">Try adjusting your filters or search term.</p>
+        <h3 class="text-lg font-semibold text-foreground mb-2">No products found</h3>
+        <p class="text-muted-foreground mb-4">Try adjusting your filters or search term.</p>
         <Button variant="secondary" size="sm" onclick={clearAllFilters}>
           Clear Filters
         </Button>
@@ -374,17 +374,17 @@
             </div>
 
             <!-- Product Info -->
-            <h3 class="font-medium text-text text-sm mb-1 line-clamp-2">{product.name}</h3>
+            <h3 class="font-medium text-foreground text-sm mb-1 line-clamp-2">{product.name}</h3>
 
             <div class="flex items-center gap-1 mb-2">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-warning" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
               </svg>
-              <span class="text-xs text-text-muted">{product.rating}</span>
+              <span class="text-xs text-muted-foreground">{product.rating}</span>
             </div>
 
             <div class="flex items-center justify-between">
-              <span class="font-semibold text-text">{formatPrice(product.price)}</span>
+              <span class="font-semibold text-foreground">{formatPrice(product.price)}</span>
               {#if !product.inStock}
                 <Badge variant="error" size="sm">Out of Stock</Badge>
               {/if}

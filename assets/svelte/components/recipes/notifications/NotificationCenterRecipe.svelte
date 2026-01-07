@@ -142,12 +142,12 @@
   }
 </script>
 
-<div class="h-full bg-surface flex flex-col overflow-hidden">
+<div class="h-full bg-background flex flex-col overflow-hidden">
   <!-- Header -->
   <div class="shrink-0 px-5 py-4 border-b border-border">
     <div class="flex items-center justify-between mb-3">
       <div class="flex items-center gap-2">
-        <h1 class="text-lg font-semibold text-text">Notifications</h1>
+        <h1 class="text-lg font-semibold text-foreground">Notifications</h1>
         {#if unreadCount > 0}
           <span class="px-2 py-0.5 text-xs font-medium text-white bg-primary rounded-full">
             {unreadCount}
@@ -171,7 +171,7 @@
             onclick={clearAll}
             aria-label="Clear all"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
             </svg>
           </button>
@@ -184,7 +184,7 @@
       <button
         type="button"
         class="flex-1 px-3 py-1.5 text-sm font-medium rounded-md transition-colors
-          {filter === 'all' ? 'bg-surface text-text shadow-sm' : 'text-text-muted hover:text-text'}"
+          {filter === 'all' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}"
         onclick={() => filter = 'all'}
       >
         All
@@ -192,7 +192,7 @@
       <button
         type="button"
         class="flex-1 px-3 py-1.5 text-sm font-medium rounded-md transition-colors
-          {filter === 'unread' ? 'bg-surface text-text shadow-sm' : 'text-text-muted hover:text-text'}"
+          {filter === 'unread' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}"
         onclick={() => filter = 'unread'}
       >
         Unread ({unreadCount})
@@ -200,7 +200,7 @@
       <button
         type="button"
         class="flex-1 px-3 py-1.5 text-sm font-medium rounded-md transition-colors
-          {filter === 'read' ? 'bg-surface text-text shadow-sm' : 'text-text-muted hover:text-text'}"
+          {filter === 'read' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}"
         onclick={() => filter = 'read'}
       >
         Read
@@ -217,14 +217,14 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
           </svg>
         </div>
-        <p class="text-text font-medium mb-1">No notifications</p>
-        <p class="text-sm text-text-muted">You're all caught up!</p>
+        <p class="text-foreground font-medium mb-1">No notifications</p>
+        <p class="text-sm text-muted-foreground">You're all caught up!</p>
       </div>
     {:else}
       <!-- Today -->
       {#if todayNotifications.length > 0}
         <div class="px-5 py-3">
-          <h2 class="text-xs font-medium text-text-muted uppercase tracking-wider">Today</h2>
+          <h2 class="text-xs font-medium text-muted-foreground uppercase tracking-wider">Today</h2>
         </div>
         <div class="divide-y divide-border">
           {#each todayNotifications as notification (notification.id)}
@@ -239,20 +239,20 @@
                   <img src={notification.avatar} alt="" class="w-10 h-10 rounded-full bg-surface-sunken" />
                 {:else}
                   <div class="w-10 h-10 rounded-full bg-surface-sunken flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                       {@html getTypeIcon(notification.type)}
                     </svg>
                   </div>
                 {/if}
-                <div class="absolute -bottom-0.5 -right-0.5 w-5 h-5 rounded-full {notificationTypes[notification.type].color} flex items-center justify-center ring-2 ring-surface">
+                <div class="absolute -bottom-0.5 -right-0.5 w-5 h-5 rounded-full {notificationTypes[notification.type].color} flex items-center justify-center ring-2 ring-background">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     {@html getTypeIcon(notification.type)}
                   </svg>
                 </div>
               </div>
               <div class="flex-1 min-w-0">
-                <p class="text-sm font-medium text-text truncate">{notification.title}</p>
-                <p class="text-xs text-text-muted truncate">{notification.description}</p>
+                <p class="text-sm font-medium text-foreground truncate">{notification.title}</p>
+                <p class="text-xs text-muted-foreground truncate">{notification.description}</p>
                 <p class="text-xs text-text-disabled mt-0.5">{formatTime(notification.time)}</p>
               </div>
               {#if !notification.read}
@@ -266,7 +266,7 @@
       <!-- Earlier -->
       {#if earlierNotifications.length > 0}
         <div class="px-5 py-3">
-          <h2 class="text-xs font-medium text-text-muted uppercase tracking-wider">Earlier</h2>
+          <h2 class="text-xs font-medium text-muted-foreground uppercase tracking-wider">Earlier</h2>
         </div>
         <div class="divide-y divide-border">
           {#each earlierNotifications as notification (notification.id)}
@@ -281,20 +281,20 @@
                   <img src={notification.avatar} alt="" class="w-10 h-10 rounded-full bg-surface-sunken" />
                 {:else}
                   <div class="w-10 h-10 rounded-full bg-surface-sunken flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                       {@html getTypeIcon(notification.type)}
                     </svg>
                   </div>
                 {/if}
-                <div class="absolute -bottom-0.5 -right-0.5 w-5 h-5 rounded-full {notificationTypes[notification.type].color} flex items-center justify-center ring-2 ring-surface">
+                <div class="absolute -bottom-0.5 -right-0.5 w-5 h-5 rounded-full {notificationTypes[notification.type].color} flex items-center justify-center ring-2 ring-background">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     {@html getTypeIcon(notification.type)}
                   </svg>
                 </div>
               </div>
               <div class="flex-1 min-w-0">
-                <p class="text-sm font-medium text-text truncate">{notification.title}</p>
-                <p class="text-xs text-text-muted truncate">{notification.description}</p>
+                <p class="text-sm font-medium text-foreground truncate">{notification.title}</p>
+                <p class="text-xs text-muted-foreground truncate">{notification.description}</p>
                 <p class="text-xs text-text-disabled mt-0.5">{formatTime(notification.time)}</p>
               </div>
               {#if !notification.read}
@@ -309,7 +309,7 @@
 
   <!-- Mobile UX Note (Footer) -->
   <div class="shrink-0 px-5 py-3 border-t border-border bg-surface-sunken/30">
-    <p class="text-xs text-text-muted text-center">
+    <p class="text-xs text-muted-foreground text-center">
       Tap notification to mark as read • Swipe to delete (not implemented)
     </p>
   </div>

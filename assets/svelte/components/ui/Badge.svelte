@@ -26,9 +26,9 @@
     secondary: 'bg-secondary/10 text-secondary',
     success: 'bg-success-soft text-success',
     warning: 'bg-warning-soft text-warning',
-    error: 'bg-error-soft text-error',
+    error: 'bg-destructive/10 text-destructive',
     info: 'bg-info-soft text-info',
-    neutral: 'bg-base-200 text-text-secondary'
+    neutral: 'bg-muted text-muted-foreground'
   };
 
   const dotColors = {
@@ -38,7 +38,7 @@
     warning: 'bg-warning',
     error: 'bg-error',
     info: 'bg-info',
-    neutral: 'bg-text-muted'
+    neutral: 'bg-muted-foreground'
   };
 
   const baseClasses = 'inline-flex items-center font-medium rounded-full';

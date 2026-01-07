@@ -57,11 +57,11 @@
 
 <svelte:window onkeydown={handleKeydown} />
 
-<div class="h-full bg-surface overflow-y-auto px-5 py-6">
+<div class="h-full bg-background overflow-y-auto px-5 py-6">
   <div class="max-w-md mx-auto">
     <div class="mb-8">
-      <h1 class="text-xl font-semibold text-text mb-2">Image Preview</h1>
-      <p class="text-text-muted text-sm">Thumbnail grid with full-size preview.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Image Preview</h1>
+      <p class="text-muted-foreground text-sm">Thumbnail grid with full-size preview.</p>
     </div>
 
     <!-- Thumbnail Grid -->
@@ -85,11 +85,11 @@
 
     <!-- Preview Styles -->
     <div class="mb-8">
-      <h2 class="text-sm font-medium text-text mb-4">Preview Styles</h2>
+      <h2 class="text-sm font-medium text-foreground mb-4">Preview Styles</h2>
 
       <!-- Inline Preview -->
       <div class="p-4 bg-surface-sunken/50 rounded-xl">
-        <p class="text-xs text-text-muted mb-3">Inline Preview (tap thumbnail above)</p>
+        <p class="text-xs text-muted-foreground mb-3">Inline Preview (tap thumbnail above)</p>
         <div class="aspect-video rounded-lg bg-surface-sunken overflow-hidden flex items-center justify-center">
           {#if selectedImage}
             <img
@@ -107,7 +107,7 @@
     <!-- Mobile UX Note -->
     <div class="p-4 bg-primary/5 border border-primary/20 rounded-lg">
       <h3 class="text-sm font-medium text-primary mb-2">Mobile UX Patterns</h3>
-      <ul class="text-xs text-text-secondary space-y-1">
+      <ul class="text-xs text-muted-foreground space-y-1">
         <li>• Lazy load thumbnails</li>
         <li>• Pinch to zoom on mobile</li>
         <li>• Swipe to navigate gallery</li>
@@ -173,16 +173,21 @@
       {#if imageLoading}
         <div class="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
       {/if}
-      <!-- svelte-ignore a11y_no_noninteractive_element_interactions a11y_click_events_have_key_events -->
-      <img
-        src={selectedImage.src}
-        alt={selectedImage.alt}
-        class="max-w-full max-h-[80vh] object-contain transition-transform duration-200 cursor-zoom-in
-          {isZoomed ? 'scale-150 cursor-zoom-out' : ''}"
+      <button
+        type="button"
+        class="contents"
         onclick={(e) => { e.stopPropagation(); toggleZoom(); }}
-        onload={handleImageLoad}
-        style="display: {imageLoading ? 'none' : 'block'}"
-      />
+        aria-label={isZoomed ? 'Zoom out' : 'Zoom in'}
+      >
+        <img
+          src={selectedImage.src}
+          alt={selectedImage.alt}
+          class="max-w-full max-h-[80vh] object-contain transition-transform duration-200 cursor-zoom-in
+            {isZoomed ? 'scale-150 cursor-zoom-out' : ''}"
+          onload={handleImageLoad}
+          style="display: {imageLoading ? 'none' : 'block'}"
+        />
+      </button>
     </div>
 
     <!-- Image Counter -->

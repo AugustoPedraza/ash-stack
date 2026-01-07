@@ -81,10 +81,10 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
         </svg>
       </div>
-      <h1 class="text-xl font-semibold text-text mb-2">Check Your Email</h1>
-      <p class="text-text-secondary mb-2">We sent a password reset link to:</p>
-      <p class="font-medium text-text mb-6">{email}</p>
-      <p class="text-sm text-text-muted mb-8">
+      <h1 class="text-xl font-semibold text-foreground mb-2">Check Your Email</h1>
+      <p class="text-muted-foreground mb-2">We sent a password reset link to:</p>
+      <p class="font-medium text-foreground mb-6">{email}</p>
+      <p class="text-sm text-muted-foreground mb-8">
         Didn't receive the email? Check your spam folder or
         {#if rateLimited}
           <span class="text-text-disabled">resend in {cooldownSeconds}s</span>
@@ -100,13 +100,13 @@
     <!-- Forgot Password Form -->
     <div class="max-w-sm mx-auto pt-10">
       <div class="text-center mb-8">
-        <h1 class="text-xl font-semibold text-text mb-2">Forgot Password?</h1>
-        <p class="text-text-muted">Enter your email and we'll send you a reset link.</p>
+        <h1 class="text-xl font-semibold text-foreground mb-2">Forgot Password?</h1>
+        <p class="text-muted-foreground">Enter your email and we'll send you a reset link.</p>
       </div>
 
       <form class="flex flex-col gap-5" onsubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
         {#if error}
-          <div class="flex items-center gap-3 p-3 bg-error-soft border border-error/30 rounded-lg text-error text-sm">
+          <div class="flex items-center gap-3 p-3 bg-destructive/10 border border-destructive/30 rounded-lg text-destructive text-sm">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
             </svg>
@@ -143,7 +143,7 @@
         </Button>
       </form>
 
-      <p class="text-center text-sm text-text-muted mt-6">
+      <p class="text-center text-sm text-muted-foreground mt-6">
         Remember your password?
         <Button variant="ghost" size="sm" onclick={() => alert('Navigate to Sign In')}>
           Sign in

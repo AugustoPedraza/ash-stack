@@ -30,7 +30,7 @@
       case 'owner': return 'bg-error text-white';
       case 'admin': return 'bg-warning text-white';
       case 'member': return 'bg-primary text-white';
-      default: return 'bg-border-strong text-text';
+      default: return 'bg-border-strong text-foreground';
     }
   }
 
@@ -49,16 +49,16 @@
   }
 </script>
 
-<div class="h-full bg-surface overflow-y-auto px-5 py-6">
+<div class="h-full bg-background overflow-y-auto px-5 py-6">
   <div class="max-w-md mx-auto">
     <div class="mb-8">
-      <h1 class="text-xl font-semibold text-text mb-2">Role Gate</h1>
-      <p class="text-text-muted text-sm">Show/hide content based on user role.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Role Gate</h1>
+      <p class="text-muted-foreground text-sm">Show/hide content based on user role.</p>
     </div>
 
     <!-- Role Selector -->
     <div class="mb-8 p-4 bg-surface-sunken rounded-xl">
-      <p class="text-sm font-medium text-text mb-3">Simulate Role:</p>
+      <p class="text-sm font-medium text-foreground mb-3">Simulate Role:</p>
       <div class="flex flex-wrap gap-2">
         {#each roles as role}
           <button
@@ -66,28 +66,28 @@
             class="px-4 py-2 text-sm font-medium rounded-lg transition-colors capitalize
               {currentRole === role
                 ? getRoleBadgeColor(role)
-                : 'bg-surface text-text-secondary hover:bg-border-strong'}"
+                : 'bg-background text-muted-foreground hover:bg-border-strong'}"
             onclick={() => currentRole = role}
           >
             {role}
           </button>
         {/each}
       </div>
-      <p class="text-xs text-text-muted mt-3">
+      <p class="text-xs text-muted-foreground mt-3">
         Current role: <span class="font-medium capitalize">{currentRole}</span>
       </p>
     </div>
 
     <!-- Feature List -->
     <div class="mb-8">
-      <h2 class="text-sm font-medium text-text mb-4">Available Features</h2>
+      <h2 class="text-sm font-medium text-foreground mb-4">Available Features</h2>
       <div class="space-y-2">
         {#each features as feature}
           {@const accessible = hasAccess(feature.minRole)}
           <div
             class="flex items-center gap-3 p-3 rounded-xl border transition-colors
               {accessible
-                ? 'bg-surface border-border'
+                ? 'bg-background border-border'
                 : 'bg-surface-sunken/50 border-transparent opacity-60'}"
           >
             <div class="w-10 h-10 rounded-lg flex items-center justify-center
@@ -103,9 +103,9 @@
               {/if}
             </div>
             <div class="flex-1">
-              <p class="text-sm font-medium text-text">{feature.label}</p>
+              <p class="text-sm font-medium text-foreground">{feature.label}</p>
               {#if !accessible}
-                <p class="text-xs text-text-muted">Requires {feature.minRole} role</p>
+                <p class="text-xs text-muted-foreground">Requires {feature.minRole} role</p>
               {/if}
             </div>
             {#if accessible}
@@ -134,8 +134,8 @@
           </svg>
         </div>
         <div class="flex-1">
-          <h3 class="text-sm font-medium text-text mb-1">Upgrade to Admin</h3>
-          <p class="text-xs text-text-muted mb-3">
+          <h3 class="text-sm font-medium text-foreground mb-1">Upgrade to Admin</h3>
+          <p class="text-xs text-muted-foreground mb-3">
             Get access to analytics, settings, and team management features.
           </p>
           <button
@@ -151,7 +151,7 @@
     <!-- Mobile UX Note -->
     <div class="p-4 bg-primary/5 border border-primary/20 rounded-lg">
       <h3 class="text-sm font-medium text-primary mb-2">Mobile UX Patterns</h3>
-      <ul class="text-xs text-text-secondary space-y-1">
+      <ul class="text-xs text-muted-foreground space-y-1">
         <li>• Show locked features, don't hide them</li>
         <li>• Provide clear upgrade path</li>
         <li>• Use visual indicators for access level</li>

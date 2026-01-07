@@ -144,7 +144,7 @@
           role="checkbox"
           aria-checked={allSelected ? 'true' : someSelected ? 'mixed' : 'false'}
           class="w-5 h-5 shrink-0 rounded border-2 flex items-center justify-center transition-colors cursor-pointer
-            {allSelected ? 'bg-primary border-primary' : someSelected ? 'bg-primary border-primary' : 'bg-surface border-border-strong hover:border-primary'}"
+            {allSelected ? 'bg-primary border-primary' : someSelected ? 'bg-primary border-primary' : 'bg-background border-border hover:border-primary'}"
           onclick={toggleSelectAll}
         >
           {#if allSelected}
@@ -158,8 +158,8 @@
           {/if}
         </button>
         <div>
-          <h1 class="text-xl font-semibold text-text">Inbox</h1>
-          <p class="text-sm text-text-muted">{visibleEmails.length} messages</p>
+          <h1 class="text-xl font-semibold text-foreground">Inbox</h1>
+          <p class="text-sm text-muted-foreground">{visibleEmails.length} messages</p>
         </div>
       </div>
       <Button variant="ghost" size="sm" onclick={resetDemo}>
@@ -183,7 +183,7 @@
         <div class="flex items-center gap-1">
           <button
             type="button"
-            class="flex items-center gap-1 px-2 py-1.5 text-sm text-text-secondary hover:text-text transition-colors disabled:opacity-50"
+            class="flex items-center gap-1 px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50"
             onclick={markAsRead}
             disabled={loading}
             title="Mark as read"
@@ -196,7 +196,7 @@
 
           <button
             type="button"
-            class="flex items-center gap-1 px-2 py-1.5 text-sm text-text-secondary hover:text-text transition-colors disabled:opacity-50"
+            class="flex items-center gap-1 px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50"
             onclick={markAsUnread}
             disabled={loading}
             title="Mark as unread"
@@ -209,7 +209,7 @@
 
           <button
             type="button"
-            class="flex items-center gap-1 px-2 py-1.5 text-sm text-text-secondary hover:text-text transition-colors disabled:opacity-50"
+            class="flex items-center gap-1 px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50"
             onclick={archiveSelected}
             disabled={loading}
             title="Archive"
@@ -224,7 +224,7 @@
 
           <button
             type="button"
-            class="flex items-center gap-1 px-2 py-1.5 text-sm text-error hover:bg-error/10 rounded transition-colors disabled:opacity-50"
+            class="flex items-center gap-1 px-2 py-1.5 text-sm text-destructive hover:bg-destructive/10 rounded transition-colors disabled:opacity-50"
             onclick={() => showDeleteConfirm = true}
             disabled={loading}
             title="Delete"
@@ -248,8 +248,8 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 class="text-lg font-semibold text-text mb-2">All done!</h3>
-        <p class="text-text-muted mb-4">Your inbox is empty.</p>
+        <h3 class="text-lg font-semibold text-foreground mb-2">All done!</h3>
+        <p class="text-muted-foreground mb-4">Your inbox is empty.</p>
         <Button variant="ghost" size="sm" onclick={resetDemo}>
           Reset Demo
         </Button>
@@ -259,8 +259,8 @@
         {#each visibleEmails as email}
           <div
             class="w-full flex items-start gap-3 px-5 py-4 text-left transition-colors cursor-pointer
-              {selectedIds.includes(email.id) ? 'bg-primary/5' : 'hover:bg-surface-sunken'}
-              {!email.read ? 'bg-surface-sunken/50' : ''}"
+              {selectedIds.includes(email.id) ? 'bg-primary/5' : 'hover:bg-muted'}
+              {!email.read ? 'bg-muted/50' : ''}"
             onclick={() => toggleSelect(email.id)}
             onkeydown={(e) => e.key === 'Enter' && toggleSelect(email.id)}
             role="button"
@@ -271,7 +271,7 @@
               role="checkbox"
               aria-checked={selectedIds.includes(email.id)}
               class="w-5 h-5 mt-1 shrink-0 rounded border-2 flex items-center justify-center transition-colors cursor-pointer
-                {selectedIds.includes(email.id) ? 'bg-primary border-primary' : 'bg-surface border-border-strong hover:border-primary'}"
+                {selectedIds.includes(email.id) ? 'bg-primary border-primary' : 'bg-background border-border hover:border-primary'}"
               onclick={(e) => { e.stopPropagation(); toggleSelect(email.id); }}
             >
               {#if selectedIds.includes(email.id)}
@@ -294,15 +294,15 @@
 
             <div class="flex-1 min-w-0">
               <div class="flex items-center justify-between mb-1">
-                <span class="font-medium text-text {!email.read ? 'font-semibold' : ''}">
+                <span class="font-medium text-foreground {!email.read ? 'font-semibold' : ''}">
                   {email.sender}
                 </span>
-                <span class="text-xs text-text-muted">{formatDate(email.date)}</span>
+                <span class="text-xs text-muted-foreground">{formatDate(email.date)}</span>
               </div>
-              <p class="text-sm {!email.read ? 'text-text font-medium' : 'text-text-secondary'} mb-1 truncate">
+              <p class="text-sm {!email.read ? 'text-foreground font-medium' : 'text-muted-foreground'} mb-1 truncate">
                 {email.subject}
               </p>
-              <p class="text-sm text-text-muted truncate">{email.preview}</p>
+              <p class="text-sm text-muted-foreground truncate">{email.preview}</p>
             </div>
 
             {#if !email.read}
@@ -320,7 +320,7 @@
     title="Delete {selectionCount} messages?"
     size="sm"
   >
-    <p class="text-text-secondary mb-6">
+    <p class="text-muted-foreground mb-6">
       This action cannot be undone. These messages will be permanently deleted.
     </p>
     {#snippet footer()}

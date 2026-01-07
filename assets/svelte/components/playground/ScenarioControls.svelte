@@ -35,17 +35,17 @@
   </DropdownMenu.Trigger>
   <DropdownMenu.Portal>
     <DropdownMenu.Content
-      class="z-50 min-w-56 rounded-lg border border-base-300 bg-base-100 p-1 shadow-lg"
+      class="z-50 min-w-56 rounded-lg border border-accent bg-base-100 p-1 shadow-lg"
       sideOffset={4}
     >
       {#each scenarioOptions as scenario}
         <DropdownMenu.Item
-          class="cursor-pointer rounded-md px-3 py-2 text-sm hover:bg-base-200 focus:bg-base-200 focus:outline-none
+          class="cursor-pointer rounded-md px-3 py-2 text-sm hover:bg-muted focus:bg-muted focus:outline-none
             {$currentScenario === scenario.id ? 'bg-primary/10 text-primary' : ''}"
           onSelect={() => selectScenario(scenario.id)}
         >
           <div class="font-medium">{scenario.label}</div>
-          <div class="text-xs text-base-content/60">{scenario.description}</div>
+          <div class="text-xs text-muted-foreground">{scenario.description}</div>
         </DropdownMenu.Item>
       {/each}
     </DropdownMenu.Content>

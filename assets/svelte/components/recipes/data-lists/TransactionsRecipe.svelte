@@ -161,15 +161,15 @@
       <div class="flex-1 overflow-y-auto px-4 py-6">
         <!-- Hero -->
         <div class="text-center mb-6">
-          <div class="w-20 h-20 mx-auto mb-3 rounded-full {parseFloat(selectedTransaction.amount) >= 0 ? 'bg-success/15' : 'bg-base-200'} flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9 {parseFloat(selectedTransaction.amount) >= 0 ? 'text-success' : 'text-base-content/60'}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <div class="w-20 h-20 mx-auto mb-3 rounded-full {parseFloat(selectedTransaction.amount) >= 0 ? 'bg-success/15' : 'bg-muted'} flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9 {parseFloat(selectedTransaction.amount) >= 0 ? 'text-success' : 'text-muted-foreground'}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d={getIcon(selectedTransaction.icon)} />
             </svg>
           </div>
-          <p class="text-2xl font-bold {parseFloat(selectedTransaction.amount) >= 0 ? 'text-success' : 'text-text'}">
+          <p class="text-2xl font-bold {parseFloat(selectedTransaction.amount) >= 0 ? 'text-success' : 'text-foreground'}">
             {formatAmount(selectedTransaction.amount)}
           </p>
-          <p class="text-sm text-text-muted mt-1">{selectedTransaction.merchant}</p>
+          <p class="text-sm text-muted-foreground mt-1">{selectedTransaction.merchant}</p>
           {#if selectedTransaction.status !== 'completed'}
             <Badge variant={getStatusVariant(selectedTransaction.status)} class="mt-2">
               {selectedTransaction.status}
@@ -179,7 +179,7 @@
 
         <!-- Detail Fields -->
         <div class="space-y-3 mb-6">
-          <div class="flex items-center gap-3.5 p-3.5 bg-base-200/50 rounded-xl">
+          <div class="flex items-center gap-3.5 p-3.5 bg-muted/50 rounded-xl">
             <div class="w-5 h-5 text-primary shrink-0">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-full h-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -187,11 +187,11 @@
             </div>
             <div class="flex-1 min-w-0">
               <span class="block text-[11px] font-medium uppercase tracking-wide text-text-disabled">{getDateLabel(selectedTransaction.type)}</span>
-              <span class="text-[15px] text-text">{formatFullDate(selectedTransaction.date)}</span>
+              <span class="text-[15px] text-foreground">{formatFullDate(selectedTransaction.date)}</span>
             </div>
           </div>
 
-          <div class="flex items-center gap-3.5 p-3.5 bg-base-200/50 rounded-xl">
+          <div class="flex items-center gap-3.5 p-3.5 bg-muted/50 rounded-xl">
             <div class="w-5 h-5 text-primary shrink-0">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-full h-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
@@ -199,11 +199,11 @@
             </div>
             <div class="flex-1 min-w-0">
               <span class="block text-[11px] font-medium uppercase tracking-wide text-text-disabled">Category</span>
-              <span class="text-[15px] text-text">{selectedTransaction.category}</span>
+              <span class="text-[15px] text-foreground">{selectedTransaction.category}</span>
             </div>
           </div>
 
-          <div class="flex items-center gap-3.5 p-3.5 bg-base-200/50 rounded-xl">
+          <div class="flex items-center gap-3.5 p-3.5 bg-muted/50 rounded-xl">
             <div class="w-5 h-5 text-primary shrink-0">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-full h-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -211,7 +211,7 @@
             </div>
             <div class="flex-1 min-w-0">
               <span class="block text-[11px] font-medium uppercase tracking-wide text-text-disabled">Reference</span>
-              <span class="text-[15px] text-text font-mono">{selectedTransaction.id}</span>
+              <span class="text-[15px] text-foreground font-mono">{selectedTransaction.id}</span>
             </div>
           </div>
         </div>
@@ -261,13 +261,13 @@
       {:else if error}
         <!-- Error State -->
         <div class="flex flex-col items-center justify-center py-12 text-center px-5">
-          <div class="w-14 h-14 rounded-full bg-error/15 text-error flex items-center justify-center mb-3">
+          <div class="w-14 h-14 rounded-full bg-destructive/10 text-destructive flex items-center justify-center mb-3">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
             </svg>
           </div>
-          <h3 class="text-base font-semibold text-text mb-1">Failed to load</h3>
-          <p class="text-sm text-text-muted mb-4">{error}</p>
+          <h3 class="text-base font-semibold text-foreground mb-1">Failed to load</h3>
+          <p class="text-sm text-muted-foreground mb-4">{error}</p>
           <Button variant="ghost" size="sm" onclick={loadData}>
             Try Again
           </Button>
@@ -275,29 +275,29 @@
       {:else if transactions.length === 0}
         <!-- Empty State -->
         <div class="flex flex-col items-center justify-center py-12 text-center px-5">
-          <div class="w-14 h-14 rounded-full bg-base-200 text-text-disabled flex items-center justify-center mb-3">
+          <div class="w-14 h-14 rounded-full bg-muted text-text-disabled flex items-center justify-center mb-3">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
             </svg>
           </div>
-          <h3 class="text-base font-semibold text-text mb-1">No transactions</h3>
-          <p class="text-sm text-text-muted">Your transactions will appear here.</p>
+          <h3 class="text-base font-semibold text-foreground mb-1">No transactions</h3>
+          <p class="text-sm text-muted-foreground">Your transactions will appear here.</p>
         </div>
       {:else}
         <!-- Grouped Transaction List - Compact -->
         {#each groupedTransactions() as [dateLabel, txns]}
-          <div class="px-4 py-1.5 bg-base-200/50 sticky top-0 z-10">
+          <div class="px-4 py-1.5 bg-muted/50 sticky top-0 z-10">
             <span class="text-xs font-medium text-text-disabled uppercase tracking-wide">{dateLabel}</span>
           </div>
           <div class="divide-y divide-border">
             {#each txns as txn}
               <button
-                class="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-base-200/50 active:bg-base-200 transition-colors"
+                class="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-muted/50 active:bg-muted transition-colors"
                 onclick={() => openDetail(txn)}
               >
                 <!-- Icon - Compact 40px -->
-                <div class="w-10 h-10 rounded-full {parseFloat(txn.amount) >= 0 ? 'bg-success/15' : 'bg-base-200'} flex items-center justify-center shrink-0">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 {parseFloat(txn.amount) >= 0 ? 'text-success' : 'text-text-muted'}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <div class="w-10 h-10 rounded-full {parseFloat(txn.amount) >= 0 ? 'bg-success/15' : 'bg-muted'} flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 {parseFloat(txn.amount) >= 0 ? 'text-success' : 'text-muted-foreground'}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d={getIcon(txn.icon)} />
                   </svg>
                 </div>
@@ -305,7 +305,7 @@
                 <!-- Content -->
                 <div class="flex-1 min-w-0">
                   <div class="flex items-center gap-2">
-                    <span class="font-medium text-text text-[15px] truncate">{txn.merchant}</span>
+                    <span class="font-medium text-foreground text-[15px] truncate">{txn.merchant}</span>
                     {#if txn.status !== 'completed'}
                       <Badge variant={getStatusVariant(txn.status)} size="sm">
                         {txn.status}
@@ -316,7 +316,7 @@
                 </div>
 
                 <!-- Amount -->
-                <span class="font-semibold text-[15px] {parseFloat(txn.amount) >= 0 ? 'text-success' : 'text-text'} shrink-0">
+                <span class="font-semibold text-[15px] {parseFloat(txn.amount) >= 0 ? 'text-success' : 'text-foreground'} shrink-0">
                   {formatAmount(txn.amount)}
                 </span>
 

@@ -30,7 +30,7 @@
   const strengthLabel = $derived(() => {
     const s = strength();
     if (s === 0) return { label: '', color: '' };
-    if (s <= 2) return { label: 'Weak', color: 'text-error' };
+    if (s <= 2) return { label: 'Weak', color: 'text-destructive' };
     if (s <= 3) return { label: 'Medium', color: 'text-warning' };
     return { label: 'Strong', color: 'text-success' };
   });
@@ -101,8 +101,8 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
         </svg>
       </div>
-      <h1 class="text-xl font-semibold text-text mb-2">Password Updated!</h1>
-      <p class="text-text-secondary mb-8">Your password has been changed successfully.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Password Updated!</h1>
+      <p class="text-muted-foreground mb-8">Your password has been changed successfully.</p>
       <Button variant="ghost" onclick={resetForm}>
         Done
       </Button>
@@ -110,13 +110,13 @@
   {:else}
     <div class="max-w-sm mx-auto pt-6">
       <div class="mb-8">
-        <h1 class="text-xl font-semibold text-text mb-2">Change Password</h1>
-        <p class="text-sm text-text-muted">Enter your current password and choose a new one.</p>
+        <h1 class="text-xl font-semibold text-foreground mb-2">Change Password</h1>
+        <p class="text-sm text-muted-foreground">Enter your current password and choose a new one.</p>
       </div>
 
       <form class="space-y-5" onsubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
         {#if error}
-          <div class="flex items-center gap-3 p-3 bg-error-soft border border-error/30 rounded-lg text-error text-sm">
+          <div class="flex items-center gap-3 p-3 bg-destructive/10 border border-destructive/30 rounded-lg text-destructive text-sm">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
             </svg>
@@ -146,7 +146,7 @@
 
         <!-- New Password -->
         <div class="flex flex-col gap-1.5">
-          <label class="text-sm font-medium text-text" for="newPassword">New Password</label>
+          <label class="text-sm font-medium text-foreground" for="newPassword">New Password</label>
           <Input
             id="newPassword"
             type="password"
@@ -162,10 +162,10 @@
           {#if newPassword.length > 0}
             <div class="space-y-2 mt-1">
               <div class="flex items-center justify-between">
-                <div class="flex-1 h-1.5 bg-base-200 rounded-full overflow-hidden mr-3">
+                <div class="flex-1 h-1.5 bg-muted rounded-full overflow-hidden mr-3">
                   <div
                     class="h-full transition-all duration-300 rounded-full
-                      {strength() <= 2 ? 'bg-error' : strength() <= 3 ? 'bg-warning' : 'bg-success'}"
+                      {strength() <= 2 ? 'bg-destructive' : strength() <= 3 ? 'bg-warning' : 'bg-success'}"
                     style="width: {strengthPercent}%"
                   ></div>
                 </div>

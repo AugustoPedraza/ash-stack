@@ -128,8 +128,8 @@
     <div class="max-w-lg mx-auto space-y-8">
       <!-- Account Section -->
       <section>
-        <h2 class="text-lg font-semibold text-text mb-1">Account</h2>
-        <p class="text-sm text-text-muted mb-4">Manage your account information</p>
+        <h2 class="text-lg font-semibold text-foreground mb-1">Account</h2>
+        <p class="text-sm text-muted-foreground mb-4">Manage your account information</p>
 
         <div class="space-y-4">
           <FormField label="Display Name" id="displayName">
@@ -154,13 +154,13 @@
 
       <!-- Preferences Section -->
       <section>
-        <h2 class="text-lg font-semibold text-text mb-1">Preferences</h2>
-        <p class="text-sm text-text-muted mb-4">Customize your experience</p>
+        <h2 class="text-lg font-semibold text-foreground mb-1">Preferences</h2>
+        <p class="text-sm text-muted-foreground mb-4">Customize your experience</p>
 
         <div class="space-y-4">
           <!-- Timezone Dropdown -->
           <div class="flex flex-col gap-1.5">
-            <span class="text-sm font-medium text-text">Timezone</span>
+            <span class="text-sm font-medium text-foreground">Timezone</span>
             <Dropdown
               bind:open={showTimezoneDropdown}
               items={timezones}
@@ -170,10 +170,10 @@
               {#snippet trigger()}
                 <button
                   type="button"
-                  class="w-full flex items-center justify-between px-4 py-2.5 text-sm border border-border rounded-[var(--radius-md)] bg-surface text-left hover:border-border-focus transition-colors"
+                  class="w-full flex items-center justify-between px-4 py-2.5 text-sm border border-border rounded-md bg-background text-left hover:ring-ring transition-colors"
                 >
-                  <span class="text-text">{timezoneLabel}</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-text-muted transition-transform {showTimezoneDropdown ? 'rotate-180' : ''}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <span class="text-foreground">{timezoneLabel}</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-muted-foreground transition-transform {showTimezoneDropdown ? 'rotate-180' : ''}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
@@ -183,7 +183,7 @@
 
           <!-- Language Dropdown -->
           <div class="flex flex-col gap-1.5">
-            <span class="text-sm font-medium text-text">Language</span>
+            <span class="text-sm font-medium text-foreground">Language</span>
             <Dropdown
               bind:open={showLanguageDropdown}
               items={languages}
@@ -193,10 +193,10 @@
               {#snippet trigger()}
                 <button
                   type="button"
-                  class="w-full flex items-center justify-between px-4 py-2.5 text-sm border border-border rounded-[var(--radius-md)] bg-surface text-left hover:border-border-focus transition-colors"
+                  class="w-full flex items-center justify-between px-4 py-2.5 text-sm border border-border rounded-md bg-background text-left hover:ring-ring transition-colors"
                 >
-                  <span class="text-text">{languageLabel}</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-text-muted transition-transform {showLanguageDropdown ? 'rotate-180' : ''}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <span class="text-foreground">{languageLabel}</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-muted-foreground transition-transform {showLanguageDropdown ? 'rotate-180' : ''}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
@@ -210,8 +210,8 @@
 
       <!-- Notifications Section -->
       <section>
-        <h2 class="text-lg font-semibold text-text mb-1">Notifications</h2>
-        <p class="text-sm text-text-muted mb-4">Choose what updates you receive</p>
+        <h2 class="text-lg font-semibold text-foreground mb-1">Notifications</h2>
+        <p class="text-sm text-muted-foreground mb-4">Choose what updates you receive</p>
 
         <div class="space-y-3">
           <Toggle

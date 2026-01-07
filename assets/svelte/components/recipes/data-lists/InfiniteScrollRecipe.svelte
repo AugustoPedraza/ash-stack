@@ -130,8 +130,8 @@
   <div class="shrink-0 bg-base-100 border-b border-border px-5 py-4">
     <div class="flex items-center justify-between">
       <div>
-        <h1 class="text-xl font-semibold text-text">Feed</h1>
-        <p class="text-sm text-text-muted">{items.length} of {TOTAL_ITEMS} posts</p>
+        <h1 class="text-xl font-semibold text-foreground">Feed</h1>
+        <p class="text-sm text-muted-foreground">{items.length} of {TOTAL_ITEMS} posts</p>
       </div>
       <Button
         variant="ghost"
@@ -178,13 +178,13 @@
     {:else if error}
       <!-- Error State -->
       <div class="flex flex-col items-center justify-center py-12 text-center px-5">
-        <div class="w-16 h-16 rounded-full bg-error/15 text-error flex items-center justify-center mb-4">
+        <div class="w-16 h-16 rounded-full bg-destructive/10 text-destructive flex items-center justify-center mb-4">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
           </svg>
         </div>
-        <h3 class="text-lg font-semibold text-text mb-2">Failed to load</h3>
-        <p class="text-text-muted mb-4">{error}</p>
+        <h3 class="text-lg font-semibold text-foreground mb-2">Failed to load</h3>
+        <p class="text-muted-foreground mb-4">{error}</p>
         <Button variant="ghost" size="sm" onclick={loadInitial}>
           Try Again
         </Button>
@@ -197,8 +197,8 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
           </svg>
         </div>
-        <h3 class="text-lg font-semibold text-text mb-2">No posts yet</h3>
-        <p class="text-text-muted">Posts will appear here when published.</p>
+        <h3 class="text-lg font-semibold text-foreground mb-2">No posts yet</h3>
+        <p class="text-muted-foreground">Posts will appear here when published.</p>
       </div>
     {:else}
       <!-- Posts List -->
@@ -216,8 +216,8 @@
             <div class="flex items-center gap-3 mb-3">
               <Avatar src={post.avatar} alt={post.author} size="md" />
               <div class="flex-1 min-w-0">
-                <p class="font-medium text-text truncate">{post.author}</p>
-                <p class="text-sm text-text-muted">{formatTimeAgo(post.createdAt)}</p>
+                <p class="font-medium text-foreground truncate">{post.author}</p>
+                <p class="text-sm text-muted-foreground">{formatTimeAgo(post.createdAt)}</p>
               </div>
               <Button variant="ghost" size="sm" ariaLabel="More options">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -227,24 +227,24 @@
             </div>
 
             <!-- Content -->
-            <h2 class="font-semibold text-text mb-2">{post.title}</h2>
-            <p class="text-text-secondary text-sm mb-4">{post.content}</p>
+            <h2 class="font-semibold text-foreground mb-2">{post.title}</h2>
+            <p class="text-muted-foreground text-sm mb-4">{post.content}</p>
 
             <!-- Actions -->
             <div class="flex items-center gap-4 pt-3 border-t border-border">
-              <button class="flex items-center gap-1.5 text-sm text-text-muted hover:text-error transition-colors">
+              <button class="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-destructive transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
                 {post.likes}
               </button>
-              <button class="flex items-center gap-1.5 text-sm text-text-muted hover:text-primary transition-colors">
+              <button class="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                 </svg>
                 {post.comments}
               </button>
-              <button class="flex items-center gap-1.5 text-sm text-text-muted hover:text-primary transition-colors ml-auto" aria-label="Share">
+              <button class="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors ml-auto" aria-label="Share">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                 </svg>

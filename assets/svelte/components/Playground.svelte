@@ -206,13 +206,13 @@
   {:else if activeCategory && activeRecipe}
     <div class="text-center py-12">
       <div class="text-6xl mb-4">🚧</div>
-      <h3 class="text-xl font-semibold text-base-content mb-2">
+      <h3 class="text-xl font-semibold text-foreground mb-2">
         Recipe Coming Soon
       </h3>
-      <p class="text-base-content/60 mb-4">
+      <p class="text-muted-foreground mb-4">
         This recipe is planned but not yet implemented.
       </p>
-      <p class="text-sm text-base-content/40">
+      <p class="text-sm text-muted-foreground">
         Active: {activeCategory} / {activeRecipe}
       </p>
     </div>

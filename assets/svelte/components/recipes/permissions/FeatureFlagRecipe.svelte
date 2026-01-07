@@ -89,24 +89,24 @@
     if (feature.comingSoon) return { label: 'Coming Soon', color: 'bg-info/10 text-info' };
     if (feature.beta) return { label: 'Beta', color: 'bg-warning/10 text-warning' };
     if (feature.released) return { label: 'Live', color: 'bg-success/10 text-success' };
-    return { label: 'Disabled', color: 'bg-surface-sunken text-text-muted' };
+    return { label: 'Disabled', color: 'bg-surface-sunken text-muted-foreground' };
   }
 
   const enabledCount = $derived(Object.values(flags).filter(Boolean).length);
 </script>
 
-<div class="h-full bg-surface overflow-y-auto px-5 py-6">
+<div class="h-full bg-background overflow-y-auto px-5 py-6">
   <div class="max-w-md mx-auto">
     <div class="mb-8">
-      <h1 class="text-xl font-semibold text-text mb-2">Feature Flags</h1>
-      <p class="text-text-muted text-sm">Conditional features with status indicators.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Feature Flags</h1>
+      <p class="text-muted-foreground text-sm">Conditional features with status indicators.</p>
     </div>
 
     <!-- Summary -->
     <div class="mb-6 p-4 bg-surface-sunken/50 rounded-xl">
       <div class="flex items-center justify-between">
-        <span class="text-sm text-text-secondary">Active features</span>
-        <span class="text-lg font-semibold text-text">{enabledCount} / {features.length}</span>
+        <span class="text-sm text-muted-foreground">Active features</span>
+        <span class="text-lg font-semibold text-foreground">{enabledCount} / {features.length}</span>
       </div>
     </div>
 
@@ -114,16 +114,16 @@
     <div class="space-y-3 mb-8">
       {#each features as feature (feature.id)}
         {@const badge = getStatusBadge(feature)}
-        <div class="p-4 bg-surface border border-border rounded-xl">
+        <div class="p-4 bg-background border border-border rounded-xl">
           <div class="flex items-start gap-3">
             <div class="flex-1">
               <div class="flex items-center gap-2 mb-1">
-                <h3 class="text-sm font-medium text-text">{feature.name}</h3>
+                <h3 class="text-sm font-medium text-foreground">{feature.name}</h3>
                 <span class="px-2 py-0.5 text-xs font-medium rounded-full {badge.color}">
                   {badge.label}
                 </span>
               </div>
-              <p class="text-xs text-text-muted">{feature.description}</p>
+              <p class="text-xs text-muted-foreground">{feature.description}</p>
               <p class="text-xs text-text-disabled mt-1">{feature.category}</p>
             </div>
 
@@ -179,15 +179,15 @@
           </svg>
         </div>
         <div class="flex-1">
-          <h3 class="text-sm font-medium text-text mb-1">AI Assistant is coming!</h3>
-          <p class="text-xs text-text-muted mb-3">
+          <h3 class="text-sm font-medium text-foreground mb-1">AI Assistant is coming!</h3>
+          <p class="text-xs text-muted-foreground mb-3">
             Be the first to try our new AI-powered assistant. Join the waitlist to get early access.
           </p>
           <div class="flex items-center gap-2">
             <input
               type="email"
               placeholder="your@email.com"
-              class="flex-1 px-3 py-2 text-sm bg-surface border border-border rounded-lg outline-none focus:border-primary"
+              class="flex-1 px-3 py-2 text-sm bg-background border border-border rounded-lg outline-none focus:border-primary"
             />
             <button
               type="button"
@@ -202,10 +202,10 @@
 
     <!-- Conditional Rendering Example -->
     <div class="mb-8">
-      <h2 class="text-sm font-medium text-text mb-4">Live Preview</h2>
+      <h2 class="text-sm font-medium text-foreground mb-4">Live Preview</h2>
       <div class="p-4 bg-surface-sunken/50 rounded-xl space-y-3">
         {#if flags.darkMode}
-          <div class="flex items-center gap-2 text-sm text-text">
+          <div class="flex items-center gap-2 text-sm text-foreground">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
             </svg>
@@ -214,7 +214,7 @@
         {/if}
 
         {#if flags.notifications}
-          <div class="flex items-center gap-2 text-sm text-text">
+          <div class="flex items-center gap-2 text-sm text-foreground">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
             </svg>
@@ -232,7 +232,7 @@
         {/if}
 
         {#if flags.exportPdf}
-          <div class="flex items-center gap-2 text-sm text-text">
+          <div class="flex items-center gap-2 text-sm text-foreground">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
             </svg>
@@ -241,7 +241,7 @@
         {/if}
 
         {#if !flags.darkMode && !flags.notifications && !flags.analytics && !flags.exportPdf}
-          <p class="text-sm text-text-muted">No features enabled</p>
+          <p class="text-sm text-muted-foreground">No features enabled</p>
         {/if}
       </div>
     </div>
@@ -249,7 +249,7 @@
     <!-- Mobile UX Note -->
     <div class="p-4 bg-primary/5 border border-primary/20 rounded-lg">
       <h3 class="text-sm font-medium text-primary mb-2">Mobile UX Patterns</h3>
-      <ul class="text-xs text-text-secondary space-y-1">
+      <ul class="text-xs text-muted-foreground space-y-1">
         <li>• Show coming soon with notify option</li>
         <li>• Mark beta features clearly</li>
         <li>• Instant toggle feedback</li>

@@ -49,8 +49,8 @@
 <div class="h-full bg-base-100 overflow-y-auto px-5 py-6">
   <div class="max-w-md mx-auto">
     <div class="mb-8">
-      <h1 class="text-xl font-semibold text-text mb-2">Detail View Modal</h1>
-      <p class="text-text-muted text-sm">Full modal with data and footer actions.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Detail View Modal</h1>
+      <p class="text-muted-foreground text-sm">Full modal with data and footer actions.</p>
     </div>
 
     <!-- Trigger -->
@@ -61,18 +61,18 @@
     >
       <Avatar src={contact.avatar} alt={contact.name} size="sm" />
       <div class="flex-1 text-left">
-        <p class="text-sm font-medium text-text">{contact.name}</p>
-        <p class="text-xs text-text-muted">{contact.role} at {contact.company}</p>
+        <p class="text-sm font-medium text-foreground">{contact.name}</p>
+        <p class="text-xs text-muted-foreground">{contact.role} at {contact.company}</p>
       </div>
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
       </svg>
     </Button>
 
     <!-- Preview Card -->
     <Card variant="flat" padding="md" class="mt-8">
-      <h3 class="text-sm font-medium text-text mb-3">Modal Features</h3>
-      <ul class="text-xs text-text-secondary space-y-2">
+      <h3 class="text-sm font-medium text-foreground mb-3">Modal Features</h3>
+      <ul class="text-xs text-muted-foreground space-y-2">
         <li class="flex items-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
@@ -103,7 +103,7 @@
     <!-- Mobile UX Note -->
     <div class="mt-8 p-4 bg-primary/5 border border-primary/20 rounded-lg">
       <h3 class="text-sm font-medium text-primary mb-2">Mobile UX Patterns</h3>
-      <ul class="text-xs text-text-secondary space-y-1">
+      <ul class="text-xs text-muted-foreground space-y-1">
         <li>• Full-screen on mobile, centered on desktop</li>
         <li>• Sticky header/footer for long content</li>
         <li>• Swipe to close on mobile sheets</li>
@@ -120,29 +120,29 @@
     <Avatar src={contact.avatar} alt={contact.name} size="lg" />
     <div>
       <div class="flex items-center gap-2">
-        <h3 class="text-lg font-semibold text-text">{contact.name}</h3>
+        <h3 class="text-lg font-semibold text-foreground">{contact.name}</h3>
         <Badge variant="success" size="sm">{contact.status}</Badge>
       </div>
-      <p class="text-sm text-text-secondary">{contact.role}</p>
-      <p class="text-sm text-text-secondary">{contact.company}</p>
+      <p class="text-sm text-muted-foreground">{contact.role}</p>
+      <p class="text-sm text-muted-foreground">{contact.company}</p>
     </div>
   </div>
 
   <!-- Contact Info -->
   <div class="space-y-4 mb-6">
     <div>
-      <span class="text-xs font-medium text-text-muted uppercase tracking-wider">Email</span>
-      <p class="text-sm text-text mt-1">{contact.email}</p>
+      <span class="text-xs font-medium text-muted-foreground uppercase tracking-wider">Email</span>
+      <p class="text-sm text-foreground mt-1">{contact.email}</p>
     </div>
     <div>
-      <span class="text-xs font-medium text-text-muted uppercase tracking-wider">Phone</span>
-      <p class="text-sm text-text mt-1">{contact.phone}</p>
+      <span class="text-xs font-medium text-muted-foreground uppercase tracking-wider">Phone</span>
+      <p class="text-sm text-foreground mt-1">{contact.phone}</p>
     </div>
   </div>
 
   <!-- Tags -->
   <div class="mb-6">
-    <span class="text-xs font-medium text-text-muted uppercase tracking-wider">Tags</span>
+    <span class="text-xs font-medium text-muted-foreground uppercase tracking-wider">Tags</span>
     <div class="flex flex-wrap gap-2 mt-2">
       {#each contact.tags as tag}
         <Badge variant="primary" size="sm">{tag}</Badge>
@@ -152,20 +152,20 @@
 
   <!-- Notes -->
   <div class="mb-6">
-    <span class="text-xs font-medium text-text-muted uppercase tracking-wider">Notes</span>
-    <p class="text-sm text-text-secondary mt-2 whitespace-pre-wrap">{contact.notes}</p>
+    <span class="text-xs font-medium text-muted-foreground uppercase tracking-wider">Notes</span>
+    <p class="text-sm text-muted-foreground mt-2 whitespace-pre-wrap">{contact.notes}</p>
   </div>
 
   <!-- Metadata -->
   <Card variant="flat" padding="md">
     <div class="grid grid-cols-2 gap-4">
       <div>
-        <span class="text-xs font-medium text-text-muted">Created</span>
-        <p class="text-sm text-text">{formatDate(contact.createdAt)}</p>
+        <span class="text-xs font-medium text-muted-foreground">Created</span>
+        <p class="text-sm text-foreground">{formatDate(contact.createdAt)}</p>
       </div>
       <div>
-        <span class="text-xs font-medium text-text-muted">Last Contact</span>
-        <p class="text-sm text-text">{formatDate(contact.lastContact)}</p>
+        <span class="text-xs font-medium text-muted-foreground">Last Contact</span>
+        <p class="text-sm text-foreground">{formatDate(contact.lastContact)}</p>
       </div>
     </div>
   </Card>

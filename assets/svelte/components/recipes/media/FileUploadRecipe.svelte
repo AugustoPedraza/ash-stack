@@ -127,11 +127,11 @@
   }
 </script>
 
-<div class="h-full bg-surface overflow-y-auto px-5 py-6">
+<div class="h-full bg-background overflow-y-auto px-5 py-6">
   <div class="max-w-md mx-auto">
     <div class="mb-8">
-      <h1 class="text-xl font-semibold text-text mb-2">File Upload</h1>
-      <p class="text-text-muted text-sm">Drag and drop with progress tracking.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">File Upload</h1>
+      <p class="text-muted-foreground text-sm">Drag and drop with progress tracking.</p>
     </div>
 
     <!-- Drop Zone -->
@@ -158,27 +158,27 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
           </svg>
         </div>
-        <p class="text-sm font-medium text-text mb-1">
+        <p class="text-sm font-medium text-foreground mb-1">
           {isDragging ? 'Drop files here' : 'Drag files here or click to browse'}
         </p>
-        <p class="text-xs text-text-muted">Maximum file size: 10MB</p>
+        <p class="text-xs text-muted-foreground">Maximum file size: 10MB</p>
       </div>
     </div>
 
     <!-- Error Message -->
     {#if uploadError}
-      <div class="mb-4 p-3 bg-error/10 border border-error/20 rounded-lg flex items-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-error shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <div class="mb-4 p-3 bg-destructive/10 border border-destructive/20 rounded-lg flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-destructive shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
-        <p class="text-sm text-error">{uploadError}</p>
+        <p class="text-sm text-destructive">{uploadError}</p>
         <button
           type="button"
-          class="ml-auto p-1 rounded hover:bg-error/10"
+          class="ml-auto p-1 rounded hover:bg-destructive/10"
           onclick={() => uploadError = null}
           aria-label="Dismiss error"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-error" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-destructive" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
@@ -188,10 +188,10 @@
     <!-- File List Header -->
     {#if files.length > 0}
       <div class="flex items-center justify-between mb-3">
-        <span class="text-sm font-medium text-text">{files.length} file{files.length !== 1 ? 's' : ''}</span>
+        <span class="text-sm font-medium text-foreground">{files.length} file{files.length !== 1 ? 's' : ''}</span>
         <button
           type="button"
-          class="text-sm text-text-muted hover:text-error transition-colors"
+          class="text-sm text-muted-foreground hover:text-destructive transition-colors"
           onclick={clearAll}
         >
           Clear all
@@ -202,7 +202,7 @@
     <!-- File List -->
     <div class="space-y-3">
       {#each files as file (file.id)}
-        <div class="bg-surface border border-border rounded-xl p-3 {file.status === 'error' ? 'border-error/30' : ''}">
+        <div class="bg-background border border-border rounded-xl p-3 {file.status === 'error' ? 'border-destructive/30' : ''}">
           <div class="flex items-start gap-3">
             <!-- Preview or Icon -->
             <div class="shrink-0 w-12 h-12 rounded-lg bg-surface-sunken overflow-hidden flex items-center justify-center">
@@ -217,8 +217,8 @@
 
             <!-- File Info -->
             <div class="flex-1 min-w-0">
-              <p class="text-sm font-medium text-text truncate">{file.name}</p>
-              <p class="text-xs text-text-muted">{formatFileSize(file.size)}</p>
+              <p class="text-sm font-medium text-foreground truncate">{file.name}</p>
+              <p class="text-xs text-muted-foreground">{formatFileSize(file.size)}</p>
 
               <!-- Progress Bar -->
               {#if file.status === 'uploading'}
@@ -233,7 +233,7 @@
                 </div>
               {:else if file.status === 'error'}
                 <div class="mt-2 flex items-center gap-2">
-                  <span class="text-xs text-error">Upload failed</span>
+                  <span class="text-xs text-destructive">Upload failed</span>
                   <button
                     type="button"
                     class="text-xs text-primary hover:underline"
@@ -278,7 +278,7 @@
     <!-- Mobile UX Note -->
     <div class="mt-8 p-4 bg-primary/5 border border-primary/20 rounded-lg">
       <h3 class="text-sm font-medium text-primary mb-2">Mobile UX Patterns</h3>
-      <ul class="text-xs text-text-secondary space-y-1">
+      <ul class="text-xs text-muted-foreground space-y-1">
         <li>• Support camera/gallery on mobile</li>
         <li>• Show file previews for images</li>
         <li>• Allow retry on failed uploads</li>

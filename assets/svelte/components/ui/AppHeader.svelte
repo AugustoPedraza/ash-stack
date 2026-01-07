@@ -19,13 +19,13 @@
   } = $props();
 </script>
 
-<header class="bg-base-100 border-b border-base-300">
+<header class="bg-base-100 border-b border-accent">
   <div class="relative flex items-center justify-center h-14 px-4">
     <!-- Left side: Back button (ghost style) -->
     <div class="absolute left-2 flex items-center">
       {#if showBack}
         <button
-          class="flex items-center gap-1 px-2 py-1.5 -ml-2 rounded-lg text-primary hover:bg-base-200 active:bg-base-300 transition-colors"
+          class="flex items-center gap-1 px-2 py-1.5 -ml-2 rounded-lg text-primary hover:bg-muted active:bg-accent transition-colors"
           onclick={onBack}
           aria-label="Go back"
         >
@@ -38,7 +38,7 @@
     </div>
 
     <!-- Center: Title -->
-    <h1 class="text-base font-semibold text-base-content truncate max-w-[50%]">
+    <h1 class="text-base font-semibold text-foreground truncate max-w-[50%]">
       {title}
     </h1>
 

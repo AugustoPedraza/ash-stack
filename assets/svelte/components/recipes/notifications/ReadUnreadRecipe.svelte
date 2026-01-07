@@ -139,7 +139,7 @@
   }
 </script>
 
-<div class="h-full bg-surface flex flex-col overflow-hidden">
+<div class="h-full bg-background flex flex-col overflow-hidden">
   <!-- Header -->
   <div class="shrink-0 px-5 py-4 border-b border-border">
     {#if selectMode}
@@ -152,11 +152,11 @@
             onclick={cancelSelection}
             aria-label="Cancel selection"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
-          <span class="text-sm font-medium text-text">{selectedCount} selected</span>
+          <span class="text-sm font-medium text-foreground">{selectedCount} selected</span>
         </div>
         <div class="flex items-center gap-1">
           <button
@@ -166,7 +166,7 @@
             disabled={selectedCount === 0}
             aria-label="Mark as read"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3 19v-8.93a2 2 0 01.89-1.664l7-4.666a2 2 0 012.22 0l7 4.666A2 2 0 0121 10.07V19M3 19a2 2 0 002 2h14a2 2 0 002-2M3 19l6.75-4.5M21 19l-6.75-4.5M3 10l6.75 4.5M21 10l-6.75 4.5m0 0l-1.14.76a2 2 0 01-2.22 0l-1.14-.76" />
             </svg>
           </button>
@@ -177,13 +177,13 @@
             disabled={selectedCount === 0}
             aria-label="Mark as unread"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
           </button>
           <button
             type="button"
-            class="p-2 rounded-lg hover:bg-error/10 text-error transition-colors"
+            class="p-2 rounded-lg hover:bg-destructive/10 text-destructive transition-colors"
             onclick={deleteSelected}
             disabled={selectedCount === 0}
             aria-label="Delete selected"
@@ -198,7 +198,7 @@
       <!-- Normal Header -->
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
-          <h1 class="text-lg font-semibold text-text">Inbox</h1>
+          <h1 class="text-lg font-semibold text-foreground">Inbox</h1>
           {#if unreadCount > 0}
             <span class="px-2 py-0.5 text-xs font-medium text-white bg-primary rounded-full">
               {unreadCount}
@@ -207,7 +207,7 @@
         </div>
         <button
           type="button"
-          class="px-3 py-1.5 text-sm font-medium text-text-secondary hover:text-text bg-surface-sunken rounded-lg transition-colors"
+          class="px-3 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground bg-surface-sunken rounded-lg transition-colors"
           onclick={() => selectMode = true}
         >
           Select
@@ -221,7 +221,7 @@
     <div class="shrink-0 px-5 py-2 border-b border-border bg-surface-sunken/30">
       <button
         type="button"
-        class="flex items-center gap-2 text-sm text-text-secondary hover:text-text"
+        class="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
         onclick={toggleSelectAll}
       >
         <div class="w-5 h-5 rounded border-2 flex items-center justify-center transition-colors
@@ -272,15 +272,15 @@
         <!-- Content -->
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-2 mb-0.5">
-            <span class="text-sm truncate {!item.read ? 'font-semibold text-text' : 'font-medium text-text-secondary'}">
+            <span class="text-sm truncate {!item.read ? 'font-semibold text-foreground' : 'font-medium text-muted-foreground'}">
               {item.sender}
             </span>
             <span class="text-xs text-text-disabled shrink-0">{formatTime(item.time)}</span>
           </div>
-          <p class="text-sm truncate {!item.read ? 'font-medium text-text' : 'text-text-secondary'}">
+          <p class="text-sm truncate {!item.read ? 'font-medium text-foreground' : 'text-muted-foreground'}">
             {item.subject}
           </p>
-          <p class="text-xs text-text-muted truncate mt-0.5">{item.preview}</p>
+          <p class="text-xs text-muted-foreground truncate mt-0.5">{item.preview}</p>
         </div>
 
         <!-- Star -->
@@ -293,7 +293,7 @@
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5 transition-colors {item.starred ? 'text-warning fill-warning' : 'text-text-disabled hover:text-text-muted'}"
+              class="h-5 w-5 transition-colors {item.starred ? 'text-warning fill-warning' : 'text-text-disabled hover:text-muted-foreground'}"
               fill={item.starred ? 'currentColor' : 'none'}
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -309,7 +309,7 @@
 
   <!-- Legend / Mobile UX Note -->
   <div class="shrink-0 px-5 py-3 border-t border-border bg-surface-sunken/30">
-    <div class="flex items-center justify-between text-xs text-text-muted">
+    <div class="flex items-center justify-between text-xs text-muted-foreground">
       <div class="flex items-center gap-4">
         <div class="flex items-center gap-1.5">
           <div class="w-2 h-2 bg-primary rounded-full"></div>

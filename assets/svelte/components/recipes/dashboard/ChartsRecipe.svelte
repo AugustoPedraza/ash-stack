@@ -135,12 +135,12 @@
 <div class="h-full bg-base-100 overflow-y-auto">
   <div class="max-w-lg mx-auto px-5 py-6">
     <div class="mb-6">
-      <h1 class="text-xl font-semibold text-text mb-2">Charts</h1>
-      <p class="text-sm text-text-muted">Simple SVG charts - no heavy libraries.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Charts</h1>
+      <p class="text-sm text-muted-foreground">Simple SVG charts - no heavy libraries.</p>
     </div>
 
     <!-- Chart Type Tabs -->
-    <div class="flex gap-1 p-1 bg-base-200 rounded-lg mb-6">
+    <div class="flex gap-1 p-1 bg-muted rounded-lg mb-6">
       {#each chartTypes as type}
         <Button
           variant={activeChart === type ? 'secondary' : 'ghost'}
@@ -165,11 +165,11 @@
         <Card variant="outlined" padding="md">
           <div class="flex items-center justify-between mb-4">
             <div>
-              <p class="text-sm font-medium text-text">Monthly Revenue</p>
-              <p class="text-xs text-text-muted">Last 6 months</p>
+              <p class="text-sm font-medium text-foreground">Monthly Revenue</p>
+              <p class="text-xs text-muted-foreground">Last 6 months</p>
             </div>
             <div class="text-right">
-              <p class="text-lg font-semibold text-text">$110k</p>
+              <p class="text-lg font-semibold text-foreground">$110k</p>
               <p class="text-xs text-success">+18% vs last month</p>
             </div>
           </div>
@@ -217,7 +217,7 @@
                 x={point.x}
                 y="155"
                 text-anchor="middle"
-                class="text-[10px] fill-text-muted"
+                class="text-[10px] fill-muted-foreground"
               >
                 {lineData[i].month}
               </text>
@@ -239,12 +239,12 @@
         <Card variant="outlined" padding="md">
           <div class="flex items-center justify-between mb-4">
             <div>
-              <p class="text-sm font-medium text-text">Daily Visitors</p>
-              <p class="text-xs text-text-muted">This week</p>
+              <p class="text-sm font-medium text-foreground">Daily Visitors</p>
+              <p class="text-xs text-muted-foreground">This week</p>
             </div>
             <div class="text-right">
-              <p class="text-lg font-semibold text-text">389</p>
-              <p class="text-xs text-text-muted">avg per day</p>
+              <p class="text-lg font-semibold text-foreground">389</p>
+              <p class="text-xs text-muted-foreground">avg per day</p>
             </div>
           </div>
 
@@ -276,7 +276,7 @@
                   x={bar.x + bar.width / 2}
                   y="155"
                   text-anchor="middle"
-                  class="text-[10px] fill-text-muted"
+                  class="text-[10px] fill-muted-foreground"
                 >
                   {bar.label}
                 </text>
@@ -290,8 +290,8 @@
       {#if activeChart === 'donut'}
         <Card variant="outlined" padding="md">
           <div class="mb-4">
-            <p class="text-sm font-medium text-text">Traffic Sources</p>
-            <p class="text-xs text-text-muted">Device breakdown</p>
+            <p class="text-sm font-medium text-foreground">Traffic Sources</p>
+            <p class="text-xs text-muted-foreground">Device breakdown</p>
           </div>
 
           <div class="flex items-center justify-center gap-6">
@@ -308,8 +308,8 @@
               </svg>
               <!-- Center text -->
               <div class="absolute inset-0 flex flex-col items-center justify-center">
-                <p class="text-2xl font-semibold text-text">100%</p>
-                <p class="text-xs text-text-muted">Total</p>
+                <p class="text-2xl font-semibold text-foreground">100%</p>
+                <p class="text-xs text-muted-foreground">Total</p>
               </div>
             </div>
 
@@ -319,8 +319,8 @@
                 <div class="flex items-center gap-2">
                   <div class="w-3 h-3 rounded-full" style="background-color: {segment.color}"></div>
                   <div>
-                    <p class="text-sm text-text">{segment.label}</p>
-                    <p class="text-xs text-text-muted">{Math.round(segment.percentage * 100)}%</p>
+                    <p class="text-sm text-foreground">{segment.label}</p>
+                    <p class="text-xs text-muted-foreground">{Math.round(segment.percentage * 100)}%</p>
                   </div>
                 </div>
               {/each}
@@ -332,15 +332,15 @@
 
     <!-- Additional Chart Styles -->
     <div class="mt-8 mb-4">
-      <h2 class="text-sm font-medium text-text">Mini Chart Variants</h2>
+      <h2 class="text-sm font-medium text-foreground">Mini Chart Variants</h2>
     </div>
 
     <div class="grid grid-cols-2 gap-3 mb-8">
       <!-- Mini Line -->
       <Card variant="outlined" padding="md">
-        <p class="text-xs text-text-muted mb-1">Revenue</p>
+        <p class="text-xs text-muted-foreground mb-1">Revenue</p>
         <div class="flex items-end justify-between">
-          <p class="text-lg font-semibold text-text">$12.8k</p>
+          <p class="text-lg font-semibold text-foreground">$12.8k</p>
           <svg class="w-16 h-8" viewBox="0 0 80 24" preserveAspectRatio="none">
             <path
               d="M0,20 L13,15 L26,18 L40,8 L53,12 L66,4 L80,6"
@@ -358,9 +358,9 @@
 
       <!-- Mini Bar -->
       <Card variant="outlined" padding="md">
-        <p class="text-xs text-text-muted mb-1">Orders</p>
+        <p class="text-xs text-muted-foreground mb-1">Orders</p>
         <div class="flex items-end justify-between">
-          <p class="text-lg font-semibold text-text">384</p>
+          <p class="text-lg font-semibold text-foreground">384</p>
           <svg class="w-16 h-8" viewBox="0 0 80 24" preserveAspectRatio="none">
             {#each [12, 18, 8, 20, 15, 10, 16] as h, i}
               <rect
@@ -375,12 +375,12 @@
             {/each}
           </svg>
         </div>
-        <p class="text-xs text-error mt-1">-6.8%</p>
+        <p class="text-xs text-destructive mt-1">-6.8%</p>
       </Card>
 
       <!-- Progress Ring -->
       <Card variant="outlined" padding="md">
-        <p class="text-xs text-text-muted mb-2">Goal Progress</p>
+        <p class="text-xs text-muted-foreground mb-2">Goal Progress</p>
         <div class="flex items-center gap-3">
           <svg class="w-12 h-12" viewBox="0 0 48 48">
             <!-- Background ring -->
@@ -405,24 +405,24 @@
             />
           </svg>
           <div>
-            <p class="text-lg font-semibold text-text">75%</p>
-            <p class="text-xs text-text-muted">$7.5k / $10k</p>
+            <p class="text-lg font-semibold text-foreground">75%</p>
+            <p class="text-xs text-muted-foreground">$7.5k / $10k</p>
           </div>
         </div>
       </Card>
 
       <!-- Horizontal Bar -->
       <Card variant="outlined" padding="md">
-        <p class="text-xs text-text-muted mb-2">Storage Used</p>
+        <p class="text-xs text-muted-foreground mb-2">Storage Used</p>
         <div class="space-y-2">
           <div class="flex items-center justify-between">
-            <span class="text-sm text-text">Files</span>
-            <span class="text-xs text-text-muted">4.2 GB</span>
+            <span class="text-sm text-foreground">Files</span>
+            <span class="text-xs text-muted-foreground">4.2 GB</span>
           </div>
-          <div class="h-2 bg-base-200 rounded-full overflow-hidden">
+          <div class="h-2 bg-muted rounded-full overflow-hidden">
             <div class="h-full bg-primary rounded-full" style="width: 65%"></div>
           </div>
-          <p class="text-xs text-text-muted">65% of 6.5 GB</p>
+          <p class="text-xs text-muted-foreground">65% of 6.5 GB</p>
         </div>
       </Card>
     </div>
@@ -430,7 +430,7 @@
     <!-- Mobile UX Note -->
     <div class="p-4 bg-primary/5 border border-primary/20 rounded-lg">
       <h3 class="text-sm font-medium text-primary mb-2">Mobile UX Patterns</h3>
-      <ul class="text-xs text-text-secondary space-y-1">
+      <ul class="text-xs text-muted-foreground space-y-1">
         <li>• Pure SVG - no heavy chart libraries</li>
         <li>• Responsive with viewBox scaling</li>
         <li>• Touch-friendly tap targets</li>

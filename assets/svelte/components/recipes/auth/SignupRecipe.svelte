@@ -114,8 +114,8 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
         </svg>
       </div>
-      <h1 class="text-xl font-semibold text-text mb-2">Account Created!</h1>
-      <p class="text-text-secondary mb-8">Welcome aboard, {name}!</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Account Created!</h1>
+      <p class="text-muted-foreground mb-8">Welcome aboard, {name}!</p>
       <Button variant="ghost" onclick={resetDemo}>
         Reset Demo
       </Button>
@@ -125,15 +125,15 @@
     <div class="max-w-sm mx-auto pt-6">
       <!-- Header -->
       <div class="text-center mb-8">
-        <h1 class="text-xl font-semibold text-text mb-2">Create Account</h1>
-        <p class="text-text-muted">Join us today. It only takes a minute.</p>
+        <h1 class="text-xl font-semibold text-foreground mb-2">Create Account</h1>
+        <p class="text-muted-foreground">Join us today. It only takes a minute.</p>
       </div>
 
       <!-- Form -->
       <form class="flex flex-col gap-5" onsubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
         <!-- Global Error -->
         {#if error}
-          <div class="flex items-center gap-3 p-3 bg-error-soft border border-error/30 rounded-lg text-error text-sm">
+          <div class="flex items-center gap-3 p-3 bg-destructive/10 border border-destructive/30 rounded-lg text-destructive text-sm">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
             </svg>
@@ -179,7 +179,7 @@
 
         <!-- Password Field -->
         <div class="flex flex-col gap-1.5">
-          <label class="text-sm font-medium text-text" for="password">Password</label>
+          <label class="text-sm font-medium text-foreground" for="password">Password</label>
           <Input
             id="password"
             type="password"
@@ -194,13 +194,13 @@
           <!-- Password Strength Indicator -->
           {#if password.length > 0}
             <div class="flex items-center gap-2 mt-1">
-              <div class="flex-1 h-1.5 bg-base-200 rounded-full overflow-hidden">
+              <div class="flex-1 h-1.5 bg-muted rounded-full overflow-hidden">
                 <div
                   class="h-full transition-all duration-300 {strengthColor}"
                   style="width: {(passwordStrength / 5) * 100}%"
                 ></div>
               </div>
-              <span class="text-xs text-text-muted">{strengthLabel}</span>
+              <span class="text-xs text-muted-foreground">{strengthLabel}</span>
             </div>
 
             <!-- Password Requirements -->
@@ -238,7 +238,7 @@
             </ul>
           {/if}
           {#if touched.password && (fieldErrors.password || !passwordValid)}
-            <span class="text-xs text-error">{fieldErrors.password || 'Password does not meet requirements'}</span>
+            <span class="text-xs text-destructive">{fieldErrors.password || 'Password does not meet requirements'}</span>
           {/if}
         </div>
 
@@ -251,8 +251,8 @@
             class="w-5 h-5 mt-0.5 shrink-0 rounded border-2 flex items-center justify-center transition-colors
               {acceptTerms
                 ? 'bg-primary border-primary'
-                : 'bg-surface border-border-strong hover:border-primary'}
-              {touched.terms && !termsValid ? 'border-error' : ''}
+                : 'bg-background border-border-strong hover:border-primary'}
+              {touched.terms && !termsValid ? 'border-destructive' : ''}
               {loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}"
             onclick={() => !loading && (acceptTerms = !acceptTerms)}
             disabled={loading}
@@ -264,7 +264,7 @@
             {/if}
           </button>
           <span
-            class="text-sm text-text leading-relaxed cursor-pointer select-none"
+            class="text-sm text-foreground leading-relaxed cursor-pointer select-none"
             onclick={() => !loading && (acceptTerms = !acceptTerms)}
             role="none"
           >
@@ -280,7 +280,7 @@
           </span>
         </div>
         {#if touched.terms && !termsValid}
-          <span class="text-xs text-error -mt-3">You must accept the terms to continue</span>
+          <span class="text-xs text-destructive -mt-3">You must accept the terms to continue</span>
         {/if}
 
         <!-- Submit Button -->
@@ -297,7 +297,7 @@
       </form>
 
       <!-- Sign In Link -->
-      <p class="text-center text-sm text-text-muted mt-6">
+      <p class="text-center text-sm text-muted-foreground mt-6">
         Already have an account?
         <Button variant="ghost" size="sm" onclick={() => alert('Navigate to Sign In')}>
           Sign in

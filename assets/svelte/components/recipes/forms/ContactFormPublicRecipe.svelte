@@ -58,8 +58,8 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
         </svg>
       </div>
-      <h1 class="text-xl font-semibold text-text mb-2">Message Sent!</h1>
-      <p class="text-text-muted mb-6">We'll get back to you within 24 hours.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Message Sent!</h1>
+      <p class="text-muted-foreground mb-6">We'll get back to you within 24 hours.</p>
       <Button variant="ghost" onclick={resetForm}>
         Send Another
       </Button>
@@ -68,14 +68,14 @@
     <div class="max-w-sm mx-auto">
       <!-- Header - Simple, no navigation -->
       <div class="text-center mb-8">
-        <h1 class="text-xl font-semibold text-text mb-2">Contact Us</h1>
-        <p class="text-sm text-text-muted">Have a question? We'd love to hear from you.</p>
+        <h1 class="text-xl font-semibold text-foreground mb-2">Contact Us</h1>
+        <p class="text-sm text-muted-foreground">Have a question? We'd love to hear from you.</p>
       </div>
 
       <!-- Form -->
       <form class="space-y-5" onsubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
         {#if error}
-          <div class="p-3 bg-error-soft border border-error/30 rounded-lg text-error text-sm">
+          <div class="p-3 bg-destructive/10 border border-destructive/30 rounded-lg text-destructive text-sm">
             {error}
           </div>
         {/if}
@@ -113,21 +113,21 @@
         </FormField>
 
         <div class="flex flex-col gap-1.5">
-          <label class="text-sm font-medium text-text" for="message">Message</label>
+          <label class="text-sm font-medium text-foreground" for="message">Message</label>
           <textarea
             id="message"
-            class="w-full px-4 py-3 min-h-28 bg-surface text-text border rounded-[var(--radius-md)]
-              transition-colors duration-[var(--duration-fast)]
-              placeholder:text-text-muted
-              focus:outline-none focus:border-border-focus focus:ring-1 focus:ring-border-focus
-              {touched.message && !messageValid ? 'border-error' : 'border-border'}"
+            class="w-full px-4 py-3 min-h-28 bg-background text-foreground border rounded-md
+              transition-colors duration-150
+              placeholder:text-muted-foreground
+              focus:outline-none focus:ring-ring focus:ring-1 focus:ring-ring
+              {touched.message && !messageValid ? 'border-destructive' : 'border-border'}"
             bind:value={message}
             onblur={() => touched.message = true}
             placeholder="How can we help?"
             disabled={loading}
           ></textarea>
           {#if touched.message && !messageValid}
-            <span class="text-xs text-error">Please enter at least 10 characters</span>
+            <span class="text-xs text-destructive">Please enter at least 10 characters</span>
           {/if}
         </div>
 

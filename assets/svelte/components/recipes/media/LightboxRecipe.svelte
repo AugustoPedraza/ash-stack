@@ -73,11 +73,11 @@
 
 <svelte:window onkeydown={handleKeydown} />
 
-<div class="h-full bg-surface overflow-y-auto px-5 py-6">
+<div class="h-full bg-background overflow-y-auto px-5 py-6">
   <div class="max-w-md mx-auto">
     <div class="mb-8">
-      <h1 class="text-xl font-semibold text-text mb-2">Lightbox Gallery</h1>
-      <p class="text-text-muted text-sm">Full-screen gallery with navigation and gestures.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Lightbox Gallery</h1>
+      <p class="text-muted-foreground text-sm">Full-screen gallery with navigation and gestures.</p>
     </div>
 
     <!-- Gallery Grid -->
@@ -105,8 +105,8 @@
 
     <!-- Usage Hints -->
     <div class="p-4 bg-surface-sunken/50 rounded-xl mb-8">
-      <h3 class="text-sm font-medium text-text mb-2">Keyboard Shortcuts</h3>
-      <div class="grid grid-cols-2 gap-2 text-xs text-text-muted">
+      <h3 class="text-sm font-medium text-foreground mb-2">Keyboard Shortcuts</h3>
+      <div class="grid grid-cols-2 gap-2 text-xs text-muted-foreground">
         <div class="flex items-center gap-2">
           <kbd class="px-1.5 py-0.5 bg-border-strong rounded text-xs">←</kbd>
           <span>Previous</span>
@@ -129,7 +129,7 @@
     <!-- Mobile UX Note -->
     <div class="p-4 bg-primary/5 border border-primary/20 rounded-lg">
       <h3 class="text-sm font-medium text-primary mb-2">Mobile UX Patterns</h3>
-      <ul class="text-xs text-text-secondary space-y-1">
+      <ul class="text-xs text-muted-foreground space-y-1">
         <li>• Swipe left/right to navigate</li>
         <li>• Tap to toggle info overlay</li>
         <li>• Pinch to zoom (full implementation)</li>

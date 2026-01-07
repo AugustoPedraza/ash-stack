@@ -59,8 +59,8 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
         </svg>
       </div>
-      <h1 class="text-xl font-semibold text-text mb-2">Email Verified!</h1>
-      <p class="text-text-secondary mb-8">Your email address has been confirmed.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Email Verified!</h1>
+      <p class="text-muted-foreground mb-8">Your email address has been confirmed.</p>
       <Button variant="ghost" onclick={resetDemo}>
         Reset Demo
       </Button>
@@ -74,11 +74,11 @@
         </svg>
       </div>
 
-      <h1 class="text-xl font-semibold text-text mb-2">Verify Your Email</h1>
-      <p class="text-text-secondary mb-2">We sent a verification link to:</p>
-      <p class="font-medium text-text mb-6">{email}</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Verify Your Email</h1>
+      <p class="text-muted-foreground mb-2">We sent a verification link to:</p>
+      <p class="font-medium text-foreground mb-6">{email}</p>
 
-      <p class="text-sm text-text-muted mb-8">
+      <p class="text-sm text-muted-foreground mb-8">
         Please check your inbox and click the verification link to activate your account.
       </p>
 
@@ -127,8 +127,8 @@
 
       <!-- Help Text -->
       <Card variant="flat" class="mt-8 w-full">
-        <p class="text-sm font-medium text-text mb-2">Didn't receive the email?</p>
-        <ul class="text-sm text-text-muted space-y-1 text-left">
+        <p class="text-sm font-medium text-foreground mb-2">Didn't receive the email?</p>
+        <ul class="text-sm text-muted-foreground space-y-1 text-left">
           <li>Check your spam or junk folder</li>
           <li>Make sure {email} is correct</li>
           <li>Wait a few minutes and try resending</li>

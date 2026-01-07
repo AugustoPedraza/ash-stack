@@ -55,7 +55,7 @@
 
 {#if open}
   <div
-    class="fixed inset-0 z-[var(--z-modal)] flex items-end sm:items-center justify-center"
+    class="fixed inset-0 z-50 flex items-end sm:items-center justify-center"
     role="dialog"
     aria-modal="true"
     aria-labelledby={title ? 'modal-title' : undefined}
@@ -71,7 +71,7 @@
     <div
       class="
         relative w-full {sizes[size]}
-        bg-surface rounded-t-[var(--radius-xl)] sm:rounded-[var(--radius-xl)]
+        bg-background rounded-t-xl sm:rounded-xl
         shadow-xl
         flex flex-col
         max-h-[90vh] sm:max-h-[85vh]
@@ -86,7 +86,7 @@
       {:else if title || showClose}
         <div class="shrink-0 px-5 pt-4 pb-3 flex items-center justify-between border-b border-border">
           {#if title}
-            <h2 id="modal-title" class="text-lg font-semibold text-text">{title}</h2>
+            <h2 id="modal-title" class="text-lg font-semibold text-foreground">{title}</h2>
           {:else}
             <div></div>
           {/if}
@@ -94,7 +94,7 @@
           {#if showClose}
             <button
               type="button"
-              class="p-2 -mr-2 rounded-lg text-text-muted hover:bg-base-200 transition-colors"
+              class="p-2 -mr-2 rounded-lg text-muted-foreground hover:bg-muted transition-colors"
               onclick={handleClose}
               aria-label="Close"
             >

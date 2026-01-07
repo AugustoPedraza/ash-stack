@@ -212,21 +212,21 @@
   }
 </script>
 
-<div class="h-full bg-surface overflow-y-auto px-5 py-6">
+<div class="h-full bg-background overflow-y-auto px-5 py-6">
   <div class="max-w-md mx-auto">
     <div class="mb-8">
-      <h1 class="text-xl font-semibold text-text mb-2">Address Autocomplete</h1>
-      <p class="text-text-muted text-sm">Search for addresses with suggestions and manual entry fallback.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Address Autocomplete</h1>
+      <p class="text-muted-foreground text-sm">Search for addresses with suggestions and manual entry fallback.</p>
     </div>
 
     <div class="flex flex-col gap-6">
       {#if !showManualEntry}
         <!-- Autocomplete Input -->
         <div class="flex flex-col gap-1.5">
-          <span class="text-sm font-medium text-text">Delivery Address</span>
+          <span class="text-sm font-medium text-foreground">Delivery Address</span>
 
           <div class="relative">
-            <div class="flex items-center gap-2 px-3 h-12 border border-border-strong rounded-lg bg-surface focus-within:border-primary transition-colors">
+            <div class="flex items-center gap-2 px-3 h-12 border border-border-strong rounded-lg bg-background focus-within:border-primary transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-disabled shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -234,7 +234,7 @@
               <input
                 type="text"
                 style="all: unset; flex: 1; color: inherit; font: inherit;"
-                class="text-text"
+                class="text-foreground"
                 placeholder="Start typing an address..."
                 value={searchQuery}
                 oninput={handleInput}
@@ -251,7 +251,7 @@
                   onclick={clearAddress}
                   aria-label="Clear"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
@@ -260,7 +260,7 @@
 
             <!-- Suggestions Dropdown -->
             {#if showSuggestions && (suggestions.length > 0 || searchQuery)}
-              <div class="absolute top-full left-0 right-0 mt-1 bg-surface border border-border-strong rounded-lg shadow-lg z-10 max-h-60 overflow-y-auto">
+              <div class="absolute top-full left-0 right-0 mt-1 bg-background border border-border-strong rounded-lg shadow-lg z-10 max-h-60 overflow-y-auto">
                 {#each suggestions as address, i}
                   <button
                     type="button"
@@ -273,13 +273,13 @@
                       <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                     <div class="flex-1 min-w-0">
-                      <p class="text-sm text-text">{address.street}</p>
-                      <p class="text-xs text-text-muted">{address.city}, {address.state} {address.zip}</p>
+                      <p class="text-sm text-foreground">{address.street}</p>
+                      <p class="text-xs text-muted-foreground">{address.city}, {address.state} {address.zip}</p>
                     </div>
                   </button>
                 {:else}
                   <div class="px-3 py-4 text-center">
-                    <p class="text-sm text-text-muted mb-2">No addresses found</p>
+                    <p class="text-sm text-muted-foreground mb-2">No addresses found</p>
                     <button
                       type="button"
                       class="text-sm text-primary hover:underline"
@@ -305,7 +305,7 @@
         <!-- Manual Entry Form -->
         <div class="flex flex-col gap-4">
           <div class="flex items-center justify-between">
-            <span class="text-sm font-medium text-text">Enter Address Manually</span>
+            <span class="text-sm font-medium text-foreground">Enter Address Manually</span>
             <button
               type="button"
               class="text-xs text-primary hover:underline"
@@ -316,7 +316,7 @@
           </div>
 
           <div class="flex flex-col gap-1.5">
-            <label class="text-xs text-text-secondary" for="street">Street Address</label>
+            <label class="text-xs text-muted-foreground" for="street">Street Address</label>
             <Input
               id="street"
               type="text"
@@ -326,7 +326,7 @@
           </div>
 
           <div class="flex flex-col gap-1.5">
-            <label class="text-xs text-text-secondary" for="apt">Apt, Suite, Unit (optional)</label>
+            <label class="text-xs text-muted-foreground" for="apt">Apt, Suite, Unit (optional)</label>
             <Input
               id="apt"
               type="text"
@@ -337,7 +337,7 @@
 
           <div class="grid grid-cols-2 gap-3">
             <div class="flex flex-col gap-1.5">
-              <label class="text-xs text-text-secondary" for="city">City</label>
+              <label class="text-xs text-muted-foreground" for="city">City</label>
               <Input
                 id="city"
                 type="text"
@@ -346,29 +346,29 @@
               />
             </div>
             <div class="flex flex-col gap-1.5">
-              <span class="text-xs text-text-secondary">State</span>
+              <span class="text-xs text-muted-foreground">State</span>
               <div class="relative">
                 <button
                   type="button"
-                  class="w-full flex items-center justify-between px-3 py-2.5 border border-border-strong rounded-lg bg-surface text-left hover:border-primary transition-colors"
+                  class="w-full flex items-center justify-between px-3 py-2.5 border border-border-strong rounded-lg bg-background text-left hover:border-primary transition-colors"
                   onclick={() => showStateDropdown = !showStateDropdown}
                 >
-                  <span class="{manualAddress.state ? 'text-text' : 'text-text-muted'}">
+                  <span class="{manualAddress.state ? 'text-foreground' : 'text-muted-foreground'}">
                     {selectedStateLabel()}
                   </span>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-text-muted transition-transform {showStateDropdown ? 'rotate-180' : ''}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-muted-foreground transition-transform {showStateDropdown ? 'rotate-180' : ''}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
 
                 {#if showStateDropdown}
-                  <div class="absolute top-full left-0 right-0 mt-1 bg-surface border border-border-strong rounded-lg shadow-lg z-20 overflow-hidden">
+                  <div class="absolute top-full left-0 right-0 mt-1 bg-background border border-border-strong rounded-lg shadow-lg z-20 overflow-hidden">
                     <div class="max-h-48 overflow-y-auto">
                       {#each states.slice(1) as state}
                         <button
                           type="button"
                           class="w-full px-3 py-2 text-left text-sm transition-colors
-                            {manualAddress.state === state.value ? 'bg-primary/10 text-primary font-medium' : 'text-text hover:bg-surface-sunken'}"
+                            {manualAddress.state === state.value ? 'bg-primary/10 text-primary font-medium' : 'text-foreground hover:bg-surface-sunken'}"
                           onclick={() => selectState(state.value)}
                         >
                           {state.label}
@@ -382,7 +382,7 @@
           </div>
 
           <div class="flex flex-col gap-1.5">
-            <label class="text-xs text-text-secondary" for="zip">ZIP Code</label>
+            <label class="text-xs text-muted-foreground" for="zip">ZIP Code</label>
             <Input
               id="zip"
               type="text"
@@ -412,11 +412,11 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
             </svg>
             <div class="flex-1">
-              <p class="text-sm font-medium text-text">{selectedAddress.street}</p>
+              <p class="text-sm font-medium text-foreground">{selectedAddress.street}</p>
               {#if selectedAddress.apt}
-                <p class="text-sm text-text-secondary">{selectedAddress.apt}</p>
+                <p class="text-sm text-muted-foreground">{selectedAddress.apt}</p>
               {/if}
-              <p class="text-sm text-text-secondary">
+              <p class="text-sm text-muted-foreground">
                 {selectedAddress.city}, {selectedAddress.state} {selectedAddress.zip}
               </p>
             </div>
@@ -434,8 +434,8 @@
       <!-- Structured Data Output -->
       {#if selectedAddress}
         <div class="p-4 bg-surface-sunken rounded-lg">
-          <h3 class="text-sm font-medium text-text mb-2">Structured Address Data</h3>
-          <pre class="text-xs text-text-secondary overflow-x-auto">{JSON.stringify({
+          <h3 class="text-sm font-medium text-foreground mb-2">Structured Address Data</h3>
+          <pre class="text-xs text-muted-foreground overflow-x-auto">{JSON.stringify({
             street: selectedAddress.street,
             apt: selectedAddress.apt || null,
             city: selectedAddress.city,

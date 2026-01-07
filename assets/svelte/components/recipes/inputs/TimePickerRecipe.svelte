@@ -88,38 +88,38 @@
   }
 </script>
 
-<div class="h-full bg-surface overflow-y-auto px-5 py-6">
+<div class="h-full bg-background overflow-y-auto px-5 py-6">
   <div class="max-w-md mx-auto">
     <div class="mb-8">
-      <h1 class="text-xl font-semibold text-text mb-2">Time Picker</h1>
-      <p class="text-text-muted text-sm">Select time from a simple list dropdown.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Time Picker</h1>
+      <p class="text-muted-foreground text-sm">Select time from a simple list dropdown.</p>
     </div>
 
     <div class="flex flex-col gap-6">
       <!-- Time Picker -->
       <div class="flex flex-col gap-1.5">
-        <span class="text-sm font-medium text-text">Start Time</span>
+        <span class="text-sm font-medium text-foreground">Start Time</span>
         <div class="relative">
           <button
             type="button"
-            class="w-full flex items-center justify-between px-3 py-2.5 border border-border-strong rounded-lg bg-surface text-left hover:border-primary transition-colors"
+            class="w-full flex items-center justify-between px-3 py-2.5 border border-border-strong rounded-lg bg-background text-left hover:border-primary transition-colors"
             onclick={() => showTimePicker = true}
           >
-            <span class="text-text">{formattedTime()}</span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <span class="text-foreground">{formattedTime()}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </button>
 
           <!-- Time Dropdown -->
           {#if showTimePicker}
-            <div class="absolute top-full left-0 right-0 mt-1 bg-surface border border-border-strong rounded-lg shadow-lg z-20 overflow-hidden">
+            <div class="absolute top-full left-0 right-0 mt-1 bg-background border border-border-strong rounded-lg shadow-lg z-20 overflow-hidden">
               <div class="max-h-64 overflow-y-auto">
                 {#each timeSlots as slot}
                   <button
                     type="button"
                     class="w-full px-4 py-2.5 text-left text-sm transition-colors
-                      {selectedTime === slot.value ? 'bg-primary/10 text-primary font-medium' : 'text-text hover:bg-surface-sunken'}"
+                      {selectedTime === slot.value ? 'bg-primary/10 text-primary font-medium' : 'text-foreground hover:bg-surface-sunken'}"
                     onclick={() => selectTime(slot.value)}
                   >
                     {slot.label}
@@ -129,33 +129,33 @@
             </div>
           {/if}
         </div>
-        <p class="text-xs text-text-muted">{userTimezone}</p>
+        <p class="text-xs text-muted-foreground">{userTimezone}</p>
       </div>
 
       <!-- Duration Picker -->
       <div class="flex flex-col gap-1.5">
-        <span class="text-sm font-medium text-text">Duration</span>
+        <span class="text-sm font-medium text-foreground">Duration</span>
         <div class="relative">
           <button
             type="button"
-            class="w-full flex items-center justify-between px-3 py-2.5 border border-border-strong rounded-lg bg-surface text-left hover:border-primary transition-colors"
+            class="w-full flex items-center justify-between px-3 py-2.5 border border-border-strong rounded-lg bg-background text-left hover:border-primary transition-colors"
             onclick={() => showDurationPicker = true}
           >
-            <span class="text-text">{formattedDuration()}</span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-muted transition-transform {showDurationPicker ? 'rotate-180' : ''}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <span class="text-foreground">{formattedDuration()}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground transition-transform {showDurationPicker ? 'rotate-180' : ''}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
 
           <!-- Duration Dropdown -->
           {#if showDurationPicker}
-            <div class="absolute top-full left-0 right-0 mt-1 bg-surface border border-border-strong rounded-lg shadow-lg z-20 overflow-hidden">
+            <div class="absolute top-full left-0 right-0 mt-1 bg-background border border-border-strong rounded-lg shadow-lg z-20 overflow-hidden">
               <div class="max-h-64 overflow-y-auto">
                 {#each durationOptions as option}
                   <button
                     type="button"
                     class="w-full px-4 py-2.5 text-left text-sm transition-colors
-                      {selectedDuration === option.value ? 'bg-primary/10 text-primary font-medium' : 'text-text hover:bg-surface-sunken'}"
+                      {selectedDuration === option.value ? 'bg-primary/10 text-primary font-medium' : 'text-foreground hover:bg-surface-sunken'}"
                     onclick={() => selectDuration(option.value)}
                   >
                     {option.label}
@@ -169,7 +169,7 @@
 
       <!-- Quick Duration Presets -->
       <div class="flex flex-col gap-1.5">
-        <span class="text-sm font-medium text-text">Quick Select</span>
+        <span class="text-sm font-medium text-foreground">Quick Select</span>
         <div class="flex flex-wrap gap-2">
           {#each [15, 30, 60, 90, 120] as mins}
             {@const label = mins < 60 ? `${mins}m` : mins === 60 ? '1h' : `${mins/60}h`}
@@ -178,7 +178,7 @@
               class="px-3 py-1.5 text-sm rounded-lg border transition-colors
                 {selectedDuration === mins
                   ? 'bg-primary text-white border-primary'
-                  : 'border-border-strong text-text hover:border-primary bg-surface'}"
+                  : 'border-border-strong text-foreground hover:border-primary bg-background'}"
               onclick={() => selectedDuration = mins}
             >
               {label}
@@ -189,27 +189,27 @@
 
       <!-- Summary -->
       <div class="p-4 bg-surface-sunken rounded-lg">
-        <h3 class="text-sm font-medium text-text mb-3">Summary</h3>
+        <h3 class="text-sm font-medium text-foreground mb-3">Summary</h3>
         <div class="flex flex-col gap-2 text-sm">
           <div class="flex justify-between">
-            <span class="text-text-muted">Start</span>
-            <span class="text-text font-medium">{formattedTime()}</span>
+            <span class="text-muted-foreground">Start</span>
+            <span class="text-foreground font-medium">{formattedTime()}</span>
           </div>
           <div class="flex justify-between">
-            <span class="text-text-muted">Duration</span>
-            <span class="text-text font-medium">{formattedDuration()}</span>
+            <span class="text-muted-foreground">Duration</span>
+            <span class="text-foreground font-medium">{formattedDuration()}</span>
           </div>
           <div class="flex justify-between pt-2 border-t border-border">
-            <span class="text-text-muted">End</span>
-            <span class="text-text font-medium">{endTime()}</span>
+            <span class="text-muted-foreground">End</span>
+            <span class="text-foreground font-medium">{endTime()}</span>
           </div>
         </div>
       </div>
 
       <!-- Form Values -->
       <div class="p-4 bg-surface-sunken rounded-lg">
-        <h3 class="text-sm font-medium text-text mb-2">Form Values</h3>
-        <pre class="text-xs text-text-secondary">{JSON.stringify({ time: selectedTime, duration: selectedDuration }, null, 2)}</pre>
+        <h3 class="text-sm font-medium text-foreground mb-2">Form Values</h3>
+        <pre class="text-xs text-muted-foreground">{JSON.stringify({ time: selectedTime, duration: selectedDuration }, null, 2)}</pre>
       </div>
     </div>
   </div>

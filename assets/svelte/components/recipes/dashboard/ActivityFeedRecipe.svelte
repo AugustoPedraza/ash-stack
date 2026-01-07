@@ -74,7 +74,7 @@
       case 'complete': return 'bg-success text-on-success';
       case 'invite': return 'bg-warning text-on-warning';
       case 'create': return 'bg-secondary text-on-secondary';
-      default: return 'bg-base-300 text-text';
+      default: return 'bg-accent text-foreground';
     }
   }
 </script>
@@ -82,8 +82,8 @@
 <div class="h-full bg-base-100 overflow-y-auto">
   <div class="max-w-lg mx-auto px-5 py-6">
     <div class="mb-6">
-      <h1 class="text-xl font-semibold text-text mb-2">Activity Feed</h1>
-      <p class="text-sm text-text-muted">Grouped timeline with avatars and action types.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Activity Feed</h1>
+      <p class="text-sm text-muted-foreground">Grouped timeline with avatars and action types.</p>
     </div>
 
     {#if loading}
@@ -106,14 +106,14 @@
           <div>
             <!-- Date Header -->
             <div class="flex items-center gap-3 mb-3">
-              <span class="text-xs font-medium text-text-muted uppercase tracking-wide">{dateLabel}</span>
+              <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">{dateLabel}</span>
               <div class="flex-1 h-px bg-border"></div>
             </div>
 
             <!-- Activities -->
             <div class="space-y-1">
               {#each items as activity}
-                <div class="flex gap-3 p-3 rounded-lg hover:bg-base-200/50 transition-colors -mx-3">
+                <div class="flex gap-3 p-3 rounded-lg hover:bg-muted/50 transition-colors -mx-3">
                   <!-- Avatar with type indicator -->
                   <div class="relative shrink-0">
                     <Avatar
@@ -130,12 +130,12 @@
 
                   <!-- Content -->
                   <div class="flex-1 min-w-0">
-                    <p class="text-sm text-text">
+                    <p class="text-sm text-foreground">
                       <span class="font-medium">{activity.user}</span>
                       {' '}{activity.action}{' '}
                       <span class="font-medium">{activity.target}</span>
                     </p>
-                    <p class="text-xs text-text-muted mt-0.5">{activity.time}</p>
+                    <p class="text-xs text-muted-foreground mt-0.5">{activity.time}</p>
                   </div>
                 </div>
               {/each}
@@ -166,22 +166,22 @@
 
     <!-- Alternative: Compact Timeline Style -->
     <div class="mt-10 mb-6">
-      <h2 class="text-sm font-medium text-text mb-3">Compact Timeline Style</h2>
+      <h2 class="text-sm font-medium text-foreground mb-3">Compact Timeline Style</h2>
     </div>
 
     <div class="relative pl-6 border-l-2 border-border space-y-4">
       {#each allActivities.slice(0, 4) as activity}
         <div class="relative">
           <!-- Timeline dot -->
-          <div class="absolute -left-[25px] w-3 h-3 rounded-full bg-surface border-2 border-border"></div>
+          <div class="absolute -left-[25px] w-3 h-3 rounded-full bg-background border-2 border-border"></div>
 
           <div class="pb-4">
-            <p class="text-sm text-text">
+            <p class="text-sm text-foreground">
               <span class="font-medium">{activity.user}</span>
               {' '}{activity.action}{' '}
-              <span class="text-text-secondary">{activity.target}</span>
+              <span class="text-muted-foreground">{activity.target}</span>
             </p>
-            <p class="text-xs text-text-muted mt-1">{activity.time}</p>
+            <p class="text-xs text-muted-foreground mt-1">{activity.time}</p>
           </div>
         </div>
       {/each}
@@ -190,7 +190,7 @@
     <!-- Mobile UX Note -->
     <div class="mt-8 p-4 bg-primary/5 border border-primary/20 rounded-lg">
       <h3 class="text-sm font-medium text-primary mb-2">Mobile UX Patterns</h3>
-      <ul class="text-xs text-text-secondary space-y-1">
+      <ul class="text-xs text-muted-foreground space-y-1">
         <li>• Group by date reduces cognitive load</li>
         <li>• Avatar + icon shows who did what</li>
         <li>• Tap targets are full row width</li>

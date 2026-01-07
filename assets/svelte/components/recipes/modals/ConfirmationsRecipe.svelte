@@ -44,8 +44,8 @@
 <div class="h-full bg-base-100 overflow-y-auto px-5 py-6">
   <div class="max-w-md mx-auto">
     <div class="mb-8">
-      <h1 class="text-xl font-semibold text-text mb-2">Confirmations</h1>
-      <p class="text-text-muted text-sm">Various confirmation dialog patterns.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Confirmations</h1>
+      <p class="text-muted-foreground text-sm">Various confirmation dialog patterns.</p>
     </div>
 
     <!-- Trigger Buttons -->
@@ -86,8 +86,8 @@
 
     <!-- Pattern Examples -->
     <Card variant="flat" padding="md" class="mb-8">
-      <h3 class="text-sm font-medium text-text mb-3">Confirmation Patterns</h3>
-      <ul class="text-xs text-text-secondary space-y-2">
+      <h3 class="text-sm font-medium text-foreground mb-3">Confirmation Patterns</h3>
+      <ul class="text-xs text-muted-foreground space-y-2">
         <li class="flex items-start gap-2">
           <span class="text-error font-bold">Destructive</span>
           <span>— Requires text input to confirm (e.g., "DELETE")</span>
@@ -97,7 +97,7 @@
           <span>— Simple Yes/No with clear consequence</span>
         </li>
         <li class="flex items-start gap-2">
-          <span class="text-text font-bold">Informational</span>
+          <span class="text-foreground font-bold">Informational</span>
           <span>— Confirm action with explanation</span>
         </li>
       </ul>
@@ -106,7 +106,7 @@
     <!-- Mobile UX Note -->
     <div class="p-4 bg-primary/5 border border-primary/20 rounded-lg">
       <h3 class="text-sm font-medium text-primary mb-2">Mobile UX Patterns</h3>
-      <ul class="text-xs text-text-secondary space-y-1">
+      <ul class="text-xs text-muted-foreground space-y-1">
         <li>• Use bottom sheets on mobile</li>
         <li>• Destructive button always on right</li>
         <li>• Clear consequence in message</li>
@@ -126,13 +126,13 @@
     </div>
   {/snippet}
 
-  <p class="text-sm text-text-secondary text-center mb-4">
+  <p class="text-sm text-muted-foreground text-center mb-4">
     This action cannot be undone. All data associated with this {itemToDelete.type} will be permanently removed.
   </p>
 
   <!-- Text Confirmation -->
   <div class="mb-4">
-    <label for="delete-confirm" class="block text-sm font-medium text-text mb-2">
+    <label for="delete-confirm" class="block text-sm font-medium text-foreground mb-2">
       Type <span class="font-mono text-error">"{itemToDelete.name}"</span> to confirm
     </label>
     <Input
@@ -175,7 +175,7 @@
     </div>
   {/snippet}
 
-  <p class="text-sm text-text-secondary text-center mb-6">
+  <p class="text-sm text-muted-foreground text-center mb-6">
     You have unsaved changes. If you leave now, your changes will be lost.
   </p>
 
@@ -193,7 +193,7 @@
 
 <!-- Logout Confirmation Modal -->
 <Modal bind:open={showLogoutModal} title="Log out?" size="sm">
-  <p class="text-sm text-text-secondary text-center mb-6">
+  <p class="text-sm text-muted-foreground text-center mb-6">
     Are you sure you want to log out of your account?
   </p>
 

@@ -147,11 +147,11 @@
 
 <svelte:window onkeydown={handleKeydown} />
 
-<div class="h-full bg-surface overflow-y-auto px-5 py-6">
+<div class="h-full bg-background overflow-y-auto px-5 py-6">
   <div class="max-w-md mx-auto">
     <div class="mb-8">
-      <h1 class="text-xl font-semibold text-text mb-2">Command Palette</h1>
-      <p class="text-text-muted text-sm">Quick actions with keyboard navigation.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Command Palette</h1>
+      <p class="text-muted-foreground text-sm">Quick actions with keyboard navigation.</p>
     </div>
 
     <!-- Trigger Button -->
@@ -171,19 +171,19 @@
 
     <!-- Command List Preview -->
     <div class="mb-8">
-      <h2 class="text-sm font-medium text-text mb-4">Available Commands</h2>
+      <h2 class="text-sm font-medium text-foreground mb-4">Available Commands</h2>
       <div class="space-y-4">
         {#each commands as category}
           <div>
-            <h3 class="text-xs font-medium text-text-muted uppercase tracking-wider mb-2">{category.category}</h3>
+            <h3 class="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">{category.category}</h3>
             <div class="space-y-1">
               {#each category.items as item}
                 <div class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-surface-sunken/50 cursor-pointer">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     {@html getIcon(item.icon)}
                   </svg>
-                  <span class="flex-1 text-sm text-text">{item.label}</span>
-                  <kbd class="px-1.5 py-0.5 text-xs bg-surface-sunken rounded text-text-muted">{item.shortcut}</kbd>
+                  <span class="flex-1 text-sm text-foreground">{item.label}</span>
+                  <kbd class="px-1.5 py-0.5 text-xs bg-surface-sunken rounded text-muted-foreground">{item.shortcut}</kbd>
                 </div>
               {/each}
             </div>
@@ -195,11 +195,11 @@
     <!-- Mobile UX Note -->
     <div class="p-4 bg-primary/5 border border-primary/20 rounded-lg">
       <h3 class="text-sm font-medium text-primary mb-2">Mobile UX Patterns</h3>
-      <ul class="text-xs text-text-secondary space-y-1">
-        <li>• Show as bottom sheet on mobile</li>
-        <li>• Support recent commands</li>
-        <li>• Fuzzy search for typo tolerance</li>
-        <li>• Group by category</li>
+      <ul class="text-xs text-muted-foreground space-y-1">
+        <li>Show as bottom sheet on mobile</li>
+        <li>Support recent commands</li>
+        <li>Fuzzy search for typo tolerance</li>
+        <li>Group by category</li>
       </ul>
     </div>
   </div>
@@ -221,7 +221,7 @@
 
     <!-- Palette -->
     <div
-      class="relative w-full max-w-lg bg-surface rounded-xl shadow-2xl overflow-hidden"
+      class="relative w-full max-w-lg bg-background rounded-xl shadow-2xl overflow-hidden"
       onclick={(e) => e.stopPropagation()}
       onkeydown={(e) => e.stopPropagation()}
       role="presentation"
@@ -236,21 +236,21 @@
           bind:value={query}
           type="text"
           placeholder="Type a command or search..."
-          class="flex-1 bg-transparent text-text placeholder:text-text-disabled outline-none"
+          class="flex-1 bg-transparent text-foreground placeholder:text-text-disabled outline-none"
         />
-        <kbd class="px-1.5 py-0.5 text-xs bg-surface-sunken rounded text-text-muted">Esc</kbd>
+        <kbd class="px-1.5 py-0.5 text-xs bg-surface-sunken rounded text-muted-foreground">Esc</kbd>
       </div>
 
       <!-- Results -->
       <div class="max-h-[400px] overflow-y-auto p-2">
         {#if flatFiltered.length === 0}
           <div class="px-4 py-8 text-center">
-            <p class="text-sm text-text-muted">No commands found</p>
+            <p class="text-sm text-muted-foreground">No commands found</p>
           </div>
         {:else}
           {#each filteredCommands as category}
             <div class="mb-2 last:mb-0">
-              <h3 class="px-3 py-1.5 text-xs font-medium text-text-muted uppercase tracking-wider">
+              <h3 class="px-3 py-1.5 text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 {category.category}
               </h3>
               {#each category.items as item, itemIndex}
@@ -262,11 +262,11 @@
                   onclick={() => selectCommand(item)}
                   onmouseenter={() => selectedIndex = globalIndex}
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 {globalIndex === selectedIndex ? 'text-white' : 'text-text-muted'}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 {globalIndex === selectedIndex ? 'text-white' : 'text-muted-foreground'}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     {@html getIcon(item.icon)}
                   </svg>
                   <span class="flex-1 text-sm">{item.label}</span>
-                  <kbd class="px-1.5 py-0.5 text-xs rounded {globalIndex === selectedIndex ? 'bg-white/20 text-white' : 'bg-surface-sunken text-text-muted'}">
+                  <kbd class="px-1.5 py-0.5 text-xs rounded {globalIndex === selectedIndex ? 'bg-white/20 text-white' : 'bg-surface-sunken text-muted-foreground'}">
                     {item.shortcut}
                   </kbd>
                 </button>
@@ -277,7 +277,7 @@
       </div>
 
       <!-- Footer -->
-      <div class="px-4 py-2 border-t border-border flex items-center gap-4 text-xs text-text-muted">
+      <div class="px-4 py-2 border-t border-border flex items-center gap-4 text-xs text-muted-foreground">
         <div class="flex items-center gap-1">
           <kbd class="px-1 py-0.5 bg-surface-sunken rounded">↑↓</kbd>
           <span>Navigate</span>

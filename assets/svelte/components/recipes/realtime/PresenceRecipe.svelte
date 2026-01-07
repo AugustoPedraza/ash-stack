@@ -107,11 +107,11 @@
   });
 </script>
 
-<div class="h-full bg-surface overflow-y-auto px-5 py-6">
+<div class="h-full bg-background overflow-y-auto px-5 py-6">
   <div class="max-w-md mx-auto">
     <div class="mb-8">
-      <h1 class="text-xl font-semibold text-text mb-2">Presence</h1>
-      <p class="text-text-muted text-sm">Online user list with status and join/leave activity.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Presence</h1>
+      <p class="text-muted-foreground text-sm">Online user list with status and join/leave activity.</p>
     </div>
 
     <!-- Demo Controls -->
@@ -125,7 +125,7 @@
       </button>
       <button
         type="button"
-        class="px-3 py-2 text-sm font-medium text-error bg-error/10 rounded-lg hover:bg-error/20 transition-colors"
+        class="px-3 py-2 text-sm font-medium text-destructive bg-destructive/10 rounded-lg hover:bg-destructive/20 transition-colors"
         onclick={simulateLeave}
       >
         - Simulate Leave
@@ -133,7 +133,7 @@
       <button
         type="button"
         class="px-3 py-2 text-sm font-medium transition-colors rounded-lg
-          {autoSimulate ? 'text-primary bg-primary/10' : 'text-text-muted bg-surface-sunken hover:bg-border'}"
+          {autoSimulate ? 'text-primary bg-primary/10' : 'text-muted-foreground bg-surface-sunken hover:bg-border'}"
         onclick={toggleAutoSimulate}
       >
         {autoSimulate ? 'Stop Auto' : 'Auto Simulate'}
@@ -144,16 +144,16 @@
     <div class="flex items-center justify-between mb-4">
       <div class="flex items-center gap-2">
         <div class="w-2 h-2 bg-success rounded-full animate-pulse"></div>
-        <span class="text-sm font-medium text-text">{onlineCount} Online</span>
-        <span class="text-sm text-text-muted">({activeCount} active)</span>
+        <span class="text-sm font-medium text-foreground">{onlineCount} Online</span>
+        <span class="text-sm text-muted-foreground">({activeCount} active)</span>
       </div>
     </div>
 
     <!-- Online Users List -->
-    <div class="bg-surface border border-border rounded-xl divide-y divide-border mb-6">
+    <div class="bg-background border border-border rounded-xl divide-y divide-border mb-6">
       {#if onlineUsers.length === 0}
         <div class="p-6 text-center">
-          <p class="text-sm text-text-muted">No one is online</p>
+          <p class="text-sm text-muted-foreground">No one is online</p>
         </div>
       {:else}
         {#each onlineUsers as user (user.id)}
@@ -164,11 +164,11 @@
           >
             <div class="relative shrink-0">
               <img src={user.avatar} alt={user.name} class="w-10 h-10 rounded-full bg-surface-sunken" />
-              <div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 {getStatusColor(user.status)} rounded-full ring-2 ring-surface"></div>
+              <div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 {getStatusColor(user.status)} rounded-full ring-2 ring-background"></div>
             </div>
             <div class="flex-1 min-w-0">
-              <p class="text-sm font-medium text-text truncate">{user.name}</p>
-              <p class="text-xs text-text-muted">{user.role}</p>
+              <p class="text-sm font-medium text-foreground truncate">{user.name}</p>
+              <p class="text-xs text-muted-foreground">{user.role}</p>
             </div>
             <div class="text-right shrink-0">
               <p class="text-xs text-text-disabled">{formatJoinTime(user.joinedAt)}</p>
@@ -182,15 +182,15 @@
     <!-- Recent Activity -->
     {#if recentActivity.length > 0}
       <div class="mb-6">
-        <h2 class="text-sm font-medium text-text mb-3">Recent Activity</h2>
+        <h2 class="text-sm font-medium text-foreground mb-3">Recent Activity</h2>
         <div class="space-y-2">
           {#each recentActivity as activity (activity.user.id + activity.type + activity.time.getTime())}
             <div class="flex items-center gap-3 p-2 rounded-lg animate-fade-in
-              {activity.type === 'join' ? 'bg-success/10' : 'bg-error/10'}">
+              {activity.type === 'join' ? 'bg-success/10' : 'bg-destructive/10'}">
               <img src={activity.user.avatar} alt={activity.user.name} class="w-8 h-8 rounded-full" />
               <div class="flex-1">
-                <span class="text-sm text-text">{activity.user.name}</span>
-                <span class="text-sm {activity.type === 'join' ? 'text-success' : 'text-error'}">
+                <span class="text-sm text-foreground">{activity.user.name}</span>
+                <span class="text-sm {activity.type === 'join' ? 'text-success' : 'text-destructive'}">
                   {activity.type === 'join' ? ' joined' : ' left'}
                 </span>
               </div>
@@ -203,7 +203,7 @@
 
     <!-- Compact Style: Avatars Only -->
     <div class="mb-6">
-      <h2 class="text-sm font-medium text-text mb-3">Compact Style (Avatars)</h2>
+      <h2 class="text-sm font-medium text-foreground mb-3">Compact Style (Avatars)</h2>
       <div class="flex items-center gap-2">
         <div class="flex -space-x-2">
           {#each onlineUsers.slice(0, 5) as user}
@@ -211,25 +211,25 @@
               <img
                 src={user.avatar}
                 alt={user.name}
-                class="w-8 h-8 rounded-full ring-2 ring-surface"
+                class="w-8 h-8 rounded-full ring-2 ring-background"
               />
-              <div class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 {getStatusColor(user.status)} rounded-full ring-2 ring-surface"></div>
+              <div class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 {getStatusColor(user.status)} rounded-full ring-2 ring-background"></div>
             </div>
           {/each}
           {#if onlineUsers.length > 5}
-            <div class="w-8 h-8 rounded-full bg-surface-sunken ring-2 ring-surface flex items-center justify-center">
-              <span class="text-xs text-text-muted">+{onlineUsers.length - 5}</span>
+            <div class="w-8 h-8 rounded-full bg-surface-sunken ring-2 ring-background flex items-center justify-center">
+              <span class="text-xs text-muted-foreground">+{onlineUsers.length - 5}</span>
             </div>
           {/if}
         </div>
-        <span class="text-sm text-text-muted">{onlineCount} online</span>
+        <span class="text-sm text-muted-foreground">{onlineCount} online</span>
       </div>
     </div>
 
     <!-- Mobile UX Note -->
     <div class="p-4 bg-primary/5 border border-primary/20 rounded-lg">
       <h3 class="text-sm font-medium text-primary mb-2">Mobile UX Patterns</h3>
-      <ul class="text-xs text-text-secondary space-y-1">
+      <ul class="text-xs text-muted-foreground space-y-1">
         <li>• Animate join/leave for awareness</li>
         <li>• Show status dot on avatars</li>
         <li>• Tap to toggle own status</li>

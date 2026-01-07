@@ -71,16 +71,16 @@
   });
 </script>
 
-<div class="h-full bg-surface overflow-y-auto px-5 py-6">
+<div class="h-full bg-background overflow-y-auto px-5 py-6">
   <div class="max-w-md mx-auto">
     <div class="mb-8">
-      <h1 class="text-xl font-semibold text-text mb-2">Typing Indicators</h1>
-      <p class="text-text-muted text-sm">Various styles for showing who is typing.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Typing Indicators</h1>
+      <p class="text-muted-foreground text-sm">Various styles for showing who is typing.</p>
     </div>
 
     <!-- Demo Controls -->
     <div class="mb-8 p-4 bg-surface-sunken rounded-xl">
-      <p class="text-sm font-medium text-text mb-3">Toggle users typing:</p>
+      <p class="text-sm font-medium text-foreground mb-3">Toggle users typing:</p>
       <div class="flex flex-wrap gap-2 mb-4">
         {#each allUsers as user}
           <button
@@ -98,7 +98,7 @@
       </div>
       <button
         type="button"
-        class="text-sm font-medium transition-colors {autoSimulate ? 'text-primary' : 'text-text-muted hover:text-text'}"
+        class="text-sm font-medium transition-colors {autoSimulate ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}"
         onclick={toggleAutoSimulate}
       >
         {autoSimulate ? 'Stop auto-simulate' : 'Auto-simulate typing'}
@@ -107,10 +107,10 @@
 
     <!-- Style 1: Simple Text -->
     <div class="mb-8">
-      <h2 class="text-sm font-medium text-text mb-3">Simple Text</h2>
+      <h2 class="text-sm font-medium text-foreground mb-3">Simple Text</h2>
       <div class="p-4 bg-surface-sunken/50 rounded-xl min-h-[60px] flex items-center">
         {#if typingUsers.length > 0}
-          <p class="text-sm text-text-muted italic">
+          <p class="text-sm text-muted-foreground italic">
             {typingText}...
           </p>
         {:else}
@@ -121,11 +121,11 @@
 
     <!-- Style 2: With Dots Animation -->
     <div class="mb-8">
-      <h2 class="text-sm font-medium text-text mb-3">With Animated Dots</h2>
+      <h2 class="text-sm font-medium text-foreground mb-3">With Animated Dots</h2>
       <div class="p-4 bg-surface-sunken/50 rounded-xl min-h-[60px] flex items-center">
         {#if typingUsers.length > 0}
           <div class="flex items-center gap-2">
-            <span class="text-sm text-text-muted">{typingText}</span>
+            <span class="text-sm text-muted-foreground">{typingText}</span>
             <span class="flex gap-1">
               <span class="w-1.5 h-1.5 bg-text-disabled rounded-full animate-bounce" style="animation-delay: 0ms"></span>
               <span class="w-1.5 h-1.5 bg-text-disabled rounded-full animate-bounce" style="animation-delay: 150ms"></span>
@@ -140,7 +140,7 @@
 
     <!-- Style 3: With Avatars -->
     <div class="mb-8">
-      <h2 class="text-sm font-medium text-text mb-3">With Avatars</h2>
+      <h2 class="text-sm font-medium text-foreground mb-3">With Avatars</h2>
       <div class="p-4 bg-surface-sunken/50 rounded-xl min-h-[60px] flex items-center">
         {#if typingUsers.length > 0}
           <div class="flex items-center gap-2">
@@ -149,16 +149,16 @@
                 <img
                   src={user.avatar}
                   alt={user.name}
-                  class="w-7 h-7 rounded-full ring-2 ring-surface"
+                  class="w-7 h-7 rounded-full ring-2 ring-background"
                 />
               {/each}
               {#if typingUsers.length > 3}
-                <div class="w-7 h-7 rounded-full bg-border-strong ring-2 ring-surface flex items-center justify-center">
-                  <span class="text-xs text-text-muted">+{typingUsers.length - 3}</span>
+                <div class="w-7 h-7 rounded-full bg-border-strong ring-2 ring-background flex items-center justify-center">
+                  <span class="text-xs text-muted-foreground">+{typingUsers.length - 3}</span>
                 </div>
               {/if}
             </div>
-            <span class="text-sm text-text-muted">typing</span>
+            <span class="text-sm text-muted-foreground">typing</span>
             <span class="flex gap-1">
               <span class="w-1.5 h-1.5 bg-text-disabled rounded-full animate-bounce" style="animation-delay: 0ms"></span>
               <span class="w-1.5 h-1.5 bg-text-disabled rounded-full animate-bounce" style="animation-delay: 150ms"></span>
@@ -173,7 +173,7 @@
 
     <!-- Style 4: Bubble Style (Chat-like) -->
     <div class="mb-8">
-      <h2 class="text-sm font-medium text-text mb-3">Bubble Style (Chat)</h2>
+      <h2 class="text-sm font-medium text-foreground mb-3">Bubble Style (Chat)</h2>
       <div class="p-4 bg-surface-sunken/50 rounded-xl min-h-[80px]">
         {#if typingUsers.length > 0}
           <div class="flex items-start gap-2">
@@ -183,7 +183,7 @@
               class="w-8 h-8 rounded-full"
             />
             <div>
-              <p class="text-xs text-text-muted mb-1">
+              <p class="text-xs text-muted-foreground mb-1">
                 {typingUsers.length === 1 ? typingUsers[0].name : `${typingUsers[0].name} and others`}
               </p>
               <div class="bg-surface-sunken px-4 py-3 rounded-t-2xl rounded-br-2xl rounded-bl-sm inline-flex gap-1.5">
@@ -201,7 +201,7 @@
 
     <!-- Style 5: Inline Badge -->
     <div class="mb-8">
-      <h2 class="text-sm font-medium text-text mb-3">Inline Badge</h2>
+      <h2 class="text-sm font-medium text-foreground mb-3">Inline Badge</h2>
       <div class="p-4 bg-surface-sunken/50 rounded-xl min-h-[60px] flex items-center">
         {#if typingUsers.length > 0}
           <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 text-primary rounded-full">
@@ -223,7 +223,7 @@
     <!-- Mobile UX Note -->
     <div class="p-4 bg-primary/5 border border-primary/20 rounded-lg">
       <h3 class="text-sm font-medium text-primary mb-2">Mobile UX Patterns</h3>
-      <ul class="text-xs text-text-secondary space-y-1">
+      <ul class="text-xs text-muted-foreground space-y-1">
         <li>• Debounce typing events (300-500ms)</li>
         <li>• Show max 3 avatars, then "+N"</li>
         <li>• Auto-hide after 3-5s of no input</li>

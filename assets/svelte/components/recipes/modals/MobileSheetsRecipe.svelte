@@ -64,8 +64,8 @@
 <div class="h-full bg-base-100 overflow-y-auto px-5 py-6">
   <div class="max-w-md mx-auto">
     <div class="mb-8">
-      <h1 class="text-xl font-semibold text-text mb-2">Mobile Sheets</h1>
-      <p class="text-text-muted text-sm">Bottom sheets with gestures and snap points.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Mobile Sheets</h1>
+      <p class="text-muted-foreground text-sm">Bottom sheets with gestures and snap points.</p>
     </div>
 
     <!-- Sheet Triggers -->
@@ -75,7 +75,7 @@
         fullWidth
         onclick={() => showActionSheet = true}
       >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7" />
         </svg>
         Action Sheet (iOS Style)
@@ -86,7 +86,7 @@
         fullWidth
         onclick={() => showOptionsSheet = true}
       >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
         </svg>
         Options Sheet (with drag)
@@ -97,7 +97,7 @@
         fullWidth
         onclick={() => showShareSheet = true}
       >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
         </svg>
         Share Sheet (Native Style)
@@ -107,7 +107,7 @@
     <!-- Mobile UX Note -->
     <div class="p-4 bg-primary/5 border border-primary/20 rounded-lg">
       <h3 class="text-sm font-medium text-primary mb-2">Mobile UX Patterns</h3>
-      <ul class="text-xs text-text-secondary space-y-1">
+      <ul class="text-xs text-muted-foreground space-y-1">
         <li>• Swipe down to dismiss</li>
         <li>• Handle indicator at top</li>
         <li>• Multiple snap points</li>
@@ -128,7 +128,7 @@
     <div class="absolute inset-0 bg-black/50" onclick={() => showActionSheet = false} role="presentation"></div>
     <div class="relative w-full max-w-md mx-4 mb-4 space-y-2">
       <!-- Actions -->
-      <div class="bg-surface rounded-xl overflow-hidden">
+      <div class="bg-background rounded-xl overflow-hidden">
         <Button
           variant="ghost"
           fullWidth
@@ -181,7 +181,7 @@
       role="presentation"
     ></div>
     <div
-      class="relative w-full max-w-md bg-surface rounded-t-2xl transition-transform"
+      class="relative w-full max-w-md bg-background rounded-t-2xl transition-transform"
       style="transform: translateY({sheetHeight}px)"
       ontouchstart={handleTouchStart}
       ontouchmove={handleTouchMove}
@@ -199,7 +199,7 @@
           fullWidth
           onclick={() => showOptionsSheet = false}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             {@html getIcon('edit')}
           </svg>
           Edit
@@ -209,7 +209,7 @@
           fullWidth
           onclick={() => showOptionsSheet = false}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             {@html getIcon('copy')}
           </svg>
           Duplicate
@@ -219,7 +219,7 @@
           fullWidth
           onclick={() => showOptionsSheet = false}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             {@html getIcon('archive')}
           </svg>
           Archive
@@ -248,7 +248,7 @@
   >
     <!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
     <div class="absolute inset-0 bg-black/50" onclick={() => showShareSheet = false} role="presentation"></div>
-    <div class="relative w-full max-w-md bg-surface rounded-t-2xl">
+    <div class="relative w-full max-w-md bg-background rounded-t-2xl">
       <!-- Handle -->
       <div class="flex justify-center py-3">
         <div class="w-10 h-1 bg-border rounded-full"></div>
@@ -256,7 +256,7 @@
 
       <!-- Title -->
       <div class="px-4 pb-4 border-b border-border">
-        <h3 class="text-lg font-semibold text-text text-center">Share</h3>
+        <h3 class="text-lg font-semibold text-foreground text-center">Share</h3>
       </div>
 
       <!-- Share Options Grid -->
@@ -268,12 +268,12 @@
               class="flex flex-col items-center gap-2"
               onclick={() => showShareSheet = false}
             >
-              <div class="w-14 h-14 rounded-full bg-base-200 flex items-center justify-center hover:bg-base-300 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <div class="w-14 h-14 rounded-full bg-muted flex items-center justify-center hover:bg-accent transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   {@html getIcon(option.icon)}
                 </svg>
               </div>
-              <span class="text-xs text-text-muted">{option.label}</span>
+              <span class="text-xs text-muted-foreground">{option.label}</span>
             </button>
           {/each}
         </div>

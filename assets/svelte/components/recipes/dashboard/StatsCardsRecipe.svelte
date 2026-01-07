@@ -91,8 +91,8 @@
 <div class="h-full bg-base-100 overflow-y-auto">
   <div class="max-w-lg mx-auto px-5 py-6">
     <div class="mb-6">
-      <h1 class="text-xl font-semibold text-text mb-2">Stats Cards</h1>
-      <p class="text-sm text-text-muted">Mobile-first metric cards with trends and sparklines.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Stats Cards</h1>
+      <p class="text-sm text-muted-foreground">Mobile-first metric cards with trends and sparklines.</p>
     </div>
 
     <!-- Stats Grid - 2 columns on mobile -->
@@ -108,17 +108,17 @@
             </div>
           {:else}
             <!-- Label -->
-            <p class="text-xs text-text-muted mb-1">{stat.label}</p>
+            <p class="text-xs text-muted-foreground mb-1">{stat.label}</p>
 
             <!-- Value -->
-            <p class="text-lg font-semibold text-text mb-1">
+            <p class="text-lg font-semibold text-foreground mb-1">
               {formatValue(stat.value, stat.format)}
             </p>
 
             <!-- Change indicator -->
             {@const change = getChange(stat.value, stat.previousValue)}
             <div class="flex items-center gap-1">
-              <span class="flex items-center text-xs {change.positive ? 'text-success' : 'text-error'}">
+              <span class="flex items-center text-xs {change.positive ? 'text-success' : 'text-destructive'}">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 {change.positive ? '' : 'rotate-180'}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
                 </svg>
@@ -147,7 +147,7 @@
 
     <!-- Alternative: Full-width card style -->
     <div class="mb-6">
-      <h2 class="text-sm font-medium text-text mb-3">Full-Width Style</h2>
+      <h2 class="text-sm font-medium text-foreground mb-3">Full-Width Style</h2>
     </div>
 
     <div class="space-y-3 mb-8">
@@ -165,8 +165,8 @@
             {@const change = getChange(stat.value, stat.previousValue)}
             <div class="flex items-center justify-between">
               <div>
-                <p class="text-sm text-text-secondary">{stat.label}</p>
-                <p class="text-xl font-semibold text-text">
+                <p class="text-sm text-muted-foreground">{stat.label}</p>
+                <p class="text-xl font-semibold text-foreground">
                   {formatValue(stat.value, stat.format)}
                 </p>
               </div>
@@ -201,7 +201,7 @@
 
     <!-- Compact list style -->
     <div class="mb-6">
-      <h2 class="text-sm font-medium text-text mb-3">Compact List Style</h2>
+      <h2 class="text-sm font-medium text-foreground mb-3">Compact List Style</h2>
     </div>
 
     <Card variant="outlined" padding="none" class="divide-y divide-border mb-8">
@@ -212,12 +212,12 @@
             <Skeleton variant="text" class="w-16" />
           {:else}
             {@const change = getChange(stat.value, stat.previousValue)}
-            <span class="text-sm text-text-secondary">{stat.label}</span>
+            <span class="text-sm text-muted-foreground">{stat.label}</span>
             <div class="flex items-center gap-2">
-              <span class="text-sm font-medium text-text">
+              <span class="text-sm font-medium text-foreground">
                 {formatValue(stat.value, stat.format)}
               </span>
-              <span class="text-xs {change.positive ? 'text-success' : 'text-error'}">
+              <span class="text-xs {change.positive ? 'text-success' : 'text-destructive'}">
                 {change.positive ? '+' : '-'}{change.value}%
               </span>
             </div>
@@ -240,7 +240,7 @@
     <!-- Mobile UX Note -->
     <div class="mt-8 p-4 bg-primary/5 border border-primary/20 rounded-lg">
       <h3 class="text-sm font-medium text-primary mb-2">Mobile UX Patterns</h3>
-      <ul class="text-xs text-text-secondary space-y-1">
+      <ul class="text-xs text-muted-foreground space-y-1">
         <li>• 2-column grid maximizes mobile screen</li>
         <li>• Sparklines show trend at a glance</li>
         <li>• Color-coded change indicators</li>

@@ -41,24 +41,24 @@
   }
 </script>
 
-<div class="h-full bg-surface overflow-y-auto px-5 py-6">
+<div class="h-full bg-background overflow-y-auto px-5 py-6">
   <div class="max-w-md mx-auto">
     <div class="mb-8">
-      <h1 class="text-xl font-semibold text-text mb-2">Load More</h1>
-      <p class="text-text-muted text-sm">Mobile standard for loading additional content. No page numbers.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Load More</h1>
+      <p class="text-muted-foreground text-sm">Mobile standard for loading additional content. No page numbers.</p>
     </div>
 
     <div class="flex flex-col gap-6">
       <!-- Load More Button -->
       <div class="flex flex-col gap-1.5">
-        <span class="text-sm font-medium text-text">Load More Button</span>
-        <p class="text-xs text-text-muted mb-2">User-triggered loading. Best for most cases.</p>
+        <span class="text-sm font-medium text-foreground">Load More Button</span>
+        <p class="text-xs text-muted-foreground mb-2">User-triggered loading. Best for most cases.</p>
 
-        <div class="border border-border-strong rounded-lg bg-surface overflow-hidden">
+        <div class="border border-border-strong rounded-lg bg-background overflow-hidden">
           <!-- Item list -->
           <div class="divide-y divide-border max-h-64 overflow-y-auto">
             {#each items as item}
-              <div class="px-4 py-3 text-sm text-text">
+              <div class="px-4 py-3 text-sm text-foreground">
                 Item {item}
               </div>
             {/each}
@@ -77,7 +77,7 @@
                 {loading ? 'Loading...' : 'Load More'}
               </Button>
             {:else}
-              <p class="text-sm text-text-muted text-center">All items loaded</p>
+              <p class="text-sm text-muted-foreground text-center">All items loaded</p>
             {/if}
 
             <p class="mt-3 text-xs text-text-disabled text-center">
@@ -89,12 +89,12 @@
 
       <!-- With Progress Indicator -->
       <div class="flex flex-col gap-1.5">
-        <span class="text-sm font-medium text-text">With Progress</span>
-        <p class="text-xs text-text-muted mb-2">Show how much content remains.</p>
+        <span class="text-sm font-medium text-foreground">With Progress</span>
+        <p class="text-xs text-muted-foreground mb-2">Show how much content remains.</p>
 
-        <div class="p-4 border border-border-strong rounded-lg bg-surface">
+        <div class="p-4 border border-border-strong rounded-lg bg-background">
           <div class="flex items-center justify-between mb-2">
-            <span class="text-sm text-text-muted">{loadedCount} of {totalItems} items</span>
+            <span class="text-sm text-muted-foreground">{loadedCount} of {totalItems} items</span>
             <span class="text-xs text-text-disabled">{Math.round(progress)}%</span>
           </div>
           <div class="h-1.5 bg-surface-sunken rounded-full overflow-hidden">
@@ -121,10 +121,10 @@
 
       <!-- Minimal Style -->
       <div class="flex flex-col gap-1.5">
-        <span class="text-sm font-medium text-text">Minimal Style</span>
-        <p class="text-xs text-text-muted mb-2">Text link instead of button.</p>
+        <span class="text-sm font-medium text-foreground">Minimal Style</span>
+        <p class="text-xs text-muted-foreground mb-2">Text link instead of button.</p>
 
-        <div class="p-4 border border-border-strong rounded-lg bg-surface text-center">
+        <div class="p-4 border border-border-strong rounded-lg bg-background text-center">
           {#if hasMore}
             <button
               type="button"
@@ -142,10 +142,10 @@
 
       <!-- End of List Indicator -->
       <div class="flex flex-col gap-1.5">
-        <span class="text-sm font-medium text-text">End of List</span>
-        <p class="text-xs text-text-muted mb-2">What to show when all items are loaded.</p>
+        <span class="text-sm font-medium text-foreground">End of List</span>
+        <p class="text-xs text-muted-foreground mb-2">What to show when all items are loaded.</p>
 
-        <div class="p-4 border border-border-strong rounded-lg bg-surface">
+        <div class="p-4 border border-border-strong rounded-lg bg-background">
           <div class="flex flex-col items-center gap-2 py-4">
             <div class="w-8 h-0.5 bg-border rounded-full"></div>
             <p class="text-sm text-text-disabled">You've reached the end</p>
@@ -162,8 +162,8 @@
 
       <!-- Current State -->
       <div class="p-4 bg-surface-sunken rounded-lg">
-        <h3 class="text-sm font-medium text-text mb-2">State</h3>
-        <pre class="text-xs text-text-secondary">{JSON.stringify({
+        <h3 class="text-sm font-medium text-foreground mb-2">State</h3>
+        <pre class="text-xs text-muted-foreground">{JSON.stringify({
           loaded: loadedCount,
           total: totalItems,
           hasMore,
@@ -174,7 +174,7 @@
       <!-- Mobile UX Note -->
       <div class="p-4 bg-primary/5 border border-primary/20 rounded-lg">
         <h3 class="text-sm font-medium text-primary mb-2">Mobile UX Patterns</h3>
-        <ul class="text-xs text-text-secondary space-y-1">
+        <ul class="text-xs text-muted-foreground space-y-1">
           <li>• Page numbers are desktop patterns</li>
           <li>• Load More is thumb-friendly</li>
           <li>• Infinite scroll can be disorienting</li>

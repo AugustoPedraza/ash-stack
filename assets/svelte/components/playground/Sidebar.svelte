@@ -32,8 +32,8 @@
 <div class="flex flex-col h-full">
   <!-- Header (desktop only - mobile has its own header) -->
   {#if !mobile}
-    <div class="p-4 border-b border-base-300">
-      <h1 class="text-lg font-bold text-base-content">Dev Playground</h1>
+    <div class="p-4 border-b border-accent">
+      <h1 class="text-lg font-bold text-foreground">Dev Playground</h1>
     </div>
   {/if}
 
@@ -43,7 +43,7 @@
       <div class="mb-1">
         <button
           class="w-full flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors
-            {activeCategory === category.id ? 'bg-primary text-primary-content' : 'hover:bg-base-300 text-base-content'}"
+            {activeCategory === category.id ? 'bg-primary text-primary-content' : 'hover:bg-accent text-foreground'}"
           onclick={() => toggleCategory(category.id)}
         >
           <span class="flex-1 text-left">{category.label}</span>
@@ -59,13 +59,13 @@
         </button>
 
         {#if expandedCategories.has(category.id)}
-          <div class="ml-3 mt-1 space-y-0.5 border-l-2 border-base-300 pl-3">
+          <div class="ml-3 mt-1 space-y-0.5 border-l-2 border-accent pl-3">
             {#each category.recipes as recipe}
               <button
                 class="w-full text-left px-3 py-2 rounded-lg text-sm transition-colors
                   {activeRecipe === recipe.id
                     ? 'bg-primary/10 text-primary font-medium'
-                    : 'text-base-content/70 hover:text-base-content hover:bg-base-200'}"
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'}"
                 onclick={() => handleRecipeClick(category.id, recipe.id)}
               >
                 {recipe.name}
@@ -78,8 +78,8 @@
   </nav>
 
   <!-- Footer -->
-  <div class="p-4 border-t border-base-300">
-    <p class="text-xs text-base-content/50">
+  <div class="p-4 border-t border-accent">
+    <p class="text-xs text-muted-foreground">
       53 recipes across 13 categories
     </p>
   </div>

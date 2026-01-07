@@ -229,27 +229,27 @@
   }
 </script>
 
-<div class="h-full bg-surface overflow-y-auto px-5 py-6">
+<div class="h-full bg-background overflow-y-auto px-5 py-6">
   <div class="max-w-md mx-auto">
     <div class="mb-8">
-      <h1 class="text-xl font-semibold text-text mb-2">Date Picker</h1>
-      <p class="text-text-muted text-sm">Single date and date range selection with constraints.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Date Picker</h1>
+      <p class="text-muted-foreground text-sm">Single date and date range selection with constraints.</p>
     </div>
 
     <div class="flex flex-col gap-6">
       <!-- Single Date Picker -->
       <div class="flex flex-col gap-1.5">
-        <span class="text-sm font-medium text-text">Select Date</span>
+        <span class="text-sm font-medium text-foreground">Select Date</span>
         <div class="relative">
           <button
             type="button"
-            class="w-full flex items-center justify-between px-3 py-2.5 border border-border-strong rounded-lg bg-surface text-left hover:border-primary transition-colors"
+            class="w-full flex items-center justify-between px-3 py-2.5 border border-border-strong rounded-lg bg-background text-left hover:border-primary transition-colors"
             onclick={openSinglePicker}
           >
-            <span class="{singleDate ? 'text-text' : 'text-text-muted'}">
+            <span class="{singleDate ? 'text-foreground' : 'text-muted-foreground'}">
               {singleDate ? formatDate(singleDate) : 'Choose a date'}
             </span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
           </button>
@@ -260,24 +260,24 @@
               onclick={clearSingle}
               aria-label="Clear date"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           {/if}
         </div>
-        <p class="text-xs text-text-muted">Weekends are unavailable in this demo.</p>
+        <p class="text-xs text-muted-foreground">Weekends are unavailable in this demo.</p>
       </div>
 
       <!-- Date Range Picker -->
       <div class="flex flex-col gap-1.5">
-        <span class="text-sm font-medium text-text">Select Date Range</span>
+        <span class="text-sm font-medium text-foreground">Select Date Range</span>
         <button
           type="button"
-          class="w-full flex items-center justify-between px-3 py-2.5 border border-border-strong rounded-lg bg-surface text-left hover:border-primary transition-colors"
+          class="w-full flex items-center justify-between px-3 py-2.5 border border-border-strong rounded-lg bg-background text-left hover:border-primary transition-colors"
           onclick={openRangePicker}
         >
-          <span class="{rangeStart ? 'text-text' : 'text-text-muted'}">
+          <span class="{rangeStart ? 'text-foreground' : 'text-muted-foreground'}">
             {#if rangeStart && rangeEnd}
               {formatDate(rangeStart)} - {formatDate(rangeEnd)}
             {:else if rangeStart}
@@ -286,14 +286,14 @@
               Choose start and end dates
             {/if}
           </span>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
         </button>
         {#if rangeStart}
           <button
             type="button"
-            class="text-xs text-text-muted hover:text-text self-start"
+            class="text-xs text-muted-foreground hover:text-foreground self-start"
             onclick={clearRange}
           >
             Clear selection
@@ -304,14 +304,14 @@
       <!-- Selected Values Display -->
       {#if singleDate || (rangeStart && rangeEnd)}
         <div class="p-4 bg-surface-sunken rounded-lg">
-          <h3 class="text-sm font-medium text-text mb-2">Selected Values</h3>
+          <h3 class="text-sm font-medium text-foreground mb-2">Selected Values</h3>
           {#if singleDate}
-            <p class="text-sm text-text-secondary">
+            <p class="text-sm text-muted-foreground">
               <span class="font-medium">Single:</span> {singleDate.toISOString().split('T')[0]}
             </p>
           {/if}
           {#if rangeStart && rangeEnd}
-            <p class="text-sm text-text-secondary">
+            <p class="text-sm text-muted-foreground">
               <span class="font-medium">Range:</span> {rangeStart.toISOString().split('T')[0]} to {rangeEnd.toISOString().split('T')[0]}
             </p>
           {/if}
@@ -329,7 +329,7 @@
       onclick={cancelSinglePicker}
       aria-label="Close"
     ></button>
-    <div class="relative bg-surface rounded-t-2xl sm:rounded-xl shadow-xl w-full max-w-sm p-5">
+    <div class="relative bg-background rounded-t-2xl sm:rounded-xl shadow-xl w-full max-w-sm p-5">
       <!-- Calendar Header -->
       <div class="flex items-center justify-between mb-4">
         <button
@@ -338,18 +338,18 @@
           onclick={prevMonth}
           aria-label="Previous month"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
           </svg>
         </button>
-        <span class="font-semibold text-text">{monthName}</span>
+        <span class="font-semibold text-foreground">{monthName}</span>
         <button
           type="button"
           class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-surface-sunken transition-colors"
           onclick={nextMonth}
           aria-label="Next month"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
           </svg>
         </button>
@@ -358,7 +358,7 @@
       <!-- Weekday Headers -->
       <div class="grid grid-cols-7 mb-1">
         {#each ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'] as day, i}
-          <div class="text-center text-xs font-medium py-2 {i === 0 || i === 6 ? 'text-text-disabled' : 'text-text-muted'}">{day}</div>
+          <div class="text-center text-xs font-medium py-2 {i === 0 || i === 6 ? 'text-text-disabled' : 'text-muted-foreground'}">{day}</div>
         {/each}
       </div>
 
@@ -377,7 +377,7 @@
                 {!isCurrentMonth ? 'text-text-disabled' : ''}
                 {isCurrentMonth && weekend && !outOfBounds ? 'text-text-disabled' : ''}
                 {outOfBounds ? 'text-text-disabled' : ''}
-                {isCurrentMonth && !disabled && !selected ? 'text-text hover:bg-surface-sunken' : ''}
+                {isCurrentMonth && !disabled && !selected ? 'text-foreground hover:bg-surface-sunken' : ''}
                 {selected ? 'bg-primary text-white' : ''}
                 {todayDate && !selected ? 'font-medium text-primary ring-1 ring-primary' : ''}"
               onclick={() => selectSingleDate(date)}
@@ -394,7 +394,7 @@
         <div class="flex items-center gap-4">
           <button
             type="button"
-            class="text-sm text-text-muted hover:text-text transition-colors"
+            class="text-sm text-muted-foreground hover:text-foreground transition-colors"
             onclick={selectToday}
           >
             Today
@@ -402,7 +402,7 @@
           {#if tempSingleDate}
             <button
               type="button"
-              class="text-sm text-text-muted hover:text-text transition-colors"
+              class="text-sm text-muted-foreground hover:text-foreground transition-colors"
               onclick={clearTempSingle}
             >
               Clear
@@ -430,10 +430,10 @@
       onclick={cancelRangePicker}
       aria-label="Close"
     ></button>
-    <div class="relative bg-surface rounded-t-2xl sm:rounded-xl shadow-xl w-full max-w-sm p-5">
+    <div class="relative bg-background rounded-t-2xl sm:rounded-xl shadow-xl w-full max-w-sm p-5">
       <!-- Header with instructions -->
       <div class="mb-4 text-center">
-        <span class="text-sm text-text-secondary">
+        <span class="text-sm text-muted-foreground">
           {#if !tempRangeStart}
             Select start date
           {:else if !tempRangeEnd}
@@ -452,18 +452,18 @@
           onclick={prevMonth}
           aria-label="Previous month"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
           </svg>
         </button>
-        <span class="font-semibold text-text">{monthName}</span>
+        <span class="font-semibold text-foreground">{monthName}</span>
         <button
           type="button"
           class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-surface-sunken transition-colors"
           onclick={nextMonth}
           aria-label="Next month"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
           </svg>
         </button>
@@ -472,7 +472,7 @@
       <!-- Weekday Headers -->
       <div class="grid grid-cols-7 mb-1">
         {#each ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'] as day, i}
-          <div class="text-center text-xs font-medium py-2 {i === 0 || i === 6 ? 'text-text-disabled' : 'text-text-muted'}">{day}</div>
+          <div class="text-center text-xs font-medium py-2 {i === 0 || i === 6 ? 'text-text-disabled' : 'text-muted-foreground'}">{day}</div>
         {/each}
       </div>
 
@@ -493,7 +493,7 @@
                 {!isCurrentMonth ? 'text-text-disabled' : ''}
                 {isCurrentMonth && weekend && !outOfBounds ? 'text-text-disabled' : ''}
                 {outOfBounds ? 'text-text-disabled' : ''}
-                {isCurrentMonth && !disabled && !start && !end ? 'text-text hover:bg-surface-sunken' : ''}
+                {isCurrentMonth && !disabled && !start && !end ? 'text-foreground hover:bg-surface-sunken' : ''}
                 {start || end ? 'bg-primary text-white' : ''}
                 {todayDate && !start && !end ? 'font-medium text-primary ring-1 ring-primary' : ''}"
               onclick={() => selectRangeDate(date)}
@@ -511,7 +511,7 @@
           {#if tempRangeStart}
             <button
               type="button"
-              class="text-sm text-text-muted hover:text-text transition-colors"
+              class="text-sm text-muted-foreground hover:text-foreground transition-colors"
               onclick={clearTempRange}
             >
               Clear

@@ -98,8 +98,8 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
         </svg>
       </div>
-      <h1 class="text-xl font-semibold text-text mb-2">Setup Complete!</h1>
-      <p class="text-text-secondary mb-8">Your account has been created successfully.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Setup Complete!</h1>
+      <p class="text-muted-foreground mb-8">Your account has been created successfully.</p>
       <Button variant="ghost" onclick={resetWizard}>
         Start Over
       </Button>
@@ -109,10 +109,10 @@
       <!-- Mobile-First Progress Indicator -->
       <div class="mb-8">
         <div class="flex items-center justify-between mb-2">
-          <span class="text-sm font-medium text-text">{currentLabel}</span>
+          <span class="text-sm font-medium text-foreground">{currentLabel}</span>
           <span class="text-xs text-text-disabled">Step {currentStep} of {steps.length}</span>
         </div>
-        <div class="h-1.5 bg-base-200 rounded-full overflow-hidden">
+        <div class="h-1.5 bg-muted rounded-full overflow-hidden">
           <div
             class="h-full bg-primary rounded-full transition-all duration-300"
             style="width: {progress}%"
@@ -125,7 +125,7 @@
               class="w-2 h-2 rounded-full transition-all duration-300
                 {step.id === currentStep ? 'bg-primary w-6' : ''}
                 {step.id < currentStep ? 'bg-primary' : ''}
-                {step.id > currentStep ? 'bg-base-200' : ''}"
+                {step.id > currentStep ? 'bg-muted' : ''}"
             ></div>
           {/each}
         </div>
@@ -136,8 +136,8 @@
         {#if currentStep === 1}
           <!-- Step 1: Account -->
           <div>
-            <h2 class="text-lg font-semibold text-text mb-1">Create Account</h2>
-            <p class="text-sm text-text-muted mb-6">Enter your email and create a password</p>
+            <h2 class="text-lg font-semibold text-foreground mb-1">Create Account</h2>
+            <p class="text-sm text-muted-foreground mb-6">Enter your email and create a password</p>
 
             <div class="space-y-4">
               <FormField
@@ -174,8 +174,8 @@
         {:else if currentStep === 2}
           <!-- Step 2: Profile -->
           <div>
-            <h2 class="text-lg font-semibold text-text mb-1">Your Profile</h2>
-            <p class="text-sm text-text-muted mb-6">Tell us a bit about yourself</p>
+            <h2 class="text-lg font-semibold text-foreground mb-1">Your Profile</h2>
+            <p class="text-sm text-muted-foreground mb-6">Tell us a bit about yourself</p>
 
             <div class="space-y-4">
               <FormField
@@ -212,12 +212,12 @@
         {:else if currentStep === 3}
           <!-- Step 3: Preferences -->
           <div>
-            <h2 class="text-lg font-semibold text-text mb-1">Preferences</h2>
-            <p class="text-sm text-text-muted mb-6">Choose your plan and settings</p>
+            <h2 class="text-lg font-semibold text-foreground mb-1">Preferences</h2>
+            <p class="text-sm text-muted-foreground mb-6">Choose your plan and settings</p>
 
             <div class="space-y-4">
               <div class="flex flex-col gap-2">
-                <span class="text-sm font-medium text-text">Plan</span>
+                <span class="text-sm font-medium text-foreground">Plan</span>
                 <div class="grid grid-cols-3 gap-2">
                   {#each ['free', 'pro', 'team'] as p}
                     <Button
@@ -241,30 +241,30 @@
         {:else if currentStep === 4}
           <!-- Step 4: Review -->
           <div>
-            <h2 class="text-lg font-semibold text-text mb-1">Review</h2>
-            <p class="text-sm text-text-muted mb-6">Confirm your information</p>
+            <h2 class="text-lg font-semibold text-foreground mb-1">Review</h2>
+            <p class="text-sm text-muted-foreground mb-6">Confirm your information</p>
 
             <div class="space-y-4">
-              <div class="p-4 bg-base-200/50 rounded-lg space-y-3">
+              <div class="p-4 bg-muted/50 rounded-lg space-y-3">
                 <div class="flex justify-between">
-                  <span class="text-sm text-text-muted">Email</span>
-                  <span class="text-sm font-medium text-text">{email}</span>
+                  <span class="text-sm text-muted-foreground">Email</span>
+                  <span class="text-sm font-medium text-foreground">{email}</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="text-sm text-text-muted">Name</span>
-                  <span class="text-sm font-medium text-text">{fullName}</span>
+                  <span class="text-sm text-muted-foreground">Name</span>
+                  <span class="text-sm font-medium text-foreground">{fullName}</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="text-sm text-text-muted">Phone</span>
-                  <span class="text-sm font-medium text-text">{phone}</span>
+                  <span class="text-sm text-muted-foreground">Phone</span>
+                  <span class="text-sm font-medium text-foreground">{phone}</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="text-sm text-text-muted">Plan</span>
-                  <span class="text-sm font-medium text-text capitalize">{plan}</span>
+                  <span class="text-sm text-muted-foreground">Plan</span>
+                  <span class="text-sm font-medium text-foreground capitalize">{plan}</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="text-sm text-text-muted">Notifications</span>
-                  <span class="text-sm font-medium text-text">{notifications ? 'Enabled' : 'Disabled'}</span>
+                  <span class="text-sm text-muted-foreground">Notifications</span>
+                  <span class="text-sm font-medium text-foreground">{notifications ? 'Enabled' : 'Disabled'}</span>
                 </div>
               </div>
             </div>

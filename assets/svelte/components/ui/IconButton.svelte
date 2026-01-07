@@ -17,7 +17,7 @@
   } = $props();
 
   const variants = {
-    ghost: 'p-2 rounded-lg text-base-content/70 hover:bg-base-200 active:bg-base-300',
+    ghost: 'p-2 rounded-lg text-foreground/70 hover:bg-muted active:bg-accent',
     primary: 'btn btn-primary btn-sm font-medium'
   };
 </script>

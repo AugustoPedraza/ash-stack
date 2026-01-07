@@ -107,11 +107,11 @@
   });
 </script>
 
-<div class="h-full bg-surface overflow-y-auto px-5 py-6">
+<div class="h-full bg-background overflow-y-auto px-5 py-6">
   <div class="max-w-md mx-auto">
     <div class="mb-8">
-      <h1 class="text-xl font-semibold text-text mb-2">Video Player</h1>
-      <p class="text-text-muted text-sm">Custom controls with progress and fullscreen.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Video Player</h1>
+      <p class="text-muted-foreground text-sm">Custom controls with progress and fullscreen.</p>
     </div>
 
     <!-- Video Player -->
@@ -293,7 +293,7 @@
     <!-- Mobile UX Note -->
     <div class="p-4 bg-primary/5 border border-primary/20 rounded-lg">
       <h3 class="text-sm font-medium text-primary mb-2">Mobile UX Patterns</h3>
-      <ul class="text-xs text-text-secondary space-y-1">
+      <ul class="text-xs text-muted-foreground space-y-1">
         <li>• Auto-hide controls during playback</li>
         <li>• Double-tap sides to skip 10s</li>
         <li>• Use playsinline for iOS</li>

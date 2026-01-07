@@ -118,17 +118,17 @@
   }
 </script>
 
-<div class="h-full bg-surface overflow-y-auto px-5 py-6">
+<div class="h-full bg-background overflow-y-auto px-5 py-6">
   <div class="max-w-lg mx-auto">
     <div class="mb-6">
-      <h1 class="text-xl font-semibold text-text mb-2">Message Threads</h1>
-      <p class="text-text-muted text-sm">Nested replies with expand/collapse.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Message Threads</h1>
+      <p class="text-muted-foreground text-sm">Nested replies with expand/collapse.</p>
     </div>
 
     <!-- Threads List -->
     <div class="space-y-4">
       {#each threads as thread (thread.id)}
-        <div class="bg-surface border border-border rounded-xl overflow-hidden">
+        <div class="bg-background border border-border rounded-xl overflow-hidden">
           <!-- Main Message -->
           <div class="p-4">
             <div class="flex gap-3">
@@ -139,10 +139,10 @@
               />
               <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-2 mb-1">
-                  <span class="text-sm font-medium text-text">{thread.user}</span>
+                  <span class="text-sm font-medium text-foreground">{thread.user}</span>
                   <span class="text-xs text-text-disabled">{formatTime(thread.time)}</span>
                 </div>
-                <p class="text-sm text-text-secondary">{thread.text}</p>
+                <p class="text-sm text-muted-foreground">{thread.text}</p>
 
                 <!-- Thread Actions -->
                 <div class="flex items-center gap-4 mt-3">
@@ -160,7 +160,7 @@
                   {/if}
                   <button
                     type="button"
-                    class="flex items-center gap-1.5 text-xs text-text-muted hover:text-text transition-colors"
+                    class="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
                     onclick={() => startReply(thread.id)}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -186,10 +186,10 @@
                     />
                     <div class="flex-1 min-w-0">
                       <div class="flex items-center gap-2 mb-1">
-                        <span class="text-sm font-medium text-text">{reply.user}</span>
+                        <span class="text-sm font-medium text-foreground">{reply.user}</span>
                         <span class="text-xs text-text-disabled">{formatTime(reply.time)}</span>
                       </div>
-                      <p class="text-sm text-text-secondary">{reply.text}</p>
+                      <p class="text-sm text-muted-foreground">{reply.text}</p>
                     </div>
                   </div>
                 </div>
@@ -211,7 +211,7 @@
                     bind:value={replyText}
                     placeholder="Write a reply..."
                     rows="2"
-                    class="w-full px-3 py-2 text-sm bg-surface border border-border-strong rounded-lg resize-none outline-none focus:border-primary"
+                    class="w-full px-3 py-2 text-sm bg-background border border-border-strong rounded-lg resize-none outline-none focus:border-primary"
                   ></textarea>
                   <div class="flex justify-end gap-2 mt-2">
                     <Button variant="ghost" size="sm" onclick={cancelReply}>
@@ -236,7 +236,7 @@
 
     <!-- Compact Thread Style -->
     <div class="mt-10 mb-6">
-      <h2 class="text-sm font-medium text-text mb-3">Compact Style (Slack-like)</h2>
+      <h2 class="text-sm font-medium text-foreground mb-3">Compact Style (Slack-like)</h2>
     </div>
 
     <div class="space-y-1 p-4 bg-surface-sunken/30 rounded-xl">
@@ -245,9 +245,9 @@
           <div class="flex items-start gap-2 py-1 px-2 rounded hover:bg-surface-sunken/50">
             <img src={thread.avatar} alt={thread.user} class="w-6 h-6 rounded mt-0.5" />
             <div class="flex-1 min-w-0">
-              <span class="text-sm font-medium text-text">{thread.user}</span>
+              <span class="text-sm font-medium text-foreground">{thread.user}</span>
               <span class="text-xs text-text-disabled ml-2">{formatTime(thread.time)}</span>
-              <p class="text-sm text-text-secondary">{thread.text}</p>
+              <p class="text-sm text-muted-foreground">{thread.text}</p>
             </div>
           </div>
           {#if thread.replies.length > 0}
@@ -257,7 +257,7 @@
             >
               <div class="flex -space-x-1">
                 {#each thread.replies.slice(0, 3) as reply}
-                  <img src={reply.avatar} alt={reply.user} class="w-4 h-4 rounded ring-1 ring-surface" />
+                  <img src={reply.avatar} alt={reply.user} class="w-4 h-4 rounded ring-1 ring-background" />
                 {/each}
               </div>
               {thread.replies.length} {thread.replies.length === 1 ? 'reply' : 'replies'}
@@ -270,7 +270,7 @@
     <!-- Mobile UX Note -->
     <div class="mt-8 p-4 bg-primary/5 border border-primary/20 rounded-lg">
       <h3 class="text-sm font-medium text-primary mb-2">Mobile UX Patterns</h3>
-      <ul class="text-xs text-text-secondary space-y-1">
+      <ul class="text-xs text-muted-foreground space-y-1">
         <li>• Collapse threads by default on mobile</li>
         <li>• Show reply count before expanding</li>
         <li>• Indent replies for visual hierarchy</li>

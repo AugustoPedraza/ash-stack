@@ -103,9 +103,9 @@
       <!-- Avatar Section -->
       <div class="flex flex-col items-center mb-8">
         <div class="relative">
-          <div class="w-24 h-24 rounded-full overflow-hidden bg-base-200 ring-4 ring-surface">
+          <div class="w-24 h-24 rounded-full overflow-hidden bg-muted ring-4 ring-background">
             {#if uploadingAvatar}
-              <div class="w-full h-full flex items-center justify-center bg-base-200">
+              <div class="w-full h-full flex items-center justify-center bg-muted">
                 <span class="w-6 h-6 border-2 border-primary/30 border-t-primary rounded-full animate-spin"></span>
               </div>
             {:else}
@@ -150,13 +150,13 @@
 
         <!-- Bio -->
         <div class="flex flex-col gap-1.5">
-          <label class="text-sm font-medium text-text" for="bio">Bio</label>
+          <label class="text-sm font-medium text-foreground" for="bio">Bio</label>
           <textarea
             id="bio"
-            class="w-full px-4 py-3 min-h-24 bg-surface text-text border border-border rounded-[var(--radius-md)]
-              transition-colors duration-[var(--duration-fast)]
-              placeholder:text-text-muted
-              focus:outline-none focus:border-border-focus focus:ring-1 focus:ring-border-focus"
+            class="w-full px-4 py-3 min-h-24 bg-background text-foreground border border-border rounded-md
+              transition-colors duration-150
+              placeholder:text-muted-foreground
+              focus:outline-none focus:ring-ring focus:ring-1 focus:ring-ring"
             bind:value={bio}
             placeholder="Tell us about yourself..."
             maxlength="160"

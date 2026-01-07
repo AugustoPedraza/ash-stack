@@ -42,7 +42,7 @@
       case 'pdf': return { icon: 'M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z', color: 'text-error' };
       case 'doc': return { icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z', color: 'text-primary' };
       case 'folder': return { icon: 'M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z', color: 'text-warning' };
-      default: return { icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z', color: 'text-text-muted' };
+      default: return { icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z', color: 'text-muted-foreground' };
     }
   }
 </script>
@@ -50,8 +50,8 @@
 <div class="h-full bg-base-100 overflow-y-auto">
   <div class="max-w-lg mx-auto px-5 py-6">
     <div class="mb-6">
-      <h1 class="text-xl font-semibold text-text mb-2">Quick Actions</h1>
-      <p class="text-sm text-text-muted">Mobile-first action grid with recent items.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Quick Actions</h1>
+      <p class="text-sm text-muted-foreground">Mobile-first action grid with recent items.</p>
     </div>
 
     <!-- Feedback Toast -->
@@ -63,12 +63,12 @@
 
     <!-- Quick Action Grid - 4 columns -->
     <div class="mb-8">
-      <h2 class="text-sm font-medium text-text mb-3">Actions</h2>
+      <h2 class="text-sm font-medium text-foreground mb-3">Actions</h2>
       <div class="grid grid-cols-4 gap-3">
         {#each actions as action}
           <button
             type="button"
-            class="flex flex-col items-center gap-2 p-4 rounded-xl border border-border hover:bg-base-200/50 active:scale-95 transition-all"
+            class="flex flex-col items-center gap-2 p-4 rounded-xl border border-border hover:bg-muted/50 active:scale-95 transition-all"
             onclick={() => handleAction(action)}
           >
             <div class="w-12 h-12 rounded-full {action.color} flex items-center justify-center">
@@ -76,7 +76,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d={getIcon(action.icon)} />
               </svg>
             </div>
-            <span class="text-xs font-medium text-text">{action.label}</span>
+            <span class="text-xs font-medium text-foreground">{action.label}</span>
           </button>
         {/each}
       </div>
@@ -85,7 +85,7 @@
     <!-- Recent Items -->
     <div class="mb-8">
       <div class="flex items-center justify-between mb-3">
-        <h2 class="text-sm font-medium text-text">Recent</h2>
+        <h2 class="text-sm font-medium text-foreground">Recent</h2>
         <Button variant="ghost" size="sm">
           See all
         </Button>
@@ -96,16 +96,16 @@
           {@const fileInfo = getFileIcon(item.type)}
           <button
             type="button"
-            class="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-base-200/50 active:bg-base-200 transition-colors text-left -mx-3"
+            class="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-muted/50 active:bg-muted transition-colors text-left -mx-3"
           >
-            <div class="w-10 h-10 rounded-lg bg-base-200 flex items-center justify-center shrink-0">
+            <div class="w-10 h-10 rounded-lg bg-muted flex items-center justify-center shrink-0">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 {fileInfo.color}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d={fileInfo.icon} />
               </svg>
             </div>
             <div class="flex-1 min-w-0">
-              <p class="text-sm font-medium text-text truncate">{item.name}</p>
-              <p class="text-xs text-text-muted">{item.time}</p>
+              <p class="text-sm font-medium text-foreground truncate">{item.name}</p>
+              <p class="text-xs text-muted-foreground">{item.time}</p>
             </div>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-text-disabled shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
@@ -117,7 +117,7 @@
 
     <!-- Alternative: Horizontal Scroll Actions -->
     <div class="mb-8">
-      <h2 class="text-sm font-medium text-text mb-3">Horizontal Scroll Style</h2>
+      <h2 class="text-sm font-medium text-foreground mb-3">Horizontal Scroll Style</h2>
       <div class="overflow-x-auto -mx-5 px-5">
         <div class="flex gap-3 min-w-max pb-2">
           {#each actions as action}
@@ -139,8 +139,8 @@
 
     <!-- FAB Style -->
     <div class="mb-8">
-      <h2 class="text-sm font-medium text-text mb-3">FAB (Floating Action)</h2>
-      <div class="relative h-32 bg-base-200/50 rounded-xl flex items-center justify-center">
+      <h2 class="text-sm font-medium text-foreground mb-3">FAB (Floating Action)</h2>
+      <div class="relative h-32 bg-muted/50 rounded-xl flex items-center justify-center">
         <p class="text-sm text-text-disabled">Content area</p>
         <button
           type="button"
@@ -158,7 +158,7 @@
     <!-- Mobile UX Note -->
     <div class="p-4 bg-primary/5 border border-primary/20 rounded-lg">
       <h3 class="text-sm font-medium text-primary mb-2">Mobile UX Patterns</h3>
-      <ul class="text-xs text-text-secondary space-y-1">
+      <ul class="text-xs text-muted-foreground space-y-1">
         <li>• 4-column grid fits thumb zone</li>
         <li>• Large touch targets (48px+)</li>
         <li>• Horizontal scroll for overflow</li>

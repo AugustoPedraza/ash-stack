@@ -118,13 +118,13 @@
         </FormField>
 
         <div class="flex flex-col gap-1.5">
-          <label class="text-sm font-medium text-text" for="notes">Notes</label>
+          <label class="text-sm font-medium text-foreground" for="notes">Notes</label>
           <textarea
             id="notes"
-            class="w-full px-4 py-3 min-h-24 bg-surface text-text border border-border rounded-[var(--radius-md)]
-              transition-colors duration-[var(--duration-fast)]
-              placeholder:text-text-muted
-              focus:outline-none focus:border-border-focus focus:ring-1 focus:ring-border-focus"
+            class="w-full px-4 py-3 min-h-24 bg-background text-foreground border border-border rounded-md
+              transition-colors duration-150
+              placeholder:text-muted-foreground
+              focus:outline-none focus:ring-ring focus:ring-1 focus:ring-ring"
             bind:value={notes}
           ></textarea>
         </div>
@@ -132,7 +132,7 @@
 
       <!-- Danger Zone - Common pattern for edit screens -->
       <div class="mt-10 pt-6 border-t border-border">
-        <h3 class="text-sm font-medium text-error mb-3">Danger Zone</h3>
+        <h3 class="text-sm font-medium text-destructive mb-3">Danger Zone</h3>
         <Button variant="danger" size="sm">
           Delete Contact
         </Button>

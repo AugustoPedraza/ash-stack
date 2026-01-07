@@ -209,14 +209,14 @@
       aria-label="Drag to dismiss"
     >
       {#if showHandle}
-        <div class="w-9 h-1 bg-base-300 rounded-full"></div>
+        <div class="w-9 h-1 bg-accent rounded-full"></div>
       {/if}
     </div>
 
     <!-- Header -->
     {#if title}
-      <div class="px-5 pb-3 border-b border-base-200 shrink-0">
-        <h3 id="sheet-title" class="text-lg font-semibold text-base-content text-center">
+      <div class="px-5 pb-3 border-b border-muted shrink-0">
+        <h3 id="sheet-title" class="text-lg font-semibold text-foreground text-center">
           {title}
         </h3>
       </div>

@@ -149,24 +149,24 @@
   }
 </script>
 
-<div class="h-full bg-surface overflow-y-auto px-5 py-6">
+<div class="h-full bg-background overflow-y-auto px-5 py-6">
   <div class="max-w-md mx-auto">
     <div class="mb-8">
-      <h1 class="text-xl font-semibold text-text mb-2">Rich Text Editor</h1>
-      <p class="text-text-muted text-sm">Minimal formatting with @mentions and links.</p>
+      <h1 class="text-xl font-semibold text-foreground mb-2">Rich Text Editor</h1>
+      <p class="text-muted-foreground text-sm">Minimal formatting with @mentions and links.</p>
     </div>
 
     <div class="flex flex-col gap-6">
       <!-- Editor -->
       <div class="flex flex-col gap-1.5">
-        <span class="text-sm font-medium text-text">Message</span>
+        <span class="text-sm font-medium text-foreground">Message</span>
 
         <div class="border border-border-strong rounded-lg overflow-hidden">
           <!-- Minimal Toolbar -->
           <div class="flex items-center gap-0.5 px-2 py-1.5 border-b border-border">
             <button
               type="button"
-              class="w-8 h-8 flex items-center justify-center rounded text-text-muted hover:text-text hover:bg-surface-sunken transition-colors"
+              class="w-8 h-8 flex items-center justify-center rounded text-muted-foreground hover:text-foreground hover:bg-surface-sunken transition-colors"
               onclick={handleBold}
               title="Bold (**text**)"
             >
@@ -174,7 +174,7 @@
             </button>
             <button
               type="button"
-              class="w-8 h-8 flex items-center justify-center rounded text-text-muted hover:text-text hover:bg-surface-sunken transition-colors"
+              class="w-8 h-8 flex items-center justify-center rounded text-muted-foreground hover:text-foreground hover:bg-surface-sunken transition-colors"
               onclick={handleItalic}
               title="Italic (_text_)"
             >
@@ -182,7 +182,7 @@
             </button>
             <button
               type="button"
-              class="w-8 h-8 flex items-center justify-center rounded text-text-muted hover:text-text hover:bg-surface-sunken transition-colors"
+              class="w-8 h-8 flex items-center justify-center rounded text-muted-foreground hover:text-foreground hover:bg-surface-sunken transition-colors"
               onclick={handleCode}
               title="Code (`text`)"
             >
@@ -192,7 +192,7 @@
             </button>
             <button
               type="button"
-              class="w-8 h-8 flex items-center justify-center rounded text-text-muted hover:text-text hover:bg-surface-sunken transition-colors"
+              class="w-8 h-8 flex items-center justify-center rounded text-muted-foreground hover:text-foreground hover:bg-surface-sunken transition-colors"
               onclick={handleList}
               title="List"
             >
@@ -203,7 +203,7 @@
             <div class="w-px h-4 bg-border mx-1"></div>
             <button
               type="button"
-              class="w-8 h-8 flex items-center justify-center rounded text-text-muted hover:text-text hover:bg-surface-sunken transition-colors"
+              class="w-8 h-8 flex items-center justify-center rounded text-muted-foreground hover:text-foreground hover:bg-surface-sunken transition-colors"
               onclick={openLinkModal}
               title="Link"
             >
@@ -216,7 +216,7 @@
           <!-- Textarea -->
           <textarea
             bind:this={textareaRef}
-            class="w-full min-h-32 p-3 text-sm bg-surface text-text resize-none"
+            class="w-full min-h-32 p-3 text-sm bg-background text-foreground resize-none"
             style="outline: none !important; box-shadow: none !important; border: none !important;"
             placeholder="Type your message... Use @ to mention someone"
             oninput={handleInput}
@@ -229,22 +229,22 @@
             <span class="text-xs text-text-disabled">
               @ to mention
             </span>
-            <span class="text-xs {isOverLimit ? 'text-error' : 'text-text-disabled'}">
+            <span class="text-xs {isOverLimit ? 'text-destructive' : 'text-text-disabled'}">
               {charCount}/{MAX_CHARS}
             </span>
           </div>
         </div>
 
         {#if isOverLimit}
-          <p class="text-xs text-error">Character limit exceeded</p>
+          <p class="text-xs text-destructive">Character limit exceeded</p>
         {/if}
       </div>
 
       <!-- Preview -->
       {#if content.trim()}
         <div class="flex flex-col gap-1.5">
-          <span class="text-sm font-medium text-text">Preview</span>
-          <div class="p-4 bg-surface-sunken rounded-lg text-sm text-text">
+          <span class="text-sm font-medium text-foreground">Preview</span>
+          <div class="p-4 bg-surface-sunken rounded-lg text-sm text-foreground">
             {#each content.split('\n') as line}
               <p class="mb-1">
                 {@html line
@@ -267,7 +267,7 @@
 <!-- Mention Dropdown -->
 {#if showMentionDropdown}
   <div
-    class="fixed bg-surface border border-border-strong rounded-lg shadow-lg z-50 w-48 overflow-hidden"
+    class="fixed bg-background border border-border-strong rounded-lg shadow-lg z-50 w-48 overflow-hidden"
     style="top: {mentionPosition.top}px; left: {mentionPosition.left}px;"
   >
     {#each filteredUsers as user}
@@ -276,13 +276,13 @@
         class="w-full flex items-center gap-2 px-3 py-2 text-left text-sm hover:bg-surface-sunken transition-colors"
         onclick={() => insertMention(user)}
       >
-        <span class="w-6 h-6 rounded-full bg-surface-sunken text-text-secondary flex items-center justify-center text-xs">
+        <span class="w-6 h-6 rounded-full bg-surface-sunken text-muted-foreground flex items-center justify-center text-xs">
           {user.avatar}
         </span>
-        <span class="text-text truncate">{user.name}</span>
+        <span class="text-foreground truncate">{user.name}</span>
       </button>
     {:else}
-      <div class="px-3 py-2 text-sm text-text-muted">No users found</div>
+      <div class="px-3 py-2 text-sm text-muted-foreground">No users found</div>
     {/each}
   </div>
 {/if}
@@ -295,7 +295,7 @@
 >
   <div class="flex flex-col gap-4">
     <div class="flex flex-col gap-1.5">
-      <label class="text-sm text-text-secondary" for="link-text">Text</label>
+      <label class="text-sm text-muted-foreground" for="link-text">Text</label>
       <Input
         id="link-text"
         type="text"
@@ -305,7 +305,7 @@
     </div>
 
     <div class="flex flex-col gap-1.5">
-      <label class="text-sm text-text-secondary" for="link-url">URL</label>
+      <label class="text-sm text-muted-foreground" for="link-url">URL</label>
       <Input
         id="link-url"
         type="url"

@@ -70,8 +70,8 @@
     class="
       relative shrink-0 {trackSizes[size]}
       rounded-full
-      transition-colors duration-[var(--duration-fast)]
-      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-focus focus-visible:ring-offset-2
+      transition-colors duration-150
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
       {checked ? 'bg-primary' : 'bg-border-strong'}
     "
     onclick={handleToggle}
@@ -83,7 +83,7 @@
         absolute top-1 left-1
         {thumbSizes[size]}
         bg-white rounded-full shadow-sm
-        transition-transform duration-[var(--duration-fast)]
+        transition-transform duration-150
         {checked ? thumbTranslate[size] : ''}
       "
       aria-hidden="true"
@@ -94,10 +94,10 @@
   {#if label || description}
     <div class="pt-0.5">
       {#if label}
-        <span class="text-sm font-medium text-text">{label}</span>
+        <span class="text-sm font-medium text-foreground">{label}</span>
       {/if}
       {#if description}
-        <p class="text-xs text-text-muted mt-0.5">{description}</p>
+        <p class="text-xs text-muted-foreground mt-0.5">{description}</p>
       {/if}
     </div>
   {/if}

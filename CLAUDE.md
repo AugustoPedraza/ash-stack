@@ -209,55 +209,58 @@ end
 - Outline is default, add `-solid` for solid: `hero-user-solid`
 - Check: https://heroicons.com for valid names
 
-### Tailwind CSS (Design Tokens)
+### Tailwind CSS (shadcn Design Tokens)
 
 ```elixir
-# ✅ CORRECT - Use design tokens
-class="bg-primary text-on-primary p-4 rounded-lg"
-class="text-text-muted bg-surface-raised"
+# ✅ CORRECT - Use shadcn design tokens
+class="bg-primary text-primary-foreground p-4 rounded-lg"
+class="text-muted-foreground bg-muted"
 
 # ❌ WRONG - Don't use raw Tailwind colors
-class="bg-blue-500 text-white"    # Use bg-primary text-on-primary
-class="text-gray-500"              # Use text-text-muted
-class="bg-gray-100"                # Use bg-surface-sunken
+class="bg-blue-500 text-white"    # Use bg-primary text-primary-foreground
+class="text-gray-500"              # Use text-muted-foreground
+class="bg-gray-100"                # Use bg-muted
 ```
 
 ---
 
 ## UI/UX CONSISTENCY (ENFORCED)
 
-> **Tailwind is restricted** - raw colors like `bg-blue-500` do NOT exist.
-> Only design tokens are available. This is enforced at build time.
+> **Using shadcn-svelte design system** - raw colors like `bg-blue-500` do NOT exist.
+> Only shadcn design tokens are available. This is enforced at build time.
 
-### Available Design Tokens
+### Available Design Tokens (shadcn-compatible)
 
-**Colors** (ONLY these work):
-- `primary`, `primary-hover`, `primary-active`, `on-primary`
-- `secondary`, `secondary-hover`, `on-secondary`
-- `success`, `success-soft`, `on-success`
-- `warning`, `warning-soft`, `on-warning`
-- `error`, `error-soft`, `on-error`
-- `info`, `info-soft`, `on-info`
-- `background`, `surface`, `surface-raised`, `surface-sunken`
-- `text`, `text-secondary`, `text-muted`, `text-disabled`
-- `border`, `border-strong`, `border-focus`
+**Core Colors** (ONLY these work):
+- `primary`, `primary-foreground` - Primary actions
+- `secondary`, `secondary-foreground` - Secondary actions
+- `destructive` - Danger/error actions (replaces `error`)
+- `muted`, `muted-foreground` - Subtle backgrounds and text
+- `accent`, `accent-foreground` - Hover states
+- `background`, `foreground` - Base page colors
+- `card`, `card-foreground` - Card surfaces
+- `popover`, `popover-foreground` - Dropdowns, tooltips
+- `border`, `input`, `ring` - Borders and focus rings
 
-**Spacing** (ONLY these work):
-- `0`, `px`, `0.5`, `1`, `2`, `3`, `4`, `6`, `8`, `12`, `16`, `20`, `24`
-- ❌ `p-5`, `m-7`, `gap-9` do NOT exist
+**Status Colors:**
+- `success`, `success-soft` - Success states
+- `warning`, `warning-soft` - Warning states
+- `info`, `info-soft` - Info states
 
-**Border Radius** (ONLY these work):
-- `rounded-none`, `rounded-sm`, `rounded-md`, `rounded-lg`, `rounded-full`
-- ❌ `rounded-xl`, `rounded-2xl`, `rounded-3xl` do NOT exist
+**Spacing** (8px grid - prefer multiples of 2):
+- `0`, `1`, `2`, `4`, `6`, `8`, `12`, `16`, `20`, `24`
+- Avoid: `3`, `5`, `7`, `9`, `10`, `11` (breaks 8px grid)
 
-**Shadows** (ONLY these work):
-- `shadow-none`, `shadow-sm`, `shadow-md`, `shadow-lg`, `shadow-xl`
-- ❌ `shadow-2xl`, `shadow-inner` do NOT exist
+**Border Radius** (8px base system):
+- `rounded-sm` (4px), `rounded-md` (6px), `rounded-lg` (8px)
+- `rounded-xl` (12px), `rounded-2xl` (16px), `rounded-full`
 
-**Z-Index** (use named layers):
-- `z-below`, `z-base`, `z-raised`, `z-dropdown`, `z-sticky`
-- `z-overlay`, `z-modal`, `z-popover`, `z-toast`, `z-tooltip`
-- ❌ `z-10`, `z-50` do NOT exist
+**Shadows** (professional, subtle):
+- `shadow-sm`, `shadow-md`, `shadow-lg`, `shadow-xl`
+- Semantic: `shadow-card`, `shadow-dropdown`, `shadow-modal`
+
+**Z-Index** (use standard values):
+- `z-10`, `z-20`, `z-30`, `z-40`, `z-50` for layering
 
 ### Svelte Component Usage
 
@@ -275,11 +278,21 @@ class="bg-gray-100"                # Use bg-surface-sunken
 </Card>
 
 <!-- ❌ WRONG - Don't use raw HTML with classes -->
-<div class="bg-surface border rounded-lg p-6">
+<div class="bg-card border rounded-lg p-6">
   <input class="border p-2 rounded" />
-  <button class="bg-primary text-on-primary px-4 py-2">Save</button>
+  <button class="bg-primary text-primary-foreground px-4 py-2">Save</button>
 </div>
 ```
+
+**Token Migration Reference** (old → new):
+- `bg-surface` → `bg-background`
+- `text-text` → `text-foreground`
+- `text-text-muted` → `text-muted-foreground`
+- `text-error` → `text-destructive`
+- `bg-error` → `bg-destructive`
+- `bg-base-200` → `bg-muted`
+- `bg-base-300` → `bg-accent`
+- `text-base-content` → `text-foreground`
 
 **Components have NO class escape hatch** - use props:
 
