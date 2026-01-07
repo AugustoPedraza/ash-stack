@@ -101,7 +101,7 @@
   const languageLabel = $derived(languages.find(l => l.id === language)?.label || 'Select language');
 </script>
 
-<div class="h-full bg-base-100 flex flex-col overflow-hidden">
+<div class="h-full bg-background flex flex-col overflow-hidden">
   <!-- Header with save CTA -->
   <AppHeader title="Settings">
     {#snippet actions()}

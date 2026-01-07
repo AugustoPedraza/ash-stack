@@ -49,7 +49,7 @@
   }
 </script>
 
-<div class="h-full bg-base-100 overflow-y-auto px-5 py-8">
+<div class="h-full bg-background overflow-y-auto px-5 py-8">
   {#if success}
     <!-- Success State -->
     <div class="flex flex-col items-center justify-center min-h-[60vh] text-center">

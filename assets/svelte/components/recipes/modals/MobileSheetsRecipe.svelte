@@ -61,7 +61,7 @@
   }
 </script>
 
-<div class="h-full bg-base-100 overflow-y-auto px-5 py-6">
+<div class="h-full bg-background overflow-y-auto px-5 py-6">
   <div class="max-w-md mx-auto">
     <div class="mb-8">
       <h1 class="text-xl font-semibold text-foreground mb-2">Mobile Sheets</h1>

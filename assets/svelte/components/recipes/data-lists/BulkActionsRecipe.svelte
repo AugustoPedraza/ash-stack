@@ -133,9 +133,9 @@
   }
 </script>
 
-<div class="h-full bg-base-100 flex flex-col overflow-hidden">
+<div class="h-full bg-background flex flex-col overflow-hidden">
   <!-- Header -->
-  <div class="shrink-0 bg-base-100 border-b border-border">
+  <div class="shrink-0 bg-background border-b border-border">
     <div class="flex items-center justify-between px-5 py-4">
       <div class="flex items-center gap-3">
         <!-- Select All Checkbox -->

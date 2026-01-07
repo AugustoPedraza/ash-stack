@@ -73,7 +73,7 @@
 </script>
 
 <!-- Full-screen login -->
-<div class="h-full bg-base-100 overflow-y-auto px-5 py-6">
+<div class="h-full bg-background overflow-y-auto px-5 py-6">
   {#if success}
     <!-- Success State -->
     <div class="flex flex-col items-center justify-center min-h-[80vh] text-center">
@@ -154,7 +154,9 @@
         <label class="flex items-center gap-3 cursor-pointer">
           <input
             type="checkbox"
-            class="checkbox checkbox-primary checkbox-sm"
+            class="h-4 w-4 rounded border border-input bg-background accent-primary
+              focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
+              disabled:cursor-not-allowed disabled:opacity-50"
             bind:checked={rememberMe}
             disabled={loading}
           />

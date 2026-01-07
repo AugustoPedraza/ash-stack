@@ -132,7 +132,7 @@
   const donutSegments = $derived(getDonutSegments(donutData));
 </script>
 
-<div class="h-full bg-base-100 overflow-y-auto">
+<div class="h-full bg-background overflow-y-auto">
   <div class="max-w-lg mx-auto px-5 py-6">
     <div class="mb-6">
       <h1 class="text-xl font-semibold text-foreground mb-2">Charts</h1>

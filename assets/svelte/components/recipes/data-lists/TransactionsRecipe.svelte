@@ -136,7 +136,7 @@
   });
 </script>
 
-<div class="h-full bg-base-100 flex flex-col overflow-hidden">
+<div class="h-full bg-background flex flex-col overflow-hidden">
   {#if selectedTransaction}
     <!-- Detail View -->
     <div class="flex flex-col h-full">

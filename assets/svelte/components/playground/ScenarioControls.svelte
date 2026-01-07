@@ -35,7 +35,7 @@
   </DropdownMenu.Trigger>
   <DropdownMenu.Portal>
     <DropdownMenu.Content
-      class="z-50 min-w-56 rounded-lg border border-accent bg-base-100 p-1 shadow-lg"
+      class="z-50 min-w-56 rounded-lg border border-accent bg-background p-1 shadow-lg"
       sideOffset={4}
     >
       {#each scenarioOptions as scenario}

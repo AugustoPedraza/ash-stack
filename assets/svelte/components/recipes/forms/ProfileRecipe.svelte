@@ -75,7 +75,7 @@
   }
 </script>
 
-<div class="h-full bg-base-100 flex flex-col overflow-hidden">
+<div class="h-full bg-background flex flex-col overflow-hidden">
   <!-- Header with Save CTA -->
   <AppHeader title="Edit Profile" showBack={true} backLabel="" onBack={() => {}}>
     {#snippet actions()}

@@ -192,7 +192,7 @@
   <!-- Sheet -->
   <div
     bind:this={sheetEl}
-    class="fixed inset-x-0 bottom-0 z-50 flex flex-col bg-base-100 rounded-t-xl shadow-2xl
+    class="fixed inset-x-0 bottom-0 z-50 flex flex-col bg-background rounded-t-xl shadow-2xl
       {isDragging ? '' : 'transition-transform duration-300 ease-out'}"
     style="height: {sheetHeight}px; max-height: {maxHeight}px; transform: translateY({translateY}px);"
     role="dialog"

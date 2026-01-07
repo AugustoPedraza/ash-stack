@@ -120,7 +120,7 @@
   }
 </script>
 
-<div class="h-full bg-base-100 overflow-y-auto px-5 py-6">
+<div class="h-full bg-background overflow-y-auto px-5 py-6">
   {#if success}
     <div class="flex flex-col items-center justify-center min-h-[80vh] text-center">
       <div class="w-20 h-20 rounded-full bg-success-soft text-success flex items-center justify-center mb-6">

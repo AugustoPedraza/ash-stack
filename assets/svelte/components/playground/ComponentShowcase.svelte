@@ -12,7 +12,7 @@
   }
 </script>
 
-<div class="min-h-screen bg-base-100 p-4 md:p-8">
+<div class="min-h-screen bg-background p-4 md:p-8">
   <div class="max-w-4xl mx-auto space-y-8">
 
     <!-- Header -->
@@ -165,7 +165,7 @@
           </DropdownMenu.Trigger>
           <DropdownMenu.Portal>
             <DropdownMenu.Content
-              class="z-50 min-w-48 rounded-lg border border-accent bg-base-100 p-1 shadow-lg"
+              class="z-50 min-w-48 rounded-lg border border-accent bg-background p-1 shadow-lg"
               sideOffset={4}
             >
               <DropdownMenu.Item class="cursor-pointer rounded-md px-3 py-2 text-sm hover:bg-muted focus:bg-muted focus:outline-none">
@@ -198,7 +198,7 @@
           </Dialog.Trigger>
           <Dialog.Portal>
             <Dialog.Overlay class="fixed inset-0 z-50 bg-black/50" />
-            <Dialog.Content class="fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-xl bg-base-100 p-6 shadow-xl">
+            <Dialog.Content class="fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-xl bg-background p-6 shadow-xl">
               <Dialog.Title class="text-lg font-bold">Hello!</Dialog.Title>
               <Dialog.Description class="mt-2 text-muted-foreground">
                 This is a modal dialog powered by Bits UI with FlyonUI styling.

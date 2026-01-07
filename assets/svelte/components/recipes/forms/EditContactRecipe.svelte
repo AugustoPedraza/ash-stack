@@ -58,7 +58,7 @@
   }
 </script>
 
-<div class="h-full bg-base-100 flex flex-col overflow-hidden">
+<div class="h-full bg-background flex flex-col overflow-hidden">
   <!-- Header with Save CTA - In-App Pattern -->
   <AppHeader title="Edit Contact" showBack={true} backLabel="" onBack={handleBack}>
     {#snippet actions()}

@@ -20,7 +20,7 @@
   }
 </script>
 
-<nav class="bg-base-100 border-t border-accent pb-safe">
+<nav class="bg-background border-t border-accent pb-safe">
   <div class="flex justify-around">
     {#each tabs as tab}
       <button

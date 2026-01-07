@@ -43,7 +43,7 @@
       <div class="mb-1">
         <button
           class="w-full flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors
-            {activeCategory === category.id ? 'bg-primary text-primary-content' : 'hover:bg-accent text-foreground'}"
+            {activeCategory === category.id ? 'bg-primary text-primary-foreground' : 'hover:bg-accent text-foreground'}"
           onclick={() => toggleCategory(category.id)}
         >
           <span class="flex-1 text-left">{category.label}</span>

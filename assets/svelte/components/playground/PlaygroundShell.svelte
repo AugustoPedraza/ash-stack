@@ -45,10 +45,10 @@
 
 <!-- Outer container with max-width for desktop - h-screen ensures scroll containment -->
 <div class="h-screen bg-accent overflow-hidden">
-  <div class="max-w-7xl mx-auto bg-base-100 h-full shadow-xl flex flex-col overflow-hidden">
+  <div class="max-w-7xl mx-auto bg-background h-full shadow-xl flex flex-col overflow-hidden">
 
     <!-- Mobile Header (visible on small screens) -->
-    <header class="lg:hidden shrink-0 flex items-center h-14 px-4 border-b border-accent bg-base-100 z-30">
+    <header class="lg:hidden shrink-0 flex items-center h-14 px-4 border-b border-accent bg-background z-30">
       <button
         class="p-2 -ml-2 rounded-lg hover:bg-muted active:bg-accent transition-colors"
         onclick={() => mobileMenuOpen = true}
@@ -139,7 +139,7 @@
     ></button>
 
     <!-- Drawer -->
-    <aside class="absolute inset-y-0 left-0 w-72 max-w-[85vw] bg-base-100 shadow-2xl flex flex-col animate-slide-in-left">
+    <aside class="absolute inset-y-0 left-0 w-72 max-w-[85vw] bg-background shadow-2xl flex flex-col animate-slide-in-left">
       <!-- Drawer Header -->
       <div class="flex items-center justify-between h-14 px-4 border-b border-accent">
         <h2 class="text-lg font-bold text-foreground">Recipes</h2>

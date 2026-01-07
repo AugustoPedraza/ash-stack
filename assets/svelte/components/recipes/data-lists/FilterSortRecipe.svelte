@@ -168,9 +168,9 @@
   }
 </script>
 
-<div class="h-full bg-base-100 flex flex-col overflow-hidden">
+<div class="h-full bg-background flex flex-col overflow-hidden">
   <!-- Header with Search -->
-  <div class="sticky top-0 z-10 bg-base-100 border-b border-border px-5 py-4">
+  <div class="sticky top-0 z-10 bg-background border-b border-border px-5 py-4">
     <div class="flex items-center gap-3">
       <div class="flex-1 flex items-center gap-2 px-3 h-12 border border-border-strong rounded-lg focus-within:border-primary">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-text-disabled shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

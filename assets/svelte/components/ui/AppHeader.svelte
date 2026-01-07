@@ -19,7 +19,7 @@
   } = $props();
 </script>
 
-<header class="bg-base-100 border-b border-accent">
+<header class="bg-background border-b border-accent">
   <div class="relative flex items-center justify-center h-14 px-4">
     <!-- Left side: Back button (ghost style) -->
     <div class="absolute left-2 flex items-center">
