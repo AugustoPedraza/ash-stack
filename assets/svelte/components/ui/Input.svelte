@@ -42,28 +42,28 @@
     onkeydown = undefined
   } = $props();
 
-  // Size classes using design tokens
+  // Size classes using 8px grid
   const sizes = {
-    sm: 'h-[var(--input-sm)] px-3 text-sm',
-    md: 'h-[var(--input-md)] px-4 text-sm',
-    lg: 'h-[var(--input-lg)] px-4 text-base'
+    sm: 'h-8 px-3 text-sm',
+    md: 'h-10 px-4 text-sm',
+    lg: 'h-12 px-4 text-base'
   };
 
   const baseClasses = `
     w-full
-    bg-surface text-text
-    border rounded-[var(--radius-md)]
-    transition-[border-color,box-shadow]
-    duration-[var(--duration-fast)]
-    placeholder:text-text-muted
-    focus:outline-none focus:border-border-focus focus:ring-1 focus:ring-border-focus
-    disabled:bg-surface-sunken disabled:text-text-disabled disabled:cursor-not-allowed
-    read-only:bg-surface-sunken
+    bg-background text-foreground
+    border rounded-md
+    transition-colors duration-150
+    placeholder:text-muted-foreground
+    focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2
+    disabled:bg-muted disabled:text-muted-foreground disabled:opacity-50 disabled:cursor-not-allowed
+    read-only:bg-muted
   `;
 
-  const stateClasses = invalid
-    ? 'border-error focus:border-error focus:ring-error'
-    : 'border-border';
+  // Use $derived to fix state_referenced_locally warning
+  const stateClasses = $derived(invalid
+    ? 'border-destructive focus:ring-destructive'
+    : 'border-input');
 </script>
 
 <input

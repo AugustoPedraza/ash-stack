@@ -48,9 +48,10 @@
     }
   };
 
-  const config = presets[preset];
-  const displayTitle = title || config.title;
-  const displayDescription = description || config.description;
+  // Use $derived to fix state_referenced_locally warnings
+  const config = $derived(presets[preset]);
+  const displayTitle = $derived(title || config.title);
+  const displayDescription = $derived(description || config.description);
 
   const icons = {
     inbox: '<path stroke-linecap="round" stroke-linejoin="round" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />',
@@ -63,12 +64,12 @@
 
 <div class="flex flex-col items-center justify-center py-12 px-6 text-center">
   <!-- Icon -->
-  <div class="w-16 h-16 rounded-full bg-base-200 flex items-center justify-center mb-4">
+  <div class="w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4">
     {#if icon}
       {@render icon()}
     {:else}
       <svg
-        class="w-8 h-8 text-text-muted"
+        class="w-8 h-8 text-muted-foreground"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -81,12 +82,12 @@
   </div>
 
   <!-- Title -->
-  <h3 class="text-base font-semibold text-text mb-1">
+  <h3 class="text-base font-semibold text-foreground mb-1">
     {displayTitle}
   </h3>
 
   <!-- Description -->
-  <p class="text-sm text-text-muted max-w-sm mb-6">
+  <p class="text-sm text-muted-foreground max-w-sm mb-6">
     {displayDescription}
   </p>
 

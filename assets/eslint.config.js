@@ -1,23 +1,28 @@
 /**
- * ESLint Configuration for Svelte + Accessibility
+ * ESLint Configuration for Svelte + TypeScript + Accessibility
  *
  * Enforces:
+ * - TypeScript best practices
  * - Svelte best practices
  * - Accessibility (a11y) rules
- * - UX pattern compliance
  *
  * Run: npm run lint
  * Fix: npm run lint:fix
  */
 
 import js from '@eslint/js';
+import tseslint from 'typescript-eslint';
 import svelte from 'eslint-plugin-svelte';
 import globals from 'globals';
 import svelteParser from 'svelte-eslint-parser';
+import tsParser from '@typescript-eslint/parser';
 
 export default [
   // Base JS config
   js.configs.recommended,
+
+  // TypeScript configs
+  ...tseslint.configs.recommended,
 
   // Svelte plugin configs (includes a11y rules)
   ...svelte.configs['flat/recommended'],
@@ -28,16 +33,30 @@ export default [
     languageOptions: {
       globals: {
         ...globals.browser,
-        ...globals.node
-      }
-    }
+        ...globals.node,
+      },
+    },
+  },
+
+  // TypeScript files
+  {
+    files: ['**/*.ts'],
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        project: './tsconfig.json',
+      },
+    },
   },
 
   // Svelte files
   {
     files: ['**/*.svelte'],
     languageOptions: {
-      parser: svelteParser
+      parser: svelteParser,
+      parserOptions: {
+        parser: tsParser,
+      },
     },
     rules: {
       // =================================================================
@@ -52,35 +71,35 @@ export default [
       'svelte/html-quotes': ['error', { prefer: 'double' }],
 
       // =================================================================
-      // GENERAL JS IN SVELTE
+      // TYPESCRIPT IN SVELTE
       // =================================================================
 
       // Allow unused vars starting with _
-      'no-unused-vars': ['error', {
-        argsIgnorePattern: '^_',
-        varsIgnorePattern: '^_|^\\$\\$'
-      }],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_|^\\$\\$',
+        },
+      ],
+      'no-unused-vars': 'off',
 
       // Console is OK in dev
-      'no-console': 'off'
-    }
+      'no-console': 'off',
+    },
   },
 
-  // JavaScript files
+  // JavaScript files (for gradual migration)
   {
     files: ['**/*.js'],
     rules: {
-      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }]
-    }
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      'no-unused-vars': 'off',
+    },
   },
 
   // Ignore patterns
   {
-    ignores: [
-      'node_modules/',
-      '../priv/static/',
-      'vendor/',
-      '*.min.js'
-    ]
-  }
+    ignores: ['node_modules/', 'dist/', '../priv/static/', 'vendor/', '*.min.js'],
+  },
 ];

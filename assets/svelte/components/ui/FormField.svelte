@@ -20,19 +20,19 @@
     children
   } = $props();
 
-  // Generate unique ID if not provided
-  const fieldId = id || `field-${Math.random().toString(36).slice(2, 9)}`;
+  // Use $derived to fix state_referenced_locally warning
+  const fieldId = $derived(id || `field-${Math.random().toString(36).slice(2, 9)}`);
 </script>
 
 <div class="space-y-1.5">
   {#if label}
     <label
       for={fieldId}
-      class="block text-sm font-medium text-text"
+      class="block text-sm font-medium text-foreground"
     >
       {label}
       {#if required}
-        <span class="text-error ml-0.5" aria-hidden="true">*</span>
+        <span class="text-destructive ml-0.5" aria-hidden="true">*</span>
       {/if}
     </label>
   {/if}
@@ -43,7 +43,7 @@
 
   {#if error}
     <p
-      class="text-xs text-error flex items-center gap-1"
+      class="text-xs text-destructive flex items-center gap-1"
       role="alert"
       aria-live="polite"
     >
@@ -53,7 +53,7 @@
       {error}
     </p>
   {:else if helper}
-    <p class="text-xs text-text-muted">
+    <p class="text-xs text-muted-foreground">
       {helper}
     </p>
   {/if}

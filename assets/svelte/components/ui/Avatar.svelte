@@ -20,23 +20,24 @@
     status = null
   } = $props();
 
+  // Sizes using 8px grid: xs=24, sm=32, md=40, lg=48, xl=64
   const sizes = {
-    xs: 'w-[var(--avatar-xs)] h-[var(--avatar-xs)] text-xs',
-    sm: 'w-[var(--avatar-sm)] h-[var(--avatar-sm)] text-xs',
-    md: 'w-[var(--avatar-md)] h-[var(--avatar-md)] text-sm',
-    lg: 'w-[var(--avatar-lg)] h-[var(--avatar-lg)] text-base',
-    xl: 'w-[var(--avatar-xl)] h-[var(--avatar-xl)] text-lg'
+    xs: 'w-6 h-6 text-xs',
+    sm: 'w-8 h-8 text-xs',
+    md: 'w-10 h-10 text-sm',
+    lg: 'w-12 h-12 text-base',
+    xl: 'w-16 h-16 text-lg'
   };
 
   const shapes = {
     circle: 'rounded-full',
-    square: 'rounded-[var(--radius-md)]'
+    square: 'rounded-md'
   };
 
   const statusColors = {
     online: 'bg-success',
-    offline: 'bg-text-muted',
-    busy: 'bg-error',
+    offline: 'bg-muted-foreground',
+    busy: 'bg-destructive',
     away: 'bg-warning'
   };
 
@@ -48,8 +49,8 @@
     xl: 'w-3.5 h-3.5 border-2'
   };
 
-  // Compute initials from alt if not provided
-  const displayInitials = initials || alt.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+  // Use $derived to fix state_referenced_locally warning
+  const displayInitials = $derived(initials || alt.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase());
 </script>
 
 <div class="relative inline-flex">
@@ -60,14 +61,14 @@
       class="
         {sizes[size]} {shapes[shape]}
         object-cover
-        bg-base-200
+        bg-muted
       "
     />
   {:else}
     <div
       class="
         {sizes[size]} {shapes[shape]}
-        bg-base-200 text-text-secondary
+        bg-muted text-muted-foreground
         flex items-center justify-center
         font-medium
       "
@@ -82,7 +83,7 @@
       class="
         absolute bottom-0 right-0
         {statusSizes[size]} {statusColors[status]}
-        rounded-full border-surface
+        rounded-full border-background
       "
       aria-label="{status}"
     ></span>

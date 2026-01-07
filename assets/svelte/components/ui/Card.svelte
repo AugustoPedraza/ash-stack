@@ -1,7 +1,7 @@
 <script>
   /**
    * Card Component
-   * Container with variants using design tokens.
+   * Container with variants using shadcn-compatible design tokens.
    *
    * @prop {'elevated' | 'outlined' | 'flat'} [variant='outlined']
    * @prop {'sm' | 'md' | 'lg' | 'none'} [padding='md']
@@ -11,6 +11,7 @@
    * @prop {Snippet} [footer] - Footer slot
    * @prop {Snippet} [actions] - Actions slot (typically buttons)
    * @prop {Snippet} [children] - Main content
+   * @prop {string} [class] - Additional classes
    */
 
   let {
@@ -21,26 +22,28 @@
     header = undefined,
     footer = undefined,
     actions = undefined,
-    children
+    children,
+    class: className = ''
   } = $props();
 
   const variants = {
-    elevated: 'bg-surface shadow-md border-0',
-    outlined: 'bg-surface border border-border',
-    flat: 'bg-surface-sunken border-0'
+    elevated: 'bg-card text-card-foreground shadow-card border-0',
+    outlined: 'bg-card text-card-foreground border border-border shadow-sm',
+    flat: 'bg-muted text-foreground border-0'
   };
 
+  // Using 8px grid: sm=8px, md=16px, lg=24px
   const paddings = {
     none: '',
-    sm: 'p-3',
+    sm: 'p-2',
     md: 'p-4',
     lg: 'p-6'
   };
 
-  const baseClasses = 'rounded-[var(--radius-lg)] overflow-hidden';
+  const baseClasses = 'rounded-lg overflow-hidden';
 </script>
 
-<div class="{baseClasses} {variants[variant]}">
+<div class="{baseClasses} {variants[variant]} {className}">
   {#if header}
     <div class="border-b border-border {paddings[padding]}">
       {@render header()}
@@ -48,10 +51,10 @@
   {:else if title || description}
     <div class="border-b border-border {paddings[padding]}">
       {#if title}
-        <h3 class="text-base font-semibold text-text">{title}</h3>
+        <h3 class="text-base font-semibold text-foreground">{title}</h3>
       {/if}
       {#if description}
-        <p class="text-sm text-text-muted mt-1">{description}</p>
+        <p class="text-sm text-muted-foreground mt-1">{description}</p>
       {/if}
     </div>
   {/if}

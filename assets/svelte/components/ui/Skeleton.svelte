@@ -20,7 +20,8 @@
     height = ''
   } = $props();
 
-  const baseClasses = `bg-base-200 ${animate ? 'animate-pulse' : ''}`;
+  // Use $derived to fix state_referenced_locally warning
+  const baseClasses = $derived(`bg-muted ${animate ? 'animate-pulse' : ''}`);
 
   // Text skeleton heights
   const textHeights = {
@@ -57,7 +58,7 @@
       <div
         class="
           {baseClasses} {textHeights[size]}
-          rounded-[var(--radius-sm)]
+          rounded-sm
           {i === lines - 1 && lines > 1 ? 'w-3/4' : 'w-full'}
         "
         style:height={height || undefined}
@@ -83,21 +84,21 @@
 
 {:else if variant === 'button'}
   <div
-    class="{baseClasses} {buttonSizes[size]} rounded-[var(--radius-md)]"
+    class="{baseClasses} {buttonSizes[size]} rounded-md"
     style:width={width || undefined}
     style:height={height || undefined}
   ></div>
 
 {:else if variant === 'card'}
   <div
-    class="{baseClasses} {cardSizes[size]} rounded-[var(--radius-lg)] w-full"
+    class="{baseClasses} {cardSizes[size]} rounded-lg w-full"
     style:width={width || undefined}
     style:height={height || undefined}
   ></div>
 
 {:else if variant === 'rect'}
   <div
-    class="{baseClasses} rounded-[var(--radius-md)]"
+    class="{baseClasses} rounded-md"
     style:width={width || '100%'}
     style:height={height || '100px'}
   ></div>

@@ -91,43 +91,52 @@
 
 <svelte:window onclick={open ? handleClickOutside : undefined} />
 
-<div class="relative inline-block" onkeydown={handleKeydown}>
-  <!-- Trigger -->
-  <div onclick={(e) => { e.stopPropagation(); handleToggle(); }}>
-    {#if trigger}
+<!-- Container with keyboard handling -->
+<div class="relative inline-block" role="presentation" onkeydown={handleKeydown}>
+  <!-- Trigger button -->
+  {#if trigger}
+    <button
+      type="button"
+      class="contents"
+      onclick={(e) => { e.stopPropagation(); handleToggle(); }}
+      aria-haspopup="menu"
+      aria-expanded={open}
+    >
       {@render trigger()}
-    {:else}
-      <button
-        type="button"
-        class="
-          p-2 rounded-[var(--radius-md)]
-          text-text-muted hover:bg-base-200
-          transition-colors duration-[var(--duration-fast)]
-          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-focus
-        "
-        aria-haspopup="menu"
-        aria-expanded={open}
-      >
-        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-        </svg>
-      </button>
-    {/if}
-  </div>
+    </button>
+  {:else}
+    <button
+      type="button"
+      class="
+        p-2 rounded-md
+        text-muted-foreground hover:bg-accent
+        transition-colors duration-150
+        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
+      "
+      aria-haspopup="menu"
+      aria-expanded={open}
+      aria-label="Open menu"
+      onclick={(e) => { e.stopPropagation(); handleToggle(); }}
+    >
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+      </svg>
+    </button>
+  {/if}
 
   <!-- Menu -->
   {#if open}
     <div
       class="
-        absolute z-[var(--z-dropdown)] mt-1 {alignClasses[align]}
+        absolute z-50 mt-1 {alignClasses[align]}
         min-w-[160px] max-w-[280px]
-        bg-surface rounded-[var(--radius-lg)]
+        bg-popover text-popover-foreground rounded-lg
         border border-border shadow-lg
         py-1
         animate-scale-in origin-top
       "
       role="menu"
-      onclick={(e) => e.stopPropagation()}
+      tabindex="-1"
     >
       {#if children}
         {@render children()}
@@ -142,14 +151,14 @@
               class="
                 w-full px-3 py-2 text-left text-sm
                 flex items-center gap-2
-                transition-colors duration-[var(--duration-fast)]
+                transition-colors duration-150
                 {item.disabled
-                  ? 'text-text-disabled cursor-not-allowed'
+                  ? 'text-muted-foreground opacity-50 cursor-not-allowed'
                   : item.danger
-                    ? 'text-error hover:bg-error-soft'
-                    : 'text-text hover:bg-base-200'
+                    ? 'text-destructive hover:bg-destructive/10'
+                    : 'text-foreground hover:bg-accent'
                 }
-                {selectableIndex === focusedIndex && !item.disabled ? 'bg-base-200' : ''}
+                {selectableIndex === focusedIndex && !item.disabled ? 'bg-accent' : ''}
               "
               role="menuitem"
               disabled={item.disabled}

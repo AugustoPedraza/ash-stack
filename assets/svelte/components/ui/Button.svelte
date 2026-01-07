@@ -1,10 +1,10 @@
 <script>
   /**
    * Button Component
-   * Primary interactive element using design tokens.
+   * Primary interactive element using shadcn-compatible design tokens.
    *
-   * @prop {'primary' | 'secondary' | 'ghost' | 'danger'} [variant='primary']
-   * @prop {'sm' | 'md' | 'lg'} [size='md']
+   * @prop {'primary' | 'secondary' | 'ghost' | 'danger' | 'outline'} [variant='primary']
+   * @prop {'sm' | 'md' | 'lg' | 'icon'} [size='md']
    * @prop {boolean} [loading=false] - Shows loading spinner
    * @prop {boolean} [disabled=false]
    * @prop {boolean} [fullWidth=false]
@@ -26,46 +26,50 @@
     children
   } = $props();
 
-  // Size classes using design tokens
+  // Size classes - using 8px grid spacing
   const sizes = {
-    sm: 'min-h-[var(--button-sm)] px-3 py-1.5 text-xs gap-1.5',
-    md: 'min-h-[var(--button-md)] px-4 py-2 text-sm gap-2',
-    lg: 'min-h-[var(--button-lg)] px-6 py-3 text-base gap-2.5'
+    sm: 'h-8 px-3 text-sm gap-1.5 rounded-md',
+    md: 'h-10 px-4 text-sm gap-2 rounded-md',
+    lg: 'h-12 px-6 text-base gap-2 rounded-lg',
+    icon: 'h-10 w-10 rounded-md'
   };
 
-  // Variant classes using semantic colors
+  // Variant classes using shadcn-compatible tokens
   const variants = {
     primary: `
-      bg-primary text-white
-      hover:bg-primary-hover active:bg-primary-active
-      disabled:bg-surface-sunken disabled:text-text-disabled
+      bg-primary text-primary-foreground shadow-sm
+      hover:bg-primary/90
+      disabled:opacity-50
     `,
     secondary: `
-      bg-surface text-text
-      hover:bg-surface-sunken active:bg-surface-sunken
-      border border-border
-      disabled:bg-surface-sunken disabled:text-text-disabled
+      bg-secondary text-secondary-foreground shadow-sm
+      hover:bg-secondary/80
+      disabled:opacity-50
+    `,
+    outline: `
+      bg-background text-foreground shadow-sm
+      border border-input
+      hover:bg-accent hover:text-accent-foreground
+      disabled:opacity-50
     `,
     ghost: `
-      bg-transparent text-text
-      hover:bg-surface-sunken active:bg-surface-sunken
-      disabled:text-text-disabled
+      text-foreground
+      hover:bg-accent hover:text-accent-foreground
+      disabled:opacity-50
     `,
     danger: `
-      bg-error text-white
-      hover:bg-error/90 active:bg-error/80
-      disabled:bg-surface-sunken disabled:text-text-disabled
+      bg-destructive text-white shadow-sm
+      hover:bg-destructive/90
+      disabled:opacity-50
     `
   };
 
   const baseClasses = `
     inline-flex items-center justify-center
-    font-medium rounded-[var(--radius-md)]
-    transition-[background-color,border-color,transform]
-    duration-[var(--duration-fast)]
-    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-focus focus-visible:ring-offset-2
-    active:scale-[var(--scale-press)]
-    disabled:cursor-not-allowed disabled:active:scale-100
+    font-medium whitespace-nowrap
+    transition-colors duration-150
+    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
+    disabled:pointer-events-none
     select-none
   `;
 </script>

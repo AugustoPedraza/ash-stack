@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": false,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "noEmit": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "checkJs": false,
+    "baseUrl": ".",
+    "paths": {
+      "$lib/*": ["./svelte/lib/*"],
+      "$lib": ["./svelte/lib"],
+      "$components/*": ["./svelte/components/*"],
+      "$components": ["./svelte/components"]
+    },
+    "types": ["svelte", "node"]
+  },
+  "include": [
+    "svelte/**/*.ts",
+    "svelte/**/*.js",
+    "svelte/**/*.svelte",
+    "*.config.ts",
+    "*.config.js"
+  ],
+  "exclude": ["node_modules", "dist"]
+}

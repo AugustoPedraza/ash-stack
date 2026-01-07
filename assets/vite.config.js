@@ -10,7 +10,8 @@ export default defineConfig({
   ],
   resolve: {
     alias: [
-      { find: '$lib', replacement: path.resolve('./svelte/lib') }
+      { find: '$lib', replacement: path.resolve('./svelte/lib') },
+      { find: '$components', replacement: path.resolve('./svelte/components') }
     ]
   }
 });
