@@ -1,17 +1,784 @@
 /*
- * MAIN APPLICATION STYLES
+ * FLYONUI + TAILWIND CSS 4
  * ========================
- * Import order matters:
- * 1. Tailwind with restricted theme (includes tokens)
- * 2. shadcn variable mapping
- * 3. Page layouts
- * 4. Mobile enhancements
+ * Professional, corporate UI theme
  */
 
-/* Tailwind with our restricted theme and design tokens */
-@import "./tailwind.config.css";
+@import "tailwindcss";
 
-/* Additional styles */
-@import "./shadcn.css";
-@import "./layouts.css";
-@import "./mobile.css";
+/* Configure FlyonUI to use ONLY our custom themes */
+@plugin "flyonui" {
+  themes: corporate --default, corporate-dark --prefersdark;
+}
+
+/* Required for FlyonUI JS components */
+@import "flyonui/variants.css";
+
+/* =============================================================================
+ * CUSTOM CORPORATE THEME
+ * Professional blue palette with excellent contrast
+ * ============================================================================= */
+
+@plugin "flyonui/theme" {
+  name: "corporate";
+  default: true;
+  color-scheme: light;
+
+  /* Base colors - clean, minimal */
+  --color-base-100: oklch(100% 0 0);           /* Pure white */
+  --color-base-200: oklch(98% 0.002 250);      /* Barely visible gray */
+  --color-base-300: oklch(92% 0.004 250);      /* Subtle borders */
+  --color-base-content: oklch(20% 0.015 250);  /* Near black text */
+
+  /* Primary - Refined blue, less saturated */
+  --color-primary: oklch(45% 0.14 250);        /* Deeper, refined blue */
+  --color-primary-content: oklch(100% 0 0);
+
+  /* Secondary - Neutral gray */
+  --color-secondary: oklch(50% 0.02 250);      /* True neutral */
+  --color-secondary-content: oklch(100% 0 0);
+
+  /* Accent - Subtle teal */
+  --color-accent: oklch(50% 0.12 195);         /* Refined teal */
+  --color-accent-content: oklch(100% 0 0);
+
+  /* Neutral - Dark for contrast */
+  --color-neutral: oklch(25% 0.015 250);       /* Near black */
+  --color-neutral-content: oklch(98% 0 0);
+
+  /* Status colors - refined, less vibrant */
+  --color-info: oklch(55% 0.12 240);           /* Subtle info */
+  --color-info-content: oklch(100% 0 0);
+  --color-success: oklch(50% 0.12 155);        /* Refined green */
+  --color-success-content: oklch(100% 0 0);
+  --color-warning: oklch(65% 0.14 75);         /* Refined amber */
+  --color-warning-content: oklch(20% 0.02 75);
+  --color-error: oklch(50% 0.16 25);           /* Refined red */
+  --color-error-content: oklch(100% 0 0);
+
+  /* Border radius - consistent, modern */
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
+
+  /* Shadows - flat design */
+  --shadow-base: none;
+}
+
+/* Dark theme variant - uses --prefersdark to auto-switch with system preference */
+@plugin "flyonui/theme" {
+  name: "corporate-dark";
+  prefersdark: true;
+  color-scheme: dark;
+
+  /* Base colors - refined dark */
+  --color-base-100: oklch(15% 0.01 250);           /* Deep dark */
+  --color-base-200: oklch(18% 0.01 250);           /* Slightly lighter */
+  --color-base-300: oklch(25% 0.01 250);           /* Subtle borders */
+  --color-base-content: oklch(95% 0.005 250);      /* Near white text */
+
+  /* Primary - Brighter for dark mode contrast */
+  --color-primary: oklch(60% 0.14 250);            /* Brighter blue */
+  --color-primary-content: oklch(100% 0 0);
+
+  /* Secondary - Neutral */
+  --color-secondary: oklch(55% 0.02 250);
+  --color-secondary-content: oklch(100% 0 0);
+
+  /* Accent - Teal */
+  --color-accent: oklch(58% 0.12 195);
+  --color-accent-content: oklch(100% 0 0);
+
+  /* Neutral */
+  --color-neutral: oklch(20% 0.01 250);
+  --color-neutral-content: oklch(95% 0 0);
+
+  /* Status colors - brighter for dark mode */
+  --color-info: oklch(60% 0.12 240);
+  --color-info-content: oklch(100% 0 0);
+  --color-success: oklch(55% 0.12 155);
+  --color-success-content: oklch(100% 0 0);
+  --color-warning: oklch(70% 0.14 75);
+  --color-warning-content: oklch(15% 0.02 75);
+  --color-error: oklch(58% 0.16 25);
+  --color-error-content: oklch(100% 0 0);
+
+  /* Same radius, flat design */
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
+}
+
+/* =============================================================================
+ * PREMIUM ANIMATIONS & TRANSITIONS
+ * Airbnb-style: Smooth, subtle, natural motion
+ * ============================================================================= */
+
+/*
+ * Easing curves:
+ * - ease-out: For elements entering (feel responsive)
+ * - ease-in-out: For state changes (feel smooth)
+ * - spring: For playful interactions (feel natural)
+ */
+:root {
+  /* Duration scale */
+  --duration-instant: 100ms;
+  --duration-fast: 150ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+  --duration-slower: 400ms;
+
+  /* Easing curves */
+  --ease-out: cubic-bezier(0.33, 1, 0.68, 1);        /* Responsive enter */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);    /* Smooth state change */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1); /* Playful bounce */
+
+  /* Composed transitions */
+  --transition-fast: var(--duration-fast) var(--ease-out);
+  --transition-normal: var(--duration-normal) var(--ease-in-out);
+  --transition-smooth: var(--duration-slow) var(--ease-in-out);
+}
+
+/* Button hover/active - modern subtle transitions */
+.btn {
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+.btn:active:not(:disabled) {
+  opacity: 0.8;
+}
+
+/* Card - clean, minimal styling */
+.card {
+  transition: border-color var(--transition-fast);
+}
+
+/* Interactive list items */
+.list-item,
+[role="button"],
+button:not(.btn) {
+  transition: background-color var(--transition-fast);
+}
+
+/* Form inputs transition - see FORM INPUTS section for full styling */
+
+/* Page transitions - slide animations */
+.slide-in-right {
+  animation: slideInRight var(--transition-smooth) forwards;
+}
+
+.slide-out-left {
+  animation: slideOutLeft var(--transition-smooth) forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+}
+
+/* Fade animations */
+.fade-in {
+  animation: fadeIn var(--transition-normal) forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Scale animations for modals/dropdowns */
+.scale-in {
+  animation: scaleIn var(--transition-fast) forwards;
+  transform-origin: top center;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Skeleton loading animation - subtle pulse */
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.skeleton,
+.animate-pulse {
+  background: oklch(95% 0.002 250);
+  animation: skeleton-pulse 2s ease-in-out infinite;
+}
+
+/* Dark mode skeleton */
+[data-theme="dark"] .skeleton,
+[data-theme="dark"] .animate-pulse,
+.dark .skeleton,
+.dark .animate-pulse {
+  background: oklch(22% 0.01 250);
+}
+
+/* Badge - static, no animation (modern approach) */
+.badge-pulse {
+  /* Intentionally no animation - static badges are more professional */
+}
+
+/* =============================================================================
+ * MOBILE VIEWPORT CONSTRAINTS
+ * ============================================================================= */
+
+.mobile-viewport {
+  max-width: 430px;
+  margin-inline: auto;
+}
+
+.tablet-viewport {
+  max-width: 768px;
+  margin-inline: auto;
+}
+
+.desktop-viewport {
+  max-width: 1024px;
+  margin-inline: auto;
+}
+
+/* =============================================================================
+ * 8px SPACING GRID SYSTEM (Airbnb-style)
+ * All spacing should be multiples of 8px for visual rhythm
+ * ============================================================================= */
+
+:root {
+  /* Spacing scale (8px base) */
+  --space-1: 0.25rem;   /* 4px - micro adjustments only */
+  --space-2: 0.5rem;    /* 8px - tight spacing */
+  --space-3: 0.75rem;   /* 12px - compact */
+  --space-4: 1rem;      /* 16px - default */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px - comfortable */
+  --space-8: 2rem;      /* 32px - section spacing */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px - large sections */
+  --space-16: 4rem;     /* 64px - page sections */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+
+  /* Touch targets */
+  --touch-target-min: 48px;
+  --touch-target-comfortable: 56px;
+
+  /* Typography scale (1.25 ratio - Major Third) */
+  --text-xs: 0.75rem;     /* 12px */
+  --text-sm: 0.875rem;    /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-lg: 1.125rem;    /* 18px */
+  --text-xl: 1.25rem;     /* 20px */
+  --text-2xl: 1.5rem;     /* 24px */
+  --text-3xl: 1.875rem;   /* 30px */
+  --text-4xl: 2.25rem;    /* 36px */
+
+  /* Line heights */
+  --leading-none: 1;
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+
+  /* Font weights */
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+}
+
+/* =============================================================================
+ * TYPOGRAPHY - Premium font stack
+ * ============================================================================= */
+
+html {
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  line-height: var(--leading-normal);
+}
+
+/* Body text defaults */
+body {
+  font-size: var(--text-base);
+  font-weight: var(--font-normal);
+  letter-spacing: -0.011em;
+}
+
+/* Headings - Mobile-first sizing (Airbnb-style: restrained, elegant)
+ *
+ * Mobile (default):
+ *   h1: 20px - Page/screen titles
+ *   h2: 18px - Section titles
+ *   h3: 16px - Subsection/card titles
+ *   h4: 14px - Field group labels
+ *
+ * Desktop (768px+):
+ *   h1: 24px, h2: 20px, h3: 18px
+ */
+h1 {
+  font-size: var(--text-xl);       /* 20px - page titles */
+  font-weight: var(--font-semibold);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.015em;
+}
+
+h2 {
+  font-size: var(--text-lg);       /* 18px - section titles */
+  font-weight: var(--font-semibold);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-size: var(--text-base);     /* 16px - subsections */
+  font-weight: var(--font-medium);
+  line-height: var(--leading-snug);
+}
+
+h4, h5, h6 {
+  font-size: var(--text-sm);       /* 14px - labels, captions */
+  font-weight: var(--font-medium);
+  line-height: var(--leading-normal);
+}
+
+/* Larger headings for desktop */
+@media (min-width: 768px) {
+  h1 { font-size: var(--text-2xl); }  /* 24px */
+  h2 { font-size: var(--text-xl); }   /* 20px */
+  h3 { font-size: var(--text-lg); }   /* 18px */
+}
+
+/* Small/caption text */
+small, .text-sm {
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+}
+
+.text-xs {
+  font-size: var(--text-xs);
+  line-height: var(--leading-normal);
+}
+
+/* =============================================================================
+ * FORM INPUTS - Airbnb-style (filled, rounded, generous sizing)
+ * ============================================================================= */
+
+/* Base input styling */
+.input,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+input[type="number"],
+select,
+textarea {
+  min-height: var(--touch-target-min);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-base);
+  background-color: oklch(97% 0.002 250);
+  border: 1px solid oklch(90% 0.004 250);
+  border-radius: var(--radius-field);
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+/* Dark mode inputs */
+[data-theme="dark"] .input,
+[data-theme="dark"] input[type="text"],
+[data-theme="dark"] input[type="email"],
+[data-theme="dark"] input[type="password"],
+[data-theme="dark"] input[type="search"],
+[data-theme="dark"] input[type="tel"],
+[data-theme="dark"] input[type="url"],
+[data-theme="dark"] input[type="number"],
+[data-theme="dark"] select,
+[data-theme="dark"] textarea,
+.dark .input,
+.dark input[type="text"],
+.dark input[type="email"],
+.dark input[type="password"],
+.dark input[type="search"],
+.dark input[type="tel"],
+.dark input[type="url"],
+.dark input[type="number"],
+.dark select,
+.dark textarea {
+  background-color: oklch(20% 0.01 250);
+  border-color: oklch(28% 0.01 250);
+}
+
+/* Input hover state */
+.input:hover:not(:focus):not(:disabled),
+input:hover:not(:focus):not(:disabled),
+select:hover:not(:focus):not(:disabled),
+textarea:hover:not(:focus):not(:disabled) {
+  border-color: oklch(80% 0.005 250);
+}
+
+[data-theme="dark"] .input:hover:not(:focus):not(:disabled),
+[data-theme="dark"] input:hover:not(:focus):not(:disabled),
+[data-theme="dark"] select:hover:not(:focus):not(:disabled),
+[data-theme="dark"] textarea:hover:not(:focus):not(:disabled),
+.dark .input:hover:not(:focus):not(:disabled),
+.dark input:hover:not(:focus):not(:disabled),
+.dark select:hover:not(:focus):not(:disabled),
+.dark textarea:hover:not(:focus):not(:disabled) {
+  border-color: oklch(35% 0.01 250);
+}
+
+/* Input focus state */
+.input:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  background-color: oklch(100% 0 0);
+  border-color: oklch(45% 0.14 250);
+  box-shadow: 0 0 0 3px oklch(45% 0.14 250 / 0.12);
+  outline: none;
+}
+
+[data-theme="dark"] .input:focus,
+[data-theme="dark"] input:focus,
+[data-theme="dark"] select:focus,
+[data-theme="dark"] textarea:focus,
+.dark .input:focus,
+.dark input:focus,
+.dark select:focus,
+.dark textarea:focus {
+  background-color: oklch(18% 0.01 250);
+  border-color: oklch(60% 0.14 250);
+  box-shadow: 0 0 0 3px oklch(60% 0.14 250 / 0.15);
+}
+
+/* Input placeholder */
+::placeholder {
+  color: oklch(60% 0.005 250);
+  opacity: 1;
+}
+
+[data-theme="dark"] ::placeholder,
+.dark ::placeholder {
+  color: oklch(50% 0.005 250);
+}
+
+/* Input error state */
+.input-error,
+.input.input-error,
+input.input-error,
+select.input-error,
+textarea.input-error {
+  border-color: oklch(50% 0.16 25);
+  background-color: oklch(98% 0.01 25);
+}
+
+.input-error:focus,
+.input.input-error:focus,
+input.input-error:focus {
+  border-color: oklch(50% 0.16 25);
+  box-shadow: 0 0 0 3px oklch(50% 0.16 25 / 0.12);
+}
+
+/* =============================================================================
+ * BUTTONS - Touch-friendly sizing
+ * ============================================================================= */
+
+/* Ensure all buttons meet touch target minimums */
+.btn {
+  min-height: var(--touch-target-min);
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  border-radius: var(--radius-field);
+}
+
+/* Small button - still meets minimum touch target */
+.btn-sm {
+  min-height: 40px;
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+}
+
+/* Large button */
+.btn-lg {
+  min-height: var(--touch-target-comfortable);
+  padding: var(--space-4) var(--space-8);
+  font-size: var(--text-base);
+}
+
+/* Icon buttons - ensure square touch target */
+.btn-circle,
+.btn-square {
+  min-width: var(--touch-target-min);
+  min-height: var(--touch-target-min);
+  padding: 0;
+}
+
+.btn-circle.btn-sm,
+.btn-square.btn-sm {
+  min-width: 40px;
+  min-height: 40px;
+}
+
+.btn-circle.btn-lg,
+.btn-square.btn-lg {
+  min-width: var(--touch-target-comfortable);
+  min-height: var(--touch-target-comfortable);
+}
+
+/* =============================================================================
+ * AVATARS - Generous sizing (Airbnb-style)
+ * ============================================================================= */
+
+/* Avatar size scale */
+.avatar {
+  --avatar-size: 48px;
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+}
+
+.avatar-xs {
+  --avatar-size: 32px;
+}
+
+.avatar-sm {
+  --avatar-size: 40px;
+}
+
+.avatar-md {
+  --avatar-size: 48px;
+}
+
+.avatar-lg {
+  --avatar-size: 56px;
+}
+
+.avatar-xl {
+  --avatar-size: 72px;
+}
+
+.avatar-2xl {
+  --avatar-size: 96px;
+}
+
+/* Avatar image */
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Avatar placeholder */
+.avatar-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: oklch(92% 0.004 250);
+  color: oklch(50% 0.02 250);
+  font-weight: var(--font-medium);
+  font-size: calc(var(--avatar-size) * 0.4);
+}
+
+[data-theme="dark"] .avatar-placeholder,
+.dark .avatar-placeholder {
+  background-color: oklch(28% 0.01 250);
+  color: oklch(70% 0.02 250);
+}
+
+/* =============================================================================
+ * LIST ITEMS - Touch-friendly
+ * ============================================================================= */
+
+/* Ensure list items are touch-friendly */
+.list-item,
+[role="menuitem"],
+[role="option"] {
+  min-height: var(--touch-target-min);
+  padding: var(--space-3) var(--space-4);
+}
+
+/* =============================================================================
+ * SAFE AREA UTILITIES (PWA)
+ * ============================================================================= */
+
+.pt-safe {
+  padding-top: env(safe-area-inset-top, 0);
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.px-safe {
+  padding-left: env(safe-area-inset-left, 0);
+  padding-right: env(safe-area-inset-right, 0);
+}
+
+.min-h-screen-safe {
+  min-height: calc(100vh - env(safe-area-inset-top, 0) - env(safe-area-inset-bottom, 0));
+}
+
+/* =============================================================================
+ * PREMIUM UI DETAILS
+ * ============================================================================= */
+
+/* Cards - clean, borderless in light mode */
+.card {
+  border: 1px solid oklch(94% 0.003 250);
+  box-shadow: none;
+}
+
+/* Dark mode card border */
+[data-theme="dark"] .card,
+.dark .card {
+  border-color: oklch(25% 0.01 250);
+}
+
+/* Better focus states - visible but not jarring */
+/* Exclude form inputs - they use box-shadow focus from line 155 */
+:focus-visible:not(input):not(select):not(textarea) {
+  outline: 2px solid oklch(45% 0.14 250);
+  outline-offset: 2px;
+}
+
+/* Disabled states - consistent styling */
+:disabled,
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Selection color */
+::selection {
+  background-color: oklch(45% 0.14 250 / 0.15);
+}
+
+/* Scrollbar styling (webkit) - minimal */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: oklch(70% 0.005 250 / 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(60% 0.005 250 / 0.5);
+}
+
+/* Dark mode scrollbar */
+[data-theme="dark"]::-webkit-scrollbar-thumb,
+.dark ::-webkit-scrollbar-thumb {
+  background: oklch(50% 0.005 250 / 0.3);
+}
+
+[data-theme="dark"]::-webkit-scrollbar-thumb:hover,
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: oklch(60% 0.005 250 / 0.5);
+}
+
+/* Dark mode focus states */
+[data-theme="dark"] :focus-visible:not(input):not(select):not(textarea),
+.dark :focus-visible:not(input):not(select):not(textarea) {
+  outline-color: oklch(60% 0.14 250);
+}
+
+/* Dark mode selection */
+[data-theme="dark"] ::selection,
+.dark ::selection {
+  background-color: oklch(60% 0.14 250 / 0.2);
+}
+
+/* =============================================================================
+ * UTILITY CLASSES - Spacing helpers using the grid system
+ * ============================================================================= */
+
+/* Gap utilities */
+.gap-grid-1 { gap: var(--space-1); }
+.gap-grid-2 { gap: var(--space-2); }
+.gap-grid-3 { gap: var(--space-3); }
+.gap-grid-4 { gap: var(--space-4); }
+.gap-grid-6 { gap: var(--space-6); }
+.gap-grid-8 { gap: var(--space-8); }
+
+/* Padding utilities */
+.p-grid-2 { padding: var(--space-2); }
+.p-grid-4 { padding: var(--space-4); }
+.p-grid-6 { padding: var(--space-6); }
+.p-grid-8 { padding: var(--space-8); }
+
+.px-grid-4 { padding-left: var(--space-4); padding-right: var(--space-4); }
+.px-grid-6 { padding-left: var(--space-6); padding-right: var(--space-6); }
+.py-grid-4 { padding-top: var(--space-4); padding-bottom: var(--space-4); }
+.py-grid-6 { padding-top: var(--space-6); padding-bottom: var(--space-6); }
+
+/* Section spacing */
+.section-spacing { margin-bottom: var(--space-12); }
+.content-spacing { margin-bottom: var(--space-6); }
+
+/* =============================================================================
+ * RESPONSIVE BREAKPOINTS
+ * ============================================================================= */
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

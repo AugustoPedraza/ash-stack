@@ -12,6 +12,10 @@
  * - Delete buttons without confirmation patterns
  * - Missing keyboard handlers
  * - Color-only status indicators
+ * - Raw HTML patterns that should use UI components (use-components rule)
+ *
+ * The use-components rule enforces the design system hierarchy:
+ * Theme → Tokens → Components → Recipes (no raw HTML in recipes)
  */
 
 import fs from 'fs';
@@ -206,6 +210,55 @@ const rules = [
 
       if (orphanInputs > 0) {
         return `Found ${orphanInputs} input(s) not wrapped in FormField. Inputs need labels for accessibility.`;
+      }
+      return null;
+    }
+  },
+  {
+    id: 'use-components',
+    name: 'Use Component Instead of Raw HTML',
+    severity: 'error',
+    description: 'Use UI components instead of raw HTML with classes',
+    check: (content, filename) => {
+      // Skip UI components themselves
+      if (filename.includes('/ui/')) return null;
+      // Skip playground infrastructure
+      if (filename.includes('/playground/')) return null;
+
+      const issues = [];
+
+      // Check for raw button with class (should use <Button>)
+      const rawButtons = content.match(/<button[^>]+class="[^"]*(?:btn|bg-primary|px-\d|py-\d)[^"]*"[^>]*>/g) || [];
+      if (rawButtons.length > 0) {
+        issues.push(`${rawButtons.length} raw <button> tag(s) - use <Button> component`);
+      }
+
+      // Check for raw input with class (should use <Input>)
+      const rawInputs = content.match(/<input[^>]+class="[^"]*(?:border|rounded|px-\d|py-\d)[^"]*"[^>]*>/g) || [];
+      if (rawInputs.length > 0) {
+        issues.push(`${rawInputs.length} raw <input> tag(s) - use <Input> component`);
+      }
+
+      // Check for div with role="button" (should use <Button>)
+      const divButtons = content.match(/<div[^>]+role="button"[^>]*>/g) || [];
+      if (divButtons.length > 0) {
+        issues.push(`${divButtons.length} <div role="button"> - use <Button> component`);
+      }
+
+      // Check for modal patterns (should use <Modal>)
+      const rawModals = content.match(/<div[^>]+(?:class="[^"]*(?:fixed inset-0|z-\d+.*modal|modal)[^"]*"|role="dialog")[^>]*>/g) || [];
+      if (rawModals.length > 0) {
+        issues.push(`${rawModals.length} raw modal pattern(s) - use <Modal> component`);
+      }
+
+      // Check for toggle/switch patterns (should use <Toggle>)
+      const rawToggles = content.match(/<button[^>]+role="switch"[^>]*>/g) || [];
+      if (rawToggles.length > 0) {
+        issues.push(`${rawToggles.length} raw toggle pattern(s) - use <Toggle> component`);
+      }
+
+      if (issues.length > 0) {
+        return issues.join('; ');
       }
       return null;
     }

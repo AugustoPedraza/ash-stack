@@ -1,61 +1,56 @@
-<!--
-  Badge Component
-  Status indicators, labels, and tags.
-  NO class prop - use variant/size props only.
--->
 <script>
   /**
-   * Visual variant
-   * @type {'default' | 'primary' | 'success' | 'warning' | 'error' | 'info'}
+   * Badge Component
+   * Status indicators using design tokens.
+   *
+   * @prop {'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info' | 'neutral'} [variant='neutral']
+   * @prop {'sm' | 'md'} [size='sm']
+   * @prop {boolean} [dot=false] - Show dot indicator instead of text
+   * @prop {Snippet} [children] - Badge content
    */
-  export let variant = 'default';
 
-  /**
-   * Size
-   * @type {'sm' | 'md' | 'lg'}
-   */
-  export let size = 'md';
+  let {
+    variant = 'neutral',
+    size = 'sm',
+    dot = false,
+    children
+  } = $props();
 
-  /**
-   * Make it a dot indicator (no text)
-   * @type {boolean}
-   */
-  export let dot = false;
-
-  // Variant styles
-  const variants = {
-    default: 'bg-surface-sunken text-text border border-border',
-    primary: 'bg-primary text-on-primary',
-    success: 'bg-success-soft text-success border border-success',
-    warning: 'bg-warning-soft text-warning border border-warning',
-    error: 'bg-error-soft text-error border border-error',
-    info: 'bg-info-soft text-info border border-info',
-  };
-
-  // Size styles
   const sizes = {
-    sm: 'px-2 py-0-5 text-xs',
-    md: 'px-2 py-1 text-sm',
-    lg: 'px-3 py-1 text-base',
+    sm: 'px-2 py-0.5 text-xs',
+    md: 'px-2.5 py-1 text-sm'
   };
 
-  // Dot sizes
-  const dotSizes = {
-    sm: 'w-2 h-2',
-    md: 'w-3 h-3',
-    lg: 'w-4 h-4',
+  const variants = {
+    primary: 'bg-primary/10 text-primary',
+    secondary: 'bg-secondary/10 text-secondary',
+    success: 'bg-success-soft text-success',
+    warning: 'bg-warning-soft text-warning',
+    error: 'bg-error-soft text-error',
+    info: 'bg-info-soft text-info',
+    neutral: 'bg-base-200 text-text-secondary'
   };
+
+  const dotColors = {
+    primary: 'bg-primary',
+    secondary: 'bg-secondary',
+    success: 'bg-success',
+    warning: 'bg-warning',
+    error: 'bg-error',
+    info: 'bg-info',
+    neutral: 'bg-text-muted'
+  };
+
+  const baseClasses = 'inline-flex items-center font-medium rounded-full';
 </script>
 
 {#if dot}
-  <span
-    class="inline-block rounded-full {dotSizes[size]} {variants[variant]}"
-    role="status"
-  ></span>
+  <span class="inline-flex items-center gap-1.5 {sizes[size]}">
+    <span class="w-2 h-2 rounded-full {dotColors[variant]}" aria-hidden="true"></span>
+    {@render children?.()}
+  </span>
 {:else}
-  <span
-    class="inline-flex items-center font-medium rounded-full {variants[variant]} {sizes[size]}"
-  >
-    <slot />
+  <span class="{baseClasses} {sizes[size]} {variants[variant]}">
+    {@render children?.()}
   </span>
 {/if}

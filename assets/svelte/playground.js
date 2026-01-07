@@ -1,7 +1,7 @@
 import '../css/app.css';
-import ComponentPlayground from './components/dev/ComponentPlayground.svelte';
+import Playground from './components/Playground.svelte';
 import { mount } from 'svelte';
 
-mount(ComponentPlayground, {
+mount(Playground, {
   target: document.getElementById('app')
 });

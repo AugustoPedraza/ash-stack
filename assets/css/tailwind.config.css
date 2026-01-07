@@ -1,13 +1,13 @@
 /*
- * TAILWIND CSS 4 - RESTRICTED THEME
- * ==================================
- * This file restricts Tailwind to ONLY use our design tokens.
+ * TAILWIND CSS 4 - DESIGN SYSTEM THEME
+ * =====================================
+ * Restricted to design tokens only.
  * Raw Tailwind classes like bg-blue-500 will NOT work.
  *
  * AI INSTRUCTIONS:
- * - You CANNOT use classes like bg-red-500, text-gray-400, etc.
- * - You MUST use semantic tokens: bg-primary, text-muted, etc.
- * - If a class doesn't work, check this file for available options.
+ * - Use semantic tokens: bg-primary, text-muted, bg-surface, etc.
+ * - Check tokens.css for available CSS variables
+ * - Follow docs/DESIGN_SYSTEM.md for patterns
  */
 
 @import "tailwindcss";
@@ -15,8 +15,7 @@
 
 @theme {
   /* ============================================
-     DISABLE ALL DEFAULT COLORS
-     Only our semantic tokens are available
+     COLORS - Design System Tokens
      ============================================ */
   --color-*: initial;
 
@@ -65,15 +64,14 @@
   --color-border-strong: var(--color-border-strong);
   --color-border-focus: var(--color-border-focus);
 
-  /* Transparent & current (keep these) */
+  /* Utilities */
   --color-transparent: transparent;
   --color-current: currentColor;
   --color-white: #ffffff;
   --color-black: #000000;
 
   /* ============================================
-     RESTRICTED SPACING SCALE
-     References CSS variables from tokens.css (density-aware)
+     SPACING - 4px Base Grid
      ============================================ */
   --spacing-*: initial;
 
@@ -94,8 +92,7 @@
   --spacing-24: var(--space-24);
 
   /* ============================================
-     RESTRICTED BORDER RADIUS
-     References CSS variables from tokens.css (scale-aware)
+     BORDER RADIUS
      ============================================ */
   --radius-*: initial;
 
@@ -103,109 +100,119 @@
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius-md);
   --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
   --radius-full: var(--radius-full);
-  /* NOTE: rounded-xl, rounded-2xl, rounded-3xl do NOT exist */
 
   /* ============================================
-     RESTRICTED SHADOWS
-     Only 4 options: sm, md, lg, xl
+     SHADOWS
      ============================================ */
   --shadow-*: initial;
 
   --shadow-none: none;
+  --shadow-xs: var(--shadow-xs);
   --shadow-sm: var(--shadow-sm);
   --shadow-md: var(--shadow-md);
   --shadow-lg: var(--shadow-lg);
   --shadow-xl: var(--shadow-xl);
-  /* NOTE: shadow-2xl, shadow-inner do NOT exist */
 
   /* ============================================
-     RESTRICTED Z-INDEX
-     Only named layers, no arbitrary numbers
+     Z-INDEX - Named layers only
      ============================================ */
   --z-index-*: initial;
 
-  --z-index-below: -1;
-  --z-index-base: 0;
-  --z-index-raised: 10;
-  --z-index-dropdown: 100;
-  --z-index-sticky: 200;
-  --z-index-overlay: 300;
-  --z-index-modal: 400;
-  --z-index-popover: 500;
-  --z-index-toast: 600;
-  --z-index-tooltip: 700;
-  /* NOTE: z-10, z-20, z-50 do NOT exist - use z-raised, z-dropdown, etc. */
+  --z-index-below: var(--z-below);
+  --z-index-base: var(--z-base);
+  --z-index-raised: var(--z-raised);
+  --z-index-dropdown: var(--z-dropdown);
+  --z-index-sticky: var(--z-sticky);
+  --z-index-overlay: var(--z-overlay);
+  --z-index-modal: var(--z-modal);
+  --z-index-popover: var(--z-popover);
+  --z-index-toast: var(--z-toast);
+  --z-index-tooltip: var(--z-tooltip);
 
   /* ============================================
-     TYPOGRAPHY (keep defaults but add custom)
+     TYPOGRAPHY
      ============================================ */
   --font-family-sans: var(--font-sans);
   --font-family-mono: var(--font-mono);
 }
 
 /* ============================================
-   COMPONENT CLASS PATTERNS
-   Pre-built patterns for consistency
+   BASE STYLES
    ============================================ */
 
-/* Card pattern */
-.card {
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-6);
-  box-shadow: var(--shadow-sm);
+@layer base {
+  *,
+  *::before,
+  *::after {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+  }
+
+  /* Focus ring utility */
+  :focus-visible {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 2px;
+  }
 }
 
-/* Input base pattern */
-.input-base {
-  height: var(--input-md);
-  padding-inline: var(--space-3);
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  font-size: var(--text-base);
-  color: var(--color-text);
-  transition: border-color var(--duration-fast) var(--ease-out),
-              box-shadow var(--duration-fast) var(--ease-out);
+/* ============================================
+   ANIMATION UTILITIES
+   For overlays, modals, toasts
+   ============================================ */
+
+@layer utilities {
+  /* Enter/Exit animations */
+  .animate-in {
+    animation: enter 200ms var(--ease-out) both;
+  }
+
+  .animate-out {
+    animation: exit 150ms var(--ease-in) both;
+  }
+
+  /* Fade */
+  .fade-in { --enter-opacity: 0; }
+  .fade-out { --exit-opacity: 0; }
+
+  /* Scale */
+  .zoom-in-95 { --enter-scale: 0.95; }
+  .zoom-out-95 { --exit-scale: 0.95; }
+
+  /* Slide */
+  .slide-in-from-top { --enter-translate-y: -100%; }
+  .slide-in-from-bottom { --enter-translate-y: 100%; }
+  .slide-in-from-left { --enter-translate-x: -100%; }
+  .slide-in-from-right { --enter-translate-x: 100%; }
+
+  .slide-out-to-top { --exit-translate-y: -100%; }
+  .slide-out-to-bottom { --exit-translate-y: 100%; }
+  .slide-out-to-left { --exit-translate-x: -100%; }
+  .slide-out-to-right { --exit-translate-x: 100%; }
+
+  /* Small slides for dropdowns */
+  .slide-in-from-top-2 { --enter-translate-y: -8px; }
+  .slide-in-from-bottom-2 { --enter-translate-y: 8px; }
 }
 
-.input-base:focus {
-  outline: none;
-  border-color: var(--color-border-focus);
-  box-shadow: 0 0 0 3px oklch(from var(--color-primary) l c h / 20%);
+@keyframes enter {
+  from {
+    opacity: var(--enter-opacity, 1);
+    transform: translate(var(--enter-translate-x, 0), var(--enter-translate-y, 0))
+               scale(var(--enter-scale, 1));
+  }
 }
 
-.input-base::placeholder {
-  color: var(--color-text-muted);
-}
-
-.input-base:disabled {
-  background-color: var(--color-surface-sunken);
-  color: var(--color-text-disabled);
-  cursor: not-allowed;
-}
-
-/* Label pattern */
-.label {
-  display: block;
-  font-size: var(--text-sm);
-  font-weight: var(--font-medium);
-  color: var(--color-text);
-  margin-bottom: var(--space-1);
-}
-
-/* Error text pattern */
-.error-text {
-  font-size: var(--text-sm);
-  color: var(--color-error);
-  margin-top: var(--space-1);
-}
-
-/* Helper text pattern */
-.helper-text {
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  margin-top: var(--space-1);
+@keyframes exit {
+  to {
+    opacity: var(--exit-opacity, 1);
+    transform: translate(var(--exit-translate-x, 0), var(--exit-translate-y, 0))
+               scale(var(--exit-scale, 1));
+  }
 }

@@ -1,380 +1,165 @@
-<!--
-  Dropdown Component
-  Accessible dropdown menu that becomes a Sheet on mobile.
-  Supports keyboard navigation and touch interactions.
--->
 <script>
-  import { createEventDispatcher, onMount, onDestroy, tick } from 'svelte';
-  import { fade, fly } from 'svelte/transition';
-  import { quintOut } from 'svelte/easing';
-  import Sheet from './Sheet.svelte';
-  import { haptic, HapticType, isTouchDevice } from '../../lib/mobile.js';
-
-  const dispatch = createEventDispatcher();
-
-  /** @type {boolean} */
-  export let open = false;
-
   /**
-   * Menu items
-   * @type {Array<{ id: string, label: string, icon?: string, disabled?: boolean, danger?: boolean, separator?: boolean }>}
+   * Dropdown Component
+   * Menu trigger with keyboard navigation using design tokens.
+   *
+   * @prop {boolean} [open=false] - Controls visibility
+   * @prop {Array<{id: string, label: string, icon?: string, danger?: boolean, disabled?: boolean} | 'divider'>} [items=[]]
+   * @prop {'left' | 'right'} [align='left'] - Menu alignment
+   * @prop {Snippet} [trigger] - Custom trigger slot
+   * @prop {Snippet} [children] - Alternative to items array
+   * @prop {(item: {id: string, label: string}) => void} [onselect]
    */
-  export let items = [];
 
-  /** @type {'left' | 'right'} - Alignment of dropdown */
-  export let align = 'left';
+  let {
+    open = $bindable(false),
+    items = [],
+    align = 'left',
+    trigger = undefined,
+    children = undefined,
+    onselect = undefined
+  } = $props();
 
-  /** @type {string} - Title for Sheet on mobile */
-  export let title = '';
+  let focusedIndex = $state(-1);
 
-  /** @type {boolean} - Use Sheet on mobile */
-  export let mobileSheet = true;
-
-  let triggerEl;
-  let menuEl;
-  let focusedIndex = -1;
-  let useMobile = false;
-
-  // Check if we should use mobile mode
-  $: if (typeof window !== 'undefined') {
-    useMobile = mobileSheet && (isTouchDevice() || window.innerWidth < 640);
-  }
-
-  function toggleOpen() {
+  function handleToggle() {
     open = !open;
     if (open) {
-      haptic(HapticType.LIGHT);
-      focusedIndex = -1;
+      focusedIndex = 0;
     }
   }
 
-  function close() {
+  function handleClose() {
     open = false;
     focusedIndex = -1;
-    triggerEl?.focus();
   }
 
-  function selectItem(item) {
-    if (item.disabled || item.separator) return;
-    haptic(HapticType.SELECTION);
-    dispatch('select', { item });
-    close();
+  function handleSelect(item) {
+    if (item.disabled) return;
+    onselect?.(item);
+    handleClose();
   }
 
   function handleKeydown(e) {
-    if (!open) return;
+    if (!open) {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        handleToggle();
+      }
+      return;
+    }
 
-    const _enabledItems = items.filter(i => !i.disabled && !i.separator);
-    const enabledIndices = items.map((item, i) =>
-      !item.disabled && !item.separator ? i : -1
-    ).filter(i => i !== -1);
+    const selectableItems = items.filter(item => item !== 'divider' && !item.disabled);
 
     switch (e.key) {
       case 'Escape':
         e.preventDefault();
-        close();
+        handleClose();
         break;
       case 'ArrowDown':
         e.preventDefault();
-        if (focusedIndex === -1) {
-          focusedIndex = enabledIndices[0];
-        } else {
-          const currentPos = enabledIndices.indexOf(focusedIndex);
-          focusedIndex = enabledIndices[(currentPos + 1) % enabledIndices.length];
-        }
+        focusedIndex = Math.min(focusedIndex + 1, selectableItems.length - 1);
         break;
       case 'ArrowUp':
         e.preventDefault();
-        if (focusedIndex === -1) {
-          focusedIndex = enabledIndices[enabledIndices.length - 1];
-        } else {
-          const currentPos = enabledIndices.indexOf(focusedIndex);
-          focusedIndex = enabledIndices[(currentPos - 1 + enabledIndices.length) % enabledIndices.length];
-        }
-        break;
-      case 'Home':
-        e.preventDefault();
-        focusedIndex = enabledIndices[0];
-        break;
-      case 'End':
-        e.preventDefault();
-        focusedIndex = enabledIndices[enabledIndices.length - 1];
+        focusedIndex = Math.max(focusedIndex - 1, 0);
         break;
       case 'Enter':
       case ' ':
         e.preventDefault();
-        if (focusedIndex >= 0) {
-          selectItem(items[focusedIndex]);
+        if (focusedIndex >= 0 && focusedIndex < selectableItems.length) {
+          handleSelect(selectableItems[focusedIndex]);
         }
         break;
       case 'Tab':
-        close();
+        handleClose();
         break;
     }
   }
 
   function handleClickOutside(e) {
-    if (!open) return;
-    if (triggerEl?.contains(e.target) || menuEl?.contains(e.target)) return;
-    close();
+    if (open) {
+      handleClose();
+    }
   }
 
-  // Focus management
-  $: if (open && menuEl) {
-    tick().then(() => {
-      menuEl.focus();
-    });
-  }
-
-  onMount(() => {
-    document.addEventListener('click', handleClickOutside);
-  });
-
-  onDestroy(() => {
-    document.removeEventListener('click', handleClickOutside);
-  });
+  const alignClasses = {
+    left: 'left-0',
+    right: 'right-0'
+  };
 </script>
 
-<svelte:window on:keydown={handleKeydown} />
+<svelte:window onclick={open ? handleClickOutside : undefined} />
 
-<div class="dropdown">
+<div class="relative inline-block" onkeydown={handleKeydown}>
   <!-- Trigger -->
-  <div
-    bind:this={triggerEl}
-    class="dropdown-trigger"
-    on:click={toggleOpen}
-    on:keydown={(e) => {
-      if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown') {
-        e.preventDefault();
-        toggleOpen();
-      }
-    }}
-    role="button"
-    tabindex="0"
-    aria-haspopup="menu"
-    aria-expanded={open}
-  >
-    <slot name="trigger">
-      <button type="button" class="dropdown-default-trigger">
-        Menu
-        <svg class="dropdown-chevron" class:open viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+  <div onclick={(e) => { e.stopPropagation(); handleToggle(); }}>
+    {#if trigger}
+      {@render trigger()}
+    {:else}
+      <button
+        type="button"
+        class="
+          p-2 rounded-[var(--radius-md)]
+          text-text-muted hover:bg-base-200
+          transition-colors duration-[var(--duration-fast)]
+          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-focus
+        "
+        aria-haspopup="menu"
+        aria-expanded={open}
+      >
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
         </svg>
       </button>
-    </slot>
+    {/if}
   </div>
 
-  <!-- Desktop dropdown -->
-  {#if !useMobile && open}
+  <!-- Menu -->
+  {#if open}
     <div
-      bind:this={menuEl}
-      class="dropdown-menu"
-      class:align-right={align === 'right'}
+      class="
+        absolute z-[var(--z-dropdown)] mt-1 {alignClasses[align]}
+        min-w-[160px] max-w-[280px]
+        bg-surface rounded-[var(--radius-lg)]
+        border border-border shadow-lg
+        py-1
+        animate-scale-in origin-top
+      "
       role="menu"
-      tabindex="-1"
-      in:fly={{ y: -8, duration: 150, easing: quintOut }}
-      out:fade={{ duration: 100 }}
+      onclick={(e) => e.stopPropagation()}
     >
-      {#each items as item, index (item.id || index)}
-        {#if item.separator}
-          <div class="dropdown-separator" role="separator"></div>
-        {:else}
-          <button
-            type="button"
-            role="menuitem"
-            class="dropdown-item"
-            class:danger={item.danger}
-            class:focused={focusedIndex === index}
-            disabled={item.disabled}
-            on:click={() => selectItem(item)}
-            on:mouseenter={() => focusedIndex = index}
-          >
-            {#if item.icon}
-              <span class="dropdown-item-icon">{@html item.icon}</span>
-            {/if}
-            <span>{item.label}</span>
-          </button>
-        {/if}
-      {/each}
-    </div>
-  {/if}
-
-  <!-- Mobile sheet -->
-  {#if useMobile}
-    <Sheet bind:open {title} gestureEnabled>
-      <div class="sheet-menu" role="menu">
-        {#each items as item, index (item.id || index)}
-          {#if item.separator}
-            <div class="dropdown-separator" role="separator"></div>
+      {#if children}
+        {@render children()}
+      {:else}
+        {#each items as item, i}
+          {#if item === 'divider'}
+            <div class="h-px bg-border my-1" role="separator"></div>
           {:else}
+            {@const selectableIndex = items.slice(0, i).filter(it => it !== 'divider' && !it.disabled).length}
             <button
               type="button"
+              class="
+                w-full px-3 py-2 text-left text-sm
+                flex items-center gap-2
+                transition-colors duration-[var(--duration-fast)]
+                {item.disabled
+                  ? 'text-text-disabled cursor-not-allowed'
+                  : item.danger
+                    ? 'text-error hover:bg-error-soft'
+                    : 'text-text hover:bg-base-200'
+                }
+                {selectableIndex === focusedIndex && !item.disabled ? 'bg-base-200' : ''}
+              "
               role="menuitem"
-              class="sheet-item"
-              class:danger={item.danger}
               disabled={item.disabled}
-              on:click={() => selectItem(item)}
+              onclick={() => handleSelect(item)}
             >
-              {#if item.icon}
-                <span class="dropdown-item-icon">{@html item.icon}</span>
-              {/if}
-              <span>{item.label}</span>
+              {item.label}
             </button>
           {/if}
         {/each}
-      </div>
-    </Sheet>
+      {/if}
+    </div>
   {/if}
 </div>
-
-<style>
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-
-  .dropdown-trigger {
-    cursor: pointer;
-  }
-
-  .dropdown-default-trigger {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-1);
-    padding: var(--spacing-2) var(--spacing-3);
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--color-text);
-    background-color: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: background-color 150ms ease, border-color 150ms ease;
-  }
-
-  .dropdown-default-trigger:hover {
-    background-color: var(--color-surface-raised);
-    border-color: var(--color-border-strong);
-  }
-
-  .dropdown-chevron {
-    width: 1rem;
-    height: 1rem;
-    transition: transform 150ms ease;
-  }
-
-  .dropdown-chevron.open {
-    transform: rotate(180deg);
-  }
-
-  .dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: var(--z-dropdown, 40);
-    min-width: 180px;
-    margin-top: var(--spacing-1);
-    padding: var(--spacing-1);
-    background-color: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-    outline: none;
-  }
-
-  .dropdown-menu.align-right {
-    left: auto;
-    right: 0;
-  }
-
-  .dropdown-separator {
-    height: 1px;
-    margin: var(--spacing-1) 0;
-    background-color: var(--color-border);
-  }
-
-  .dropdown-item {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-2);
-    width: 100%;
-    padding: var(--spacing-2) var(--spacing-3);
-    font-size: 0.875rem;
-    color: var(--color-text);
-    text-align: left;
-    background: transparent;
-    border: none;
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: background-color 100ms ease;
-  }
-
-  .dropdown-item:hover,
-  .dropdown-item.focused {
-    background-color: var(--color-surface-sunken);
-  }
-
-  .dropdown-item:active {
-    background-color: var(--color-surface-raised);
-  }
-
-  .dropdown-item:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  .dropdown-item.danger {
-    color: var(--color-error);
-  }
-
-  .dropdown-item.danger:hover,
-  .dropdown-item.danger.focused {
-    background-color: var(--color-error-soft);
-  }
-
-  .dropdown-item-icon {
-    display: flex;
-    align-items: center;
-    width: 1rem;
-    height: 1rem;
-    flex-shrink: 0;
-  }
-
-  /* Sheet menu styles */
-  .sheet-menu {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-1);
-  }
-
-  .sheet-item {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-3);
-    width: 100%;
-    padding: var(--spacing-4) var(--spacing-2);
-    font-size: 1rem;
-    color: var(--color-text);
-    text-align: left;
-    background: transparent;
-    border: none;
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: background-color 100ms ease;
-    /* Touch target minimum */
-    min-height: 44px;
-  }
-
-  .sheet-item:active {
-    background-color: var(--color-surface-sunken);
-  }
-
-  .sheet-item:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  .sheet-item.danger {
-    color: var(--color-error);
-  }
-</style>

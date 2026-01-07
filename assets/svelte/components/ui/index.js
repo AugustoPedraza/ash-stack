@@ -1,151 +1,33 @@
 /**
- * UI Components Index
- * Export all base UI components for easy importing.
+ * UI Components
+ * Reusable components for building mobile-first interfaces.
  *
- * DESIGN SYSTEM ENFORCEMENT:
- * - All components use only design tokens (no raw Tailwind colors)
- * - No `class` prop escape hatches - use variant/size props
- * - Consistent spacing, radii, and shadows
- *
- * Usage:
- * import { Button, Input, Card, Form, toast } from '$lib/components/ui';
+ * All components use design tokens from tokens.css for consistency.
+ * Import like: import { Button, Input, Card } from './ui';
  */
 
-// Form Components
+// Navigation Components
+export { default as AppHeader } from './AppHeader.svelte';
+export { default as BottomSheet } from './BottomSheet.svelte';
+export { default as BottomTabBar } from './BottomTabBar.svelte';
+export { default as SheetMenu } from './SheetMenu.svelte';
+
+// Base Components
 export { default as Button } from './Button.svelte';
+export { default as IconButton } from './IconButton.svelte';
 export { default as Input } from './Input.svelte';
-export { default as Select } from './Select.svelte';
-export { default as Textarea } from './Textarea.svelte';
-export { default as Checkbox } from './Checkbox.svelte';
 export { default as FormField } from './FormField.svelte';
-export { default as Form } from './Form.svelte';
-export { default as SubmitButton } from './SubmitButton.svelte';
+export { default as Toggle } from './Toggle.svelte';
 
 // Layout Components
-export { default as Page } from './Page.svelte';
-export { default as PageHeader } from './PageHeader.svelte';
 export { default as Card } from './Card.svelte';
-export { default as Section } from './Section.svelte';
+export { default as Modal } from './Modal.svelte';
 
 // Display Components
 export { default as Avatar } from './Avatar.svelte';
 export { default as Badge } from './Badge.svelte';
 export { default as Skeleton } from './Skeleton.svelte';
-
-// Feedback Components
-export { default as Toast } from './Toast.svelte';
-export { default as ToastContainer } from './ToastContainer.svelte';
-
-// Interactive Components
-export { default as Modal } from './Modal.svelte';
-export { default as Tabs } from './Tabs.svelte';
-export { default as Toggle } from './Toggle.svelte';
-export { default as Dropdown } from './Dropdown.svelte';
-
-// Animation Components
-export { default as AnimatedList } from './AnimatedList.svelte';
-
-// Data Components
-export { default as DataTable } from './DataTable.svelte';
-export { default as InfiniteScroll } from './InfiniteScroll.svelte';
-export { default as Pagination } from './Pagination.svelte';
 export { default as EmptyState } from './EmptyState.svelte';
 
-// Real-time Components
-export { default as RealtimeList } from './RealtimeList.svelte';
-export { default as TypingIndicator } from './TypingIndicator.svelte';
-
-// DX Components
-export { default as ErrorBoundary } from './ErrorBoundary.svelte';
-export { default as ConnectionStatus } from './ConnectionStatus.svelte';
-
-// Auth Components
-export { default as AuthForm } from './AuthForm.svelte';
-export { default as OAuthButton } from './OAuthButton.svelte';
-
-// Navigation Components
-export { default as CommandPalette } from './CommandPalette.svelte';
-export { default as Breadcrumbs } from './Breadcrumbs.svelte';
-export { default as Sidebar } from './Sidebar.svelte';
-
-// Advanced Input Components
-export { default as SearchInput } from './SearchInput.svelte';
-export { default as DatePicker } from './DatePicker.svelte';
-export { default as FileUpload } from './FileUpload.svelte';
-
-// Notification Components
-export { default as NotificationCenter } from './NotificationCenter.svelte';
-export { default as ActivityFeed } from './ActivityFeed.svelte';
-
-// Data Visualization Components
-export { default as StatCard } from './StatCard.svelte';
-export { default as ProgressBar } from './ProgressBar.svelte';
-export { default as MiniChart } from './MiniChart.svelte';
-export { default as Meter } from './Meter.svelte';
-
-// Mobile Components
-export { default as Sheet } from './Sheet.svelte';
-
-// Conversation Components
-export { default as VoiceNote } from './VoiceNote.svelte';
-export { default as ChatMessage } from './ChatMessage.svelte';
-export { default as QuotedMessage } from './QuotedMessage.svelte';
-export { default as ChatInput } from './ChatInput.svelte';
-export { default as DecisionItem } from './DecisionItem.svelte';
-export { default as TaskItem } from './TaskItem.svelte';
-export { default as ParticipantRow } from './ParticipantRow.svelte';
-export { default as ChannelPills } from './ChannelPills.svelte';
-export { default as MessageThread } from './MessageThread.svelte';
-
-// Re-export toast store for convenience
-export { toast } from '../../lib/toast.js';
-
-// Re-export mobile utilities
-export {
-  haptic,
-  HapticType,
-  isIOS,
-  isStandalone,
-  platform,
-  safeArea,
-  keyboard,
-  lockScroll,
-  unlockScroll
-} from '../../lib/mobile.js';
-
-// Re-export gesture actions
-export {
-  swipe,
-  pullToRefresh,
-  longPress,
-  pan,
-  pinch
-} from '../../lib/gestures.js';
-
-// Re-export utility functions
-export { cn } from '../../lib/utils.js';
-
-// Re-export validation utilities
-export {
-  required,
-  email,
-  minLength,
-  maxLength,
-  min,
-  max,
-  pattern,
-  matches,
-  url,
-  phone,
-  createValidator,
-  validateField,
-  createFormStore
-} from '../../lib/validation.js';
-
-// Re-export optimistic update utilities
-export {
-  createOptimisticStore,
-  createOptimisticList,
-  optimistic,
-  debounceOptimistic
-} from '../../lib/optimistic.js';
+// Interactive Components
+export { default as Dropdown } from './Dropdown.svelte';

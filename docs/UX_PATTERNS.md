@@ -185,20 +185,106 @@
 
 ### Navigation
 
+#### App-Level Navigation Hierarchy
+
+```
+Bottom Tab Bar (App Level)
+├── 3-5 main destinations (thumb-reachable)
+├── "More" tab → opens sheet with overflow items
+└── Badge indicators for notifications/unread
+
+Within a Page:
+├── Push Navigation: List → Detail (back arrow in header)
+├── Top Tabs: Parallel content within same page
+└── Sheets/Modals: Quick actions, confirmations
+```
+
+**Bottom Tab Bar Rules:**
+- Maximum 5 items (including "More" overflow)
+- Icons + labels (labels can hide on very small screens)
+- Active state clearly indicated
+- Badge for unread counts
+- Fixed at bottom, respects safe area
+
+```svelte
+<!-- ✅ Bottom tab bar structure -->
+<nav class="fixed bottom-0 inset-x-0 bg-base-100 border-t border-base-300 pb-safe">
+  <div class="flex justify-around">
+    <TabItem icon="home" label="Home" active />
+    <TabItem icon="search" label="Search" />
+    <TabItem icon="plus" label="Create" />
+    <TabItem icon="bell" label="Activity" badge={3} />
+    <TabItem icon="menu" label="More" />
+  </div>
+</nav>
+```
+
+#### Screen Header Structure
+
+```
+┌─────────────────────────────────────────┐
+│ [<Back]     Page Title        [CTA]     │
+│                              [•••]      │
+└─────────────────────────────────────────┘
+```
+
+**Header Rules:**
+- **Back button (<)**: Left side, returns to previous screen (not home)
+- **Title**: Center or left-aligned after back button, truncates with ellipsis
+- **Primary CTA**: Right side (Save, Done, Submit) - ONE max
+- **Context menu (•••)**: Right side, for 2+ secondary actions
+
+```svelte
+<!-- ✅ Screen header structure -->
+<header class="sticky top-0 bg-base-100 border-b border-base-300 pt-safe">
+  <div class="flex items-center h-14 px-4">
+    <button onclick={goBack} class="btn btn-ghost btn-sm">
+      <Icon name="chevron-left" />
+    </button>
+    <h1 class="flex-1 text-lg font-semibold truncate px-2">
+      {title}
+    </h1>
+    <button class="btn btn-primary btn-sm">Save</button>
+    <button class="btn btn-ghost btn-sm">
+      <Icon name="ellipsis-vertical" />
+    </button>
+  </div>
+</header>
+```
+
+#### Master/Detail Pattern
+
+```
+List Screen                    Detail Screen
+┌──────────────────┐          ┌──────────────────┐
+│ [≡]  Contacts    │  tap →   │ [<]  John Doe [•••]│
+├──────────────────┤          ├──────────────────┤
+│ John Doe         │          │                  │
+│ Jane Smith       │          │  Full details    │
+│ Bob Wilson       │          │  Edit fields     │
+│ ...              │          │  Actions         │
+├──────────────────┤          └──────────────────┘
+│ [🏠][🔍][+][👤][•••]│
+└──────────────────┘
+```
+
+**Master/Detail Rules:**
+- List shows items with key info (name, preview, timestamp)
+- Tap item → pushes detail screen (slides in from right)
+- Back button (<) returns to list
+- Context menu (•••) for Edit, Delete, Share, etc.
+- On tablet/desktop: consider side-by-side split view
+
 **Breadcrumbs:**
 - Show on pages 2+ levels deep
 - Current page is last item (not a link)
 - Truncate middle items on mobile
 
-**Tabs:**
+**Tabs (within page):**
 - Use for parallel content at same hierarchy level
 - 2-5 tabs maximum
 - Show tab content inline (no page navigation)
-
-**Mobile Navigation:**
-- Bottom nav for primary destinations (max 5)
-- Hamburger menu for secondary items
-- Sheet for contextual actions
+- Can be swipeable on mobile
 
 ### Feedback & Notifications
 
@@ -235,6 +321,96 @@
 ```svelte
 <!-- ✅ Mobile-first responsive -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+```
+
+---
+
+## Mobile PWA Specifics
+
+### Safe Areas
+
+Always respect device safe areas (notch, home indicator):
+
+```svelte
+<!-- ✅ Safe area padding -->
+<header class="pt-safe">...</header>      <!-- Top: notch -->
+<nav class="pb-safe">...</nav>            <!-- Bottom: home indicator -->
+<div class="px-safe">...</div>            <!-- Sides: curved edges -->
+```
+
+**CSS utilities to use:**
+- `pt-safe` / `pb-safe` - Top/bottom safe area padding
+- `px-safe` - Left/right safe area padding
+- `min-h-screen-safe` - Full height minus safe areas
+
+### Touch Interactions
+
+| Gesture | Action | Use Case |
+|---------|--------|----------|
+| Tap | Select/activate | Primary interaction |
+| Long press | Context menu | Secondary actions |
+| Swipe left/right | Delete/archive | List items |
+| Pull down | Refresh | Scrollable lists |
+| Swipe down | Dismiss | Sheets, modals |
+
+**Touch Target Rules:**
+- Minimum 44x44px touch targets
+- 8px minimum spacing between targets
+- Larger targets for primary actions
+
+### Pull-to-Refresh
+
+```svelte
+<!-- ✅ Pull to refresh pattern -->
+<div use:pullToRefresh on:refresh={handleRefresh}>
+  <RefreshIndicator {loading} />
+  <List {items} />
+</div>
+```
+
+### Haptic Feedback
+
+Use haptics for important interactions:
+- Success: Light haptic on save/submit
+- Error: Heavy haptic on failure
+- Selection: Light tap on toggle/select
+- Warning: Medium haptic on destructive action
+
+```svelte
+import { haptic, HapticType } from '$lib/utils/haptics';
+
+function handleSave() {
+  await save();
+  haptic(HapticType.SUCCESS);
+}
+```
+
+### Offline & Connectivity
+
+- Show offline indicator when disconnected
+- Queue actions when offline, sync when online
+- Cache critical data for offline access
+- Show "last updated" timestamp
+
+```svelte
+<!-- ✅ Connection status -->
+<ConnectionStatus
+  position="top-center"
+  showOnlyWhenDisconnected
+/>
+```
+
+### Standalone Mode (PWA)
+
+When app is installed as PWA:
+- Hide browser-specific UI (address bar)
+- Use native-like transitions
+- Support app icon with badge
+- Handle deep links
+
+```javascript
+// Check if running as PWA
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
 ```
 
 ---
@@ -408,6 +584,30 @@ Never rely on color alone. Always pair with:
 - **Decision**: All delete/remove actions require modal confirmation
 - **Rationale**: Prevent accidental data loss
 - **Exceptions**: Undo available within 5 seconds (soft delete)
+
+### Decision: Outlined Form Input Style
+- **Date**: UX standardization
+- **Decision**: All form inputs use outlined style (label above, clear borders)
+- **Rationale**: Most readable, clear boundaries, works across all contexts
+- **Exceptions**: None - consistency is key
+
+### Decision: Bottom Tab Navigation
+- **Date**: UX standardization
+- **Decision**: Primary app navigation uses bottom tab bar (3-5 items)
+- **Rationale**: Thumb-reachable on mobile, matches iOS/Android conventions
+- **Exceptions**: None for mobile PWA; desktop may use sidebar
+
+### Decision: Push Navigation for Master/Detail
+- **Date**: UX standardization
+- **Decision**: List → Detail uses push navigation (slides in from right)
+- **Rationale**: Matches native mobile patterns, clear visual hierarchy
+- **Exceptions**: Tablet/desktop may use split view
+
+### Decision: Header CTA Placement
+- **Date**: UX standardization
+- **Decision**: Primary CTA (Save, Done) in header right position
+- **Rationale**: Always visible, matches iOS conventions
+- **Exceptions**: Very long forms may also have sticky bottom CTA
 
 ---
 

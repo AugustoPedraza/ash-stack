@@ -1,155 +1,104 @@
-<!--
-  Skeleton Component
-  Animated loading placeholder with shimmer effect.
-  Supports various shapes and sizes for content loading states.
--->
 <script>
-  /** @type {'text' | 'circle' | 'rect' | 'card' | 'avatar' | 'button'} */
-  export let variant = 'text';
+  /**
+   * Skeleton Component
+   * Loading placeholders using design tokens.
+   *
+   * @prop {'text' | 'circle' | 'rect' | 'card' | 'avatar' | 'button'} [variant='text']
+   * @prop {'sm' | 'md' | 'lg'} [size='md']
+   * @prop {boolean} [animate=true] - Pulse animation
+   * @prop {number} [lines=1] - For text variant, number of lines
+   * @prop {string} [width] - Custom width (e.g., '200px', '50%')
+   * @prop {string} [height] - Custom height
+   */
 
-  /** @type {string} - Custom width (CSS value) */
-  export let width = '';
+  let {
+    variant = 'text',
+    size = 'md',
+    animate = true,
+    lines = 1,
+    width = '',
+    height = ''
+  } = $props();
 
-  /** @type {string} - Custom height (CSS value) */
-  export let height = '';
+  const baseClasses = `bg-base-200 ${animate ? 'animate-pulse' : ''}`;
 
-  /** @type {number} - Number of lines for text variant */
-  export let lines = 1;
-
-  /** @type {'xs' | 'sm' | 'md' | 'lg' | 'xl'} - Size for avatar variant */
-  export let size = 'md';
-
-  /** @type {boolean} - Enable shimmer animation */
-  export let animate = true;
-
-  /** @type {boolean} - Rounded corners */
-  export let rounded = true;
+  // Text skeleton heights
+  const textHeights = {
+    sm: 'h-3',
+    md: 'h-4',
+    lg: 'h-5'
+  };
 
   // Avatar sizes
   const avatarSizes = {
-    xs: '24px',
-    sm: '32px',
-    md: '40px',
-    lg: '48px',
-    xl: '64px'
+    sm: 'w-8 h-8',
+    md: 'w-10 h-10',
+    lg: 'w-12 h-12'
   };
 
-  // Variant configurations
-  function getStyles() {
-    switch (variant) {
-      case 'circle':
-      case 'avatar': {
-        const avatarSize = avatarSizes[size] || '40px';
-        return {
-          width: width || avatarSize,
-          height: height || avatarSize,
-          borderRadius: '50%'
-        };
-      }
-      case 'button':
-        return {
-          width: width || '80px',
-          height: height || '36px',
-          borderRadius: rounded ? 'var(--radius-md)' : '0'
-        };
-      case 'card':
-        return {
-          width: width || '100%',
-          height: height || '120px',
-          borderRadius: rounded ? 'var(--radius-lg)' : '0'
-        };
-      case 'rect':
-        return {
-          width: width || '100%',
-          height: height || '100px',
-          borderRadius: rounded ? 'var(--radius-md)' : '0'
-        };
-      case 'text':
-      default:
-        return {
-          width: width || '100%',
-          height: height || '1em',
-          borderRadius: rounded ? 'var(--radius-sm)' : '0'
-        };
-    }
-  }
+  // Button sizes
+  const buttonSizes = {
+    sm: 'h-8 w-20',
+    md: 'h-10 w-24',
+    lg: 'h-12 w-32'
+  };
 
-  $: styles = getStyles();
+  // Card sizes
+  const cardSizes = {
+    sm: 'h-24',
+    md: 'h-32',
+    lg: 'h-48'
+  };
 </script>
 
-{#if variant === 'text' && lines > 1}
-  <div class="skeleton-lines">
+{#if variant === 'text'}
+  <div class="space-y-2" style:width={width || undefined}>
     {#each Array(lines) as _, i}
       <div
-        class="skeleton"
-        class:animate
-        style="
-          width: {i === lines - 1 ? '70%' : styles.width};
-          height: {styles.height};
-          border-radius: {styles.borderRadius};
+        class="
+          {baseClasses} {textHeights[size]}
+          rounded-[var(--radius-sm)]
+          {i === lines - 1 && lines > 1 ? 'w-3/4' : 'w-full'}
         "
-        role="presentation"
-        aria-hidden="true"
+        style:height={height || undefined}
       ></div>
     {/each}
   </div>
-{:else}
+
+{:else if variant === 'circle'}
   <div
-    class="skeleton"
-    class:animate
-    style="
-      width: {styles.width};
-      height: {styles.height};
-      border-radius: {styles.borderRadius};
-    "
-    role="presentation"
-    aria-hidden="true"
-  >
-    <slot />
+    class="{baseClasses} {avatarSizes[size]} rounded-full"
+    style:width={width || undefined}
+    style:height={height || width || undefined}
+  ></div>
+
+{:else if variant === 'avatar'}
+  <div class="flex items-center gap-3">
+    <div class="{baseClasses} {avatarSizes[size]} rounded-full"></div>
+    <div class="space-y-2 flex-1">
+      <div class="{baseClasses} h-4 rounded w-32"></div>
+      <div class="{baseClasses} h-3 rounded w-24"></div>
+    </div>
   </div>
+
+{:else if variant === 'button'}
+  <div
+    class="{baseClasses} {buttonSizes[size]} rounded-[var(--radius-md)]"
+    style:width={width || undefined}
+    style:height={height || undefined}
+  ></div>
+
+{:else if variant === 'card'}
+  <div
+    class="{baseClasses} {cardSizes[size]} rounded-[var(--radius-lg)] w-full"
+    style:width={width || undefined}
+    style:height={height || undefined}
+  ></div>
+
+{:else if variant === 'rect'}
+  <div
+    class="{baseClasses} rounded-[var(--radius-md)]"
+    style:width={width || '100%'}
+    style:height={height || '100px'}
+  ></div>
 {/if}
-
-<style>
-  .skeleton {
-    position: relative;
-    overflow: hidden;
-    background-color: var(--color-surface-sunken);
-    display: inline-block;
-  }
-
-  .skeleton.animate::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.3),
-      transparent
-    );
-    animation: shimmer 1.5s infinite;
-  }
-
-  @keyframes shimmer {
-    0% {
-      transform: translateX(-100%);
-    }
-    100% {
-      transform: translateX(100%);
-    }
-  }
-
-  /* Respect reduced motion */
-  @media (prefers-reduced-motion: reduce) {
-    .skeleton.animate::after {
-      animation: none;
-      opacity: 0;
-    }
-  }
-
-  .skeleton-lines {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-2);
-  }
-</style>

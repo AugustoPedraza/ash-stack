@@ -1,121 +1,90 @@
-<!--
-  Avatar Component
-  User representation with image, initials, and optional status.
-  NO class prop or restProps - use size/shape props only.
--->
 <script>
   /**
-   * Size of the avatar
-   * @type {'xs' | 'sm' | 'md' | 'lg' | 'xl'}
+   * Avatar Component
+   * User representation using design tokens.
+   *
+   * @prop {string} [src] - Image URL
+   * @prop {string} [alt=''] - Alt text for image
+   * @prop {string} [initials] - Fallback initials (e.g., "JD")
+   * @prop {'xs' | 'sm' | 'md' | 'lg' | 'xl'} [size='md']
+   * @prop {'circle' | 'square'} [shape='circle']
+   * @prop {'online' | 'offline' | 'busy' | 'away' | null} [status=null]
    */
-  export let size = 'md';
 
-  /**
-   * Image URL
-   * @type {string | null}
-   */
-  export let src = null;
+  let {
+    src = '',
+    alt = '',
+    initials = '',
+    size = 'md',
+    shape = 'circle',
+    status = null
+  } = $props();
 
-  /**
-   * Alt text (also used for generating initials)
-   * @type {string}
-   */
-  export let alt = '';
-
-  /**
-   * Explicit initials (overrides auto-generation from alt)
-   * @type {string | null}
-   */
-  export let fallback = null;
-
-  /**
-   * Shape of the avatar
-   * @type {'circle' | 'rounded'}
-   */
-  export let shape = 'circle';
-
-  /**
-   * Status indicator
-   * @type {'online' | 'offline' | 'away' | 'busy' | null}
-   */
-  export let status = null;
-
-  // Generate initials from alt text
-  $: initials = fallback || alt
-    .split(' ')
-    .map(word => word[0])
-    .join('')
-    .slice(0, 2)
-    .toUpperCase();
-
-  // Size classes - using only valid spacing values
   const sizes = {
-    xs: 'w-6 h-6 text-xs',
-    sm: 'w-8 h-8 text-sm',
-    md: 'w-10 h-10 text-base',
-    lg: 'w-12 h-12 text-lg',
-    xl: 'w-16 h-16 text-xl',
+    xs: 'w-[var(--avatar-xs)] h-[var(--avatar-xs)] text-xs',
+    sm: 'w-[var(--avatar-sm)] h-[var(--avatar-sm)] text-xs',
+    md: 'w-[var(--avatar-md)] h-[var(--avatar-md)] text-sm',
+    lg: 'w-[var(--avatar-lg)] h-[var(--avatar-lg)] text-base',
+    xl: 'w-[var(--avatar-xl)] h-[var(--avatar-xl)] text-lg'
   };
 
-  // Status indicator colors
+  const shapes = {
+    circle: 'rounded-full',
+    square: 'rounded-[var(--radius-md)]'
+  };
+
   const statusColors = {
     online: 'bg-success',
     offline: 'bg-text-muted',
-    away: 'bg-warning',
     busy: 'bg-error',
+    away: 'bg-warning'
   };
 
-  // Status indicator sizes - using only valid sizes (w-2, w-3, w-4)
   const statusSizes = {
-    xs: 'w-2 h-2',
-    sm: 'w-2 h-2',
-    md: 'w-3 h-3',
-    lg: 'w-3 h-3',
-    xl: 'w-4 h-4',
+    xs: 'w-1.5 h-1.5 border',
+    sm: 'w-2 h-2 border',
+    md: 'w-2.5 h-2.5 border-2',
+    lg: 'w-3 h-3 border-2',
+    xl: 'w-3.5 h-3.5 border-2'
   };
 
-  // Track image load error
-  let imageError = false;
-
-  function handleImageError() {
-    imageError = true;
-  }
+  // Compute initials from alt if not provided
+  const displayInitials = initials || alt.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
 </script>
 
 <div class="relative inline-flex">
-  <div
-    class="
-      {sizes[size]}
-      {shape === 'circle' ? 'rounded-full' : 'rounded-lg'}
-      overflow-hidden
-      bg-surface-sunken
-      flex items-center justify-center
-      font-medium text-text-muted
-      ring-2 ring-surface
-    "
-  >
-    {#if src && !imageError}
-      <img
-        {src}
-        {alt}
-        class="w-full h-full object-cover"
-        on:error={handleImageError}
-      />
-    {:else}
-      <span>{initials}</span>
-    {/if}
-  </div>
+  {#if src}
+    <img
+      {src}
+      {alt}
+      class="
+        {sizes[size]} {shapes[shape]}
+        object-cover
+        bg-base-200
+      "
+    />
+  {:else}
+    <div
+      class="
+        {sizes[size]} {shapes[shape]}
+        bg-base-200 text-text-secondary
+        flex items-center justify-center
+        font-medium
+      "
+      aria-label={alt}
+    >
+      {displayInitials || '?'}
+    </div>
+  {/if}
 
   {#if status}
     <span
       class="
         absolute bottom-0 right-0
-        {statusSizes[size]}
-        rounded-full
-        {statusColors[status]}
-        ring-2 ring-surface
+        {statusSizes[size]} {statusColors[status]}
+        rounded-full border-surface
       "
-      aria-label={status}
+      aria-label="{status}"
     ></span>
   {/if}
 </div>

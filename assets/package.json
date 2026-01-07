@@ -8,30 +8,19 @@
     "dev": "vite build --watch",
     "playground": "vite --host --open",
     "lint": "eslint svelte/",
-    "lint:fix": "eslint svelte/ --fix",
-    "lint:a11y": "eslint svelte/ --rule 'svelte/valid-aria-*: error' --rule 'svelte/a11y-*: error'",
-    "ux:check": "node scripts/ux-check.js",
-    "quality": "npm run lint && npm run ux:check",
-    "gen:components": "node scripts/gen-component-manifest.js",
-    "gen:playground": "node scripts/gen-playground.js"
+    "lint:fix": "eslint svelte/ --fix"
   },
   "dependencies": {
-    "bits-ui": "^1.0.0-next.0",
-    "clsx": "^2.1.1",
-    "lucide-svelte": "^0.468.0",
-    "mode-watcher": "^0.5.0",
-    "svelte": "^5.0.0",
-    "tailwind-merge": "^2.5.5",
-    "tailwind-variants": "^0.3.0"
+    "bits-ui": "^2.15.4",
+    "svelte": "^5.0.0"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^5.0.0",
-    "@tailwindcss/postcss": "^4.1.18",
-    "autoprefixer": "^10.4.20",
+    "@tailwindcss/vite": "^4.0.0",
     "eslint": "^9.17.0",
     "eslint-plugin-svelte": "^2.46.1",
+    "flyonui": "^2.0.0",
     "globals": "^15.14.0",
-    "postcss": "^8.4.49",
     "svelte-eslint-parser": "^0.43.0",
     "tailwindcss": "^4.0.0",
     "vite": "^6.0.0"
